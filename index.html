@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axborot Tizimi Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .start-screen input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Test Screen */
+        .test-screen {
+            display: none;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .question-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #f0f0f0;
+        }
+
+        .timer.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .timer.danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8eaf6;
+        }
+
+        .option.correct {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .buttons-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+        }
+
+        .btn-small:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .part-btn {
+            display: block;
+            width: 100%;
+            margin: 15px 0 !important;
+            font-size: 18px !important;
+            padding: 20px 40px !important;
+            line-height: 1.5;
+        }
+
+        .part-btn small {
+            display: block;
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: normal;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .results-screen h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .score-display .score-number {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .score-display .score-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .score-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .detail-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-card.correct {
+            border-left-color: #4caf50;
+        }
+
+        .detail-card.incorrect {
+            border-left-color: #f44336;
+        }
+
+        .detail-card.skipped {
+            border-left-color: #ff9800;
+        }
+
+        .detail-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .detail-card.correct .detail-number {
+            color: #4caf50;
+        }
+
+        .detail-card.incorrect .detail-number {
+            color: #f44336;
+        }
+
+        .detail-card.skipped .detail-number {
+            color: #ff9800;
+        }
+
+        .detail-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .group-results {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .group-results h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .group-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .group-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .group-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .group-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-restart {
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .score-details {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons-group {
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="header">
+                <h1>🎓 Axborot Tizimi Test</h1>
+                <p>100 savoldan iborat sınaq (2 qismda)</p>
+            </div>
+            <div>
+                <input type="text" id="userName" placeholder="Ismingizni kiriting" maxlength="50">
+                <input type="text" id="groupName" placeholder="Guruh nomini kiriting (ixtiyoriy)" maxlength="50">
+                <button class="btn" onclick="choosePartScreen()">Testni Boshlash</button>
+            </div>
+        </div>
+
+        <!-- Part Selection Screen -->
+        <div class="start-screen" id="partScreen" style="display:none;">
+            <div class="header">
+                <h1>🎓 Qismni Tanlang</h1>
+                <p id="userDisplayPart"></p>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn part-btn" onclick="startTestPart(1)" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    📝 QISM 1<small>Savol 1-50</small>
+                </button>
+                <button class="btn part-btn" onclick="startTestPart(2)" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
+                    📝 QISM 2<small>Savol 51-100</small>
+                </button>
+                <button class="btn" onclick="goBackStart()" style="background: #999; margin-top: 20px;">← Ortga</button>
+            </div>
+        </div>
+
+        <!-- Test Screen -->
+        <div class="test-screen" id="testScreen">
+            <div class="header">
+                <h1>Axborot Tizimi Test</h1>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-info">
+                <span id="questionNumber">Savol 1/100</span>
+                <div class="timer" id="timer">15</div>
+            </div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="buttons-group">
+                <button class="btn btn-small" onclick="goToPartSelection()">← Orqaga</button>
+                <button class="btn btn-small" onclick="previousQuestion()" id="prevBtn">Oldingi</button>
+                <button class="btn btn-small" onclick="skipQuestion()" id="skipBtn">O'tkazib yuborish</button>
+                <button class="btn btn-small" onclick="nextQuestion()" id="nextBtn">Keyingi →</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="header">
+                <h1>🎉 Test Yakunlandi!</h1>
+            </div>
+            <h2 id="userNameDisplay"></h2>
+            <div class="score-display">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-text" id="scoreText">0 / 100</div>
+            </div>
+            <div class="score-details">
+                <div class="detail-card correct">
+                    <div class="detail-number" id="correctCount">0</div>
+                    <div class="detail-label">To'g'ri Javoblar</div>
+                </div>
+                <div class="detail-card incorrect">
+                    <div class="detail-number" id="incorrectCount">0</div>
+                    <div class="detail-label">Noto'g'ri Javoblar</div>
+                </div>
+                <div class="detail-card skipped">
+                    <div class="detail-number" id="skippedCount">0</div>
+                    <div class="detail-label">O'tkazib yuborilgan</div>
+                </div>
+            </div>
+            <div class="group-results" id="groupResults" style="display:none;">
+                <h3>Guruh Natijalariga</h3>
+                <table class="group-table" id="groupTable"></table>
+            </div>
+            <div class="buttons-group" style="justify-content: center; gap: 15px;">
+                <button class="btn btn-small" onclick="returnToPartSelection()">Boshqa Qismga O'tish</button>
+                <button class="btn btn-restart" onclick="restartTest()">Testni Qayta Boshlash</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All 100 questions with answers
+        const questions = [
+            { q: "1. . . . — bu axborot jarayonlarini oldindan belgilangan qoidalar asosida tizimga topshirishdir.", options: ["Algoritmlash", "Testlash", "Modellashtirish", "Avtomatlashtirish"], correct: 0 },
+            { q: "2. . . . — bu axborot tizimidagi jarayonlarni: kamroq vaqt, kamroq resurs, kamroq xarajat va kamroq xatolik bilan bajariladigan holatga keltirishdir.", options: ["Avtomatlashtirish", "Modellashtirish", "Dasturlash", "Optimallashtirish"], correct: 3 },
+            { q: "3. . . . – bu real hodisa va jarayonlar haqidagi, qabul qilinishi, qayta ishlanishi, saqlanishi va uzatilishi mumkin bo'lgan mazmunli ma'lumotdir.", options: ["Axborot tizimi", "Ma'lumot", "Kompyuter", "Axborot"], correct: 3 },
+            { q: "4. . . . . . — bu bulutli texnologiyalarning dastur ishlab chiqish uchun tayyor platforma taqdim etish modeli hisoblanadi.", options: ["IaaS (Infrastructure as a Service)", "SaaS (Software as a Service)", "PaaS (Platform as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
+            { q: "5. . . . . . — bu bulutli texnologiyalarning server, xotira, tarmoq va saqlash infratuzilmasini internet orqali ijaraga berish modelidir.", options: ["SaaS (Software as a Service)", "PaaS (Platform as a Service)", "IaaS (Infrastructure as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
+            { q: "6. . . . . . — bu bulutli texnologiyalarning tayyor dasturiy ta'minotdan internet orqali foydalanish modelidir.", options: ["IaaS (Infrastructure as a Service)", "PaaS (Platform as a Service)", "SaaS (Software as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
+            { q: "7. . . . . . — bu hisoblash resurslari (server, xotira, ma'lumotlar bazasi, dasturiy ta'minot va boshqalar) internet orqali xizmat sifatida taqdim etiladigan modeldir.", options: ["Veb dasturlash (Web Programming)", "Klassik texnologiya(On-Premise)", "To'rli hisoblashlar (Grid Computing)", "Bulutli texnologiyalar (Cloud Computing)"], correct: 3 },
+            { q: "8. . . . . . .— bu axborot tizimining ishlash holatini uzluksiz kuzatish, tahlil qilish va baholash jarayonidir.", options: ["Testlash", "Normallashtirish", "Monitoring", "Dasturlash"], correct: 2 },
+            { q: "9. \"Relyatsion\" atamasi qaysi so'zdan olingan?", options: ["Relation (munosabat)", "Record (Yozuv)", "Object (Obyekt)", "Structure (Struktura)"], correct: 0 },
+            { q: "10. \"Talaba\" axborot tizimida \"Talabani qo'shish/tahrirlash/o'chirish (CRUD)\"- qanday talab hisoblanadi?", options: ["Nofunksional", "Murakkab (composite)", "Funksional", "Yashirin talab"], correct: 2 },
+            { q: "11. Abstraksiya darajasiga ko'ra ma'lumotlar modeli nechta turga bo'linadi?", options: ["3 ta", "2 ta", "4 ta", "5 ta"], correct: 0 },
+            { q: "12. Agar Talaba Entity boʻlsa, TalabaID, FIO kabi elementlar nima deb ataladi?", options: ["Atributlar", "Obyektlar", "Bog'lanishlar", "Metodlar"], correct: 0 },
+            { q: "13. Asosiy afzalligi \"oddiy va tushunarliligi\" hisoblangan ma'lumotlar modeli qaysi?", options: ["Ierarxik model", "Relyatsion model", "Tarmoq modeli", "Landshaft modeli"], correct: 1 },
+            { q: "14. Avtomatlashtirish asosan nimani kamaytiradi?", options: ["Axborot hajmini", "Tizim tezligini", "Natija aniqligini", "Inson ishtirokini"], correct: 3 },
+            { q: "15. Axborot hajmining keskin oshishi, inson omilini kamaytirish va tezkor qaror qabul qilish kerakligi - qanday zaruratni yuzaga keltiradi?", options: ["Modellashtirish", "Talablarni aniqlash", "Jarayonni kuzatish", "Avtomatlashtirish"], correct: 3 },
+            { q: "16. Axborot kechikib kelganda boshqaruv qanday bo'ladi?", options: ["Samarasiz", "Tezkor", "Optimal", "Barqaror"], correct: 0 },
+            { q: "17. Axborot tizimda turli manbalardan olingan ma'lumotlarni yig'ish, tartiblash, qayta ishlash, solishtirish, baholash va ulardan foydali xulosa chiqarish jarayoni nima deyiladi?", options: ["Tizimni testlash", "Ma'lumotlarni tahlil qilish", "Tizimni loyihalash", "Ma'lumotlarni modellashtirish"], correct: 1 },
+            { q: "18. Axborot tizimi qaysi zanjir asosida ishlaydi?", options: ["Kirish → Qayta ishlash → Chiqish", "Chiqish → Saqlash → Kirish", "Grafik → Matn → Ovoz", "Sensor → Printer → Monitor"], correct: 0 },
+            { q: "19. Axborot tizimi sifatini rejalash, nazorat qilish va doimiy yaxshilashga qaratilgan boshqaruv faoliyati nima deyiladi?", options: ["Ekspluatatsiya", "Testlash", "Sifatni boshqarish", "Integratsiya"], correct: 2 },
+            { q: "20. Axborot tizimida \"Bir vaqtning o'zida 10–20 operator ishlasin\" – qanaqa talab turiga kiradi?", options: ["Funksional", "Nofunksional", "Murakkab (composite)", "Yashirin talab"], correct: 1 },
+            { q: "21. Axborot tizimida ma'lumotlar qayerda saqlanadi?", options: ["Dastur kodida", "Ma'lumotlar bazasida", "Seyfda", "Ma'lumotlar modelida"], correct: 1 },
+            { q: "22. Axborot tizimida serverga tushayotgan yuklamani kamaytirish qaysi jarayonga xos?", options: ["Modellashtirish", "Dasturlash", "Testlash", "Optimallashtirish"], correct: 3 },
+            { q: "23. Axborot tizimida: \"Sahifa 3 soniyadan ko'p bo'lmagan vaqtda ochilishi kerak. Hisobot 5 soniya ichida shakllanishi kerak\" – kabi talablar tizimning qaysi turdagi talabiga mos keladi?", options: ["Funksional", "Nofunksional", "Murakkab (composite)", "Yashirin talab"], correct: 1 },
+            { q: "24. Axborot tizimini loyihalashning mazkur turida: ekranlar soni aniqlanadi, formalar va maydonlar joylashuvi belgilanadi, tugmalar, menyular rejalashtiriladi. Bu loyihalashning qaysi turiga mansub?", options: ["Ma'lumotlar bazasini loyihalash (Database Design)", "Interfeysni loyihalash (UI/UX Design)", "Arxitektura loyihalash (Architecture Design)", "Xavfsizlik va ruxsatlarni loyihalash"], correct: 1 },
+            { q: "25. Axborot tizimini loyihalashning ushbu turida: asosiy obyektlar (entity) aniqlanadi, atributlar belgilanadi, bog'lanishlar (1–1, 1–N, N–N) chiziladi, normalizatsiya qilinadi. Gap loyihalashning qaysi turi haqida ketyapti?", options: ["Interfeysni loyihalash (UI/UX Design)", "Ma'lumotlar bazasini loyihalash (Database Design)", "Arxitektura loyihalash (Architecture Design)", "Xavfsizlik va ruxsatlarni loyihalash"], correct: 1 },
+            { q: "26. Axborot tizimining ishlashini doimiy ravishda kuzatish, tizim holati haqida ma'lumot yig'ish, ularni tahlil qilish va muammolarni aniqlashga qaratilgan ketma-ket amallar majmuasi nima deyiladi?", options: ["Testlash", "Monitoring", "Ekspluatatsiya", "Avtomatizatsiya"], correct: 1 },
+            { q: "27. Axborot tizmida - turli manbalardan olingan muhim ma'lumotlarni bitta ekranda vizual tarzda (grafiklar, diagrammalar, indikatorlar) jamlab ko'rsatuvchi panel nima deb ataladi?", options: ["Tashqi interfeys", "Dashboard", "Database", "Interaktiv datchik"], correct: 1 },
+            { q: "28. Axborotni taqdim etish nimani bildiradi?", options: ["Ma'lumotni yig'ish", "Ma'lumotni saqlash", "Ma'lumotni qayta ishlash", "Natijani chiqarish"], correct: 3 },
+            { q: "29. Axborotning aniqligi nimani bildiradi?", options: ["Axborot qanchalik tez uzatilishini", "Axborot hajmining katta bo'lishini", "Axborot dizaynining chiroyliligini", "Real holatni qanchalik to'g'ri aks ettirishini"], correct: 3 },
+            { q: "30. Axborotning ishonchliligi nimaga bog'liq?", options: ["Axborot hajmi va uzatish muhitiga", "Axborot dizayni va loyihalash usuliga", "Axborot rangiga", "Manba va mazmunning haqqoniyligiga"], correct: 3 },
+            { q: "31. Axborotning mavjudligi deganda nima tushuniladi?", options: ["Axborot hajmining katta bo'lishini", "Axborot grafik shaklda bo'lishi shart ekanligini", "Axborot faqat yozma bo'lishini", "Zarur vaqtda foydalanishga yaroqli bo'lishini"], correct: 3 },
+            { q: "32. Ayni vaqtda dunyodagi eng yirik bulutli platforma qaysi?", options: ["Microsoft Azure", "Google Cloud Platform", "Amazon Web Services (AWS)", "Alibaba Cloud"], correct: 2 },
+            { q: "33. Bir vaqtning o'zida 1000 foydalanuvchi kirganda tizim sekinlashadimi yoki yo'qmi tekshirilsa, bu qaysi test turiga kiradi?", options: ["Tizim testi", "Kod tekshiruvi", "Yuklama testi", "Statik tahlil"], correct: 2 },
+            { q: "34. Bir yoki bir nechta takrorlanuvchi maʻlumotlar guruhiga ega boʻlgan jadval qanday shakl(yoki forma) deyiladi.", options: ["1NF(1 – chi normal forma)", "Normallashtirish (Normalization)", "Optimallashtirish", "Normal boʻlmagan shakl (NBSh)"], correct: 3 },
+            { q: "35. Boshqaruv jarayonida noto'g'ri axborot nimaga olib keladi?", options: ["Noto'g'ri qarorga", "Tezkor boshqaruvga", "To'liq tahlilga", "Avtomatlashtirishga"], correct: 0 },
+            { q: "36. Bulutli modelda server resurslaridan odatda qanday foydalaniladi?", options: ["Sotib olinadi", "Yaratiladi", "Ijaraga olinadi", "Sotuvchi bilan bo'lishiladi"], correct: 2 },
+            { q: "37. Bulutli texnologiyalarda hisoblash resurslari foydalanuvchiga qanday shaklda taqdim etiladi?", options: ["Fayl sifatida", "Modul sifatida", "Xizmat sifatida", "Paket sifatida"], correct: 2 },
+            { q: "38. Bulutli texnologiyaning asosiy uchta modelidan SaaS –modeli ko'proq kimga mos keladi?", options: ["Dasturchi", "DevOps", "Oddiy foydalanuvchi", "Administrator"], correct: 2 },
+            { q: "39. Dasturiy mahsulotning g'oya paydo bo'lishidan boshlab, ekspluatatsiyadan chiqarilishigacha bo'lgan barcha bosqichlarini qamrab oluvchi model nima deyiladi?", options: ["BPMN(Business Process Model and Notation) - biznes jarayon modeli", "SDLC (Software Development Life Cycle) - dasturiy ta'minot hayotiy sikli", "S.D&S.DS(System Design / Software Design)-Tizimni loyihalash", "Deployment - Joriy etish"], correct: 1 },
+            { q: "40. Dasturiy ta'minotni tekshirish jarayoni nima deyiladi?", options: ["Loyihalash", "Shifrlash", "Testlash", "Optimallashtirish"], correct: 2 },
+            { q: "41. Davlat va strategik ahamiyatga ega axborotlar axborotning qanday turiga kiradi?", options: ["Maxfiy axborot", "Ochiq axborot", "Sonli axborot", "Audio axborot"], correct: 0 },
+            { q: "42. Diagramma va sxemalar qanday axborot turiga kiradi?", options: ["Matnli axborot", "Audio axborot", "Sonli axborot", "Grafik axborot"], correct: 3 },
+            { q: "43. Django loyihasini joylashtirishda Ubuntu, Python, Django va PostgreSQLni o'zingiz o'rnatsangiz, bu qaysi model bo'ladi?", options: ["PaaS", "SaaS", "IaaS", "Public Cloud"], correct: 2 },
+            { q: "44. Elektron raqamli imzo (ERI) bilan tasdiqlangan ma'lumot axborotning qaysi xususiyatni ta'minlaydi?", options: ["Tushunarlilik", "Grafik ko'rinish", "Axborot sifatini", "Ishonchlilik"], correct: 3 },
+            { q: "45. ER-diagramma odatda qaysi ma'lumotlar modelini loyihalashda qo'llaniladi?", options: ["Relyatsion", "Ierarxik", "Tarmoqli", "Obyektli"], correct: 0 },
+            { q: "46. ERP tizimida real vaqt rejimida yangilanadigan ombor qoldig'i axborotning qaysi xususiyatiga misol bo'ladi?", options: ["Tushunarlilik", "To'liqlik", "Maxfiylik", "Dolzarblik"], correct: 3 },
+            { q: "47. Foydalanuvchi moduli, ma'lumotlar bazasi va hisobot moduli birgalikda tekshirilsa, bu qaysi test turi hisoblanadi?", options: ["Funksional testlash", "Yuklama testi", "Integratsion testlash", "Kodni nazorat qilish"], correct: 2 },
+            { q: "48. Foydalanuvchi tizimga kirishi, ma'lumot kiritishi va hisobot olishi tekshirilsa, bu qaysi test turiga kiradi?", options: ["Integratsion testlash", "Tizim testlash", "Funksional testlash", "Yuklama testi"], correct: 2 },
+            { q: "49. Google BigQuery bilan ishlashda soʻrovlar qanday uslubda beriladi?", options: ["Python pyscript uslubida", "SQL uslubida", "XML uslubida", "JSon uslubida"], correct: 1 },
+            { q: "50. Google Docs bulutli texnologiyaning qaysi modeliga kiradi?", options: ["IaaS", "PaaS", "SaaS", "GdaS"], correct: 2 },
+            { q: "51. Hamma uchun ochiq bo'lgan ma'lumotlar qanday ataladi?", options: ["Konfidensial axborot", "Maxfiy axborot", "Cheklangan axborot", "Ochiq axborot"], correct: 3 },
+            { q: "52. Ierarxik ma'lumotlar modeli qanday tuzilishga ega?", options: ["Daraxt (ota–bola) ko'rinishida", "Jadval (satr-ustun) ko'rinishida", "Graf ko'rinishida", "Obyektlar to'plami ko'rinishida"], correct: 0 },
+            { q: "53. Ierarxik modelda har bir \"bola\" obyekt nechta \"ota\" obyektga ega bo'ladi?", options: ["Faqat bitta", "Ikkita", "Istalgancha", "Umuman ega bo'lmaydi"], correct: 0 },
+            { q: "54. Jadval, qator, ustun, PK, FK lar qaysi modelning asosiy elementlari hisoblanadi?", options: ["Relyatsion", "Ierarxik", "Tarmoqli", "Obyektli"], correct: 0 },
+            { q: "55. Kelajakdagi holat qaysi tahlil turi orqali aniqlanadi?", options: ["Diagnostik tahlil", "Bashoratli tahlil", "Tavsiyaviy tahlil", "Tavsifiy tahlil"], correct: 1 },
+            { q: "56. Kuzatuv kamerasi tasviri qanday axborot hisoblanadi?", options: ["Audio axborot", "Matnli axborot", "Sonli axborot", "Video axborot"], correct: 3 },
+            { q: "57. Ma'lumotlar bazasida \"Manzil (Viloyat, Tuman, Ko'cha)\" tipidagi atributlar qanday atributlar deyiladi?", options: ["Oddiy (simple)", "Ko'p qiymatli (multivalued)", "Murakkab (composite)", "Hosilaviy (derived)"], correct: 2 },
+            { q: "58. Ma'lumotlar bazasida har bir yozuvni yagona identifikatsiya qiluvchi maydon nima deb ataladi?", options: ["Foreign Key (FK)", "Primary Key (PK)", "Atribut key (AK)", "DatabaseKey (DK)"], correct: 1 },
+            { q: "59. Ma'lumotlar bazasini mantiqan tartiblash, takrorlanishni kamaytirish va yangilash, o'chirish hamda qo'shishda yuzaga keladigan xatolarni kamaytirish jarayoni nima deyiladi?", options: ["inventarizatsiya", "lokalizatsiya", "urbanizatsiya", "normalizatsiya"], correct: 3 },
+            { q: "60. Ma'lumotlar modeli bo'lmasa qanday holat yuzaga keladi?", options: ["Ma'lumotlar tartibsiz bo'ladi va takrorlanish ko'payadi", "Tizim tez ishlaydi va foydalanuvchilar ishi yengillashadi", "Axborot xavfsizligi oshadi", "Dastur avtomatik yaratiladi"], correct: 0 },
+            { q: "61. Ma'lumotlar modelida boshqa jadvalga ishora qiluvchi maydon nima deyiladi?", options: ["Primary Key (PK)", "Foreign Key (FK)", "Candidate key", "Composite key"], correct: 1 },
+            { q: "62. Ma'lumotlar modelida Izchillik (integrity) deganda nima tushuniladi?", options: ["Ma'lumotlarning mantiqan to'g'ri va qarama-qarshi bo'lmasligi", "Ma'lumotlarning ko'p nusxada saqlanishi", "Ma'lumotlar rangli bo'lishi va grafik formatda tasvirlanishi", "Ma'lumotlar tez uzatilishi"], correct: 0 },
+            { q: "63. Ma'lumotlar modellarining klassik turlariga qaysilar kiradi?", options: ["Ierarxik, tarmoqli, relyatsion", "Grafik, audio, video, matnli, maxfiy", "Statik va dinamik", "Fizik, virtual va konseptual"], correct: 0 },
+            { q: "64. Ma'lumotlar tahlilining yakuniy bosqichi nima?", options: ["Yig'ish", "Xulosa chiqarish", "Tozalash", "Testlash"], correct: 1 },
+            { q: "65. Ma'lumotlarni modellashtirishda asosiy elementlar qaysilar?", options: ["Dastur, tizim va foydalanuvchi", "Obyekt, atribut, bog'lanish", "Server, mijoz va tarmoq", "Barcha apparat vositalar"], correct: 1 },
+            { q: "66. Ma'lumotlarni obyektlar, atributlar va bog'lanishlar ko'rinishida ifodalash jarayoni nima deyiladi?", options: ["Ma'lumotlarni modellashtirish", "Ma'lumotlar bilan ishlovchi dasturni yozish", "Talablarni yigʻish", "Funksiyalarni aniqlash"], correct: 0 },
+            { q: "67. Ma'lumotlarni tashkil etish usuliga Grafik (ko'p-ko'p bog'lanishli) tuzilma qanday model deyiladi?", options: ["Relyatsion model", "Tarmoq modeli", "Ierarxik model", "Obyektga yo'naltirilgan model"], correct: 1 },
+            { q: "68. Ma'lumotlarni yig'ish, statistik tahlil qilish va modellash optimallashtirishning qaysi bosqichiga kiradi?", options: ["Maqsadni belgilash", "O'zgarish kiritish", "Natijani o'lchash", "Tahlil va prognoz"], correct: 3 },
+            { q: "69. Ma'lumotlarning tuzilishi, bog'lanishlari va ularga qo'yilgan qoidalarni ifodalovchi formal tasvir nima deyiladi?", options: ["Ma'lumotlar modeli", "Axborot tizimi", "Axborot", "Grafik interfeys dasturi"], correct: 0 },
+            { q: "70. Mantiqiy model qaysi bosqichdan keyin tuziladi?", options: ["Kontseptual modeldan keyin", "Fizik modeldan keyin", "Dasturlashdan keyin", "Ekspluatatsiyadan keyin"], correct: 0 },
+            { q: "71. Microsoft Azure (Virtual Machines) - bulutli texnologiyaning qaysi modeliga kiradi?", options: ["SaaS", "PaaS", "IaaS", "DBaaS"], correct: 2 },
+            { q: "72. Monitoring jarayonining birinchi bosqichi qaysi?", options: ["Ma'lumotlarni qayta ishlash va tahlil qilish", "Ogohlantirish", "Ma'lumotlarni yig'ish", "Muammolarni aniqlash va bartaraf etish"], correct: 2 },
+            { q: "73. Monitoring jarayonining ikkinchi bosqichi qaysi?", options: ["Ma'lumotlarni yig'ish", "Ogohlantirish", "Ma'lumotlarni qayta ishlash va tahlil qilish", "Muammolarni aniqlash va bartaraf etish"], correct: 2 },
+            { q: "74. Muammo haqida xabar berish asosan qaysi jarayonga xos?", options: ["Dasturlash", "Monitoring", "Loyihalash", "Tahlil"], correct: 1 },
+            { q: "75. Normalizatsiya nimaga xizmat qiladi?", options: ["Jadvallar hajmini kattalashtirishga", "Foydalanuvchilar sonini ortishiga", "Talablar sonini qisqarishiga", "Takrorlanishni kamaytirishga"], correct: 3 },
+            { q: "76. Normallashtirishning bu normal shakli(formasi)da - har bir maydon faqat bitta qiymatni o'z ichiga oladi. Bu qaysi normal shakl(NF)?", options: ["2NF", "3NF", "4NF", "1NF"], correct: 3 },
+            { q: "77. Nutq va musiqa qanday axborot turiga mansub?", options: ["Grafik axborot", "Matnli axborot", "Sonli axborot", "Audio axborot"], correct: 3 },
+            { q: "78. Obyektga yo'naltirilgan model nimaga asoslanadi?", options: ["Obyektga yo'naltirilgan dasturlash(OOP) tamoyillariga", "Faqat SQLga", "Grafik dizaynga", "Fayl tizimiga"], correct: 0 },
+            { q: "79. Obyektga yo'naltirilgan modelda obyekt nimaga ega bo'ladi?", options: ["Atributlar va metodlarga", "Faqat ustunlarga", "Satrlar va unreal elementlarga", "Kalitlar va qulflarga"], correct: 0 },
+            { q: "80. Optimallashtirish qachon zarur bo'ladi?", options: ["Jarayon tez bo'lsa", "Tizim kichik bo'lsa", "Tizim yangi bo'lsa", "Tizim sekin ishlayotgan bo'lsa"], correct: 3 },
+            { q: "81. Optimallashtirishning qaysi bosqichida : Iterativ yondashuv orqali jarayonni yanada samarali qilish amalga oshiriladi?", options: ["Maqsadni belgilash (Goal Definition)", "Tahlil va prognoz (Analysis & Forecasting)", "Muammoni aniqlash (Problem Identification)", "Takomillashtirish (Continuous Refinement)"], correct: 3 },
+            { q: "82. PaaS modeli ko'proq kimlarga mos keladi?", options: ["Oddiy foydalanuvchilarga", "DevOpsga", "Dasturchilarga", "Administratorga"], correct: 2 },
+            { q: "83. Qaysi bulutli texnologiya modelida foydalanuvchi \"Operatsion tizim\"ni o'zi o'rnatadi?", options: ["SaaS (Software as a Service)", "PaaS (Platform as a Service)", "IaaS (Infrastructure as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
+            { q: "84. Qo'lda bajariladigan axborot jarayonlarini bosqichma-bosqich dasturiy vositalar orqali bajariladigan holatga o'tkazish jarayoni nima deyiladi?", options: ["Optimallashtirish jarayoni", "Avtomatlashtirish jarayoni", "Joriy etish jarayoni", "Monitoring jarayoni"], correct: 1 },
+            { q: "85. Qo'lda bajariladigan jarayonlarning asosiy kamchiligi nima?", options: ["Vaqt kam sarflanishi", "Xatolik ehtimoli yuqori", "Aniqlilik uchun ko'p texnika talab etilishi", "Hisobotlarni avtomatlashganligi"], correct: 1 },
+            { q: "86. Relyatsion ma'lumotlar modeli kim tomonidan taklif etilgan?", options: ["E. Codd", "B. Gates", "L. Torvalds", "S. Jobs"], correct: 0 },
+            { q: "87. Relyatsion modelda ma'lumotlar qanday saqlanadi?", options: ["Jadval (satr–ustun) ko'rinishida", "Daraxt (ota-bola) ko'rinishida", "Graf (diagramma) ko'rinishida", "Obyektlar ko'rinishida"], correct: 0 },
+            { q: "88. Resurslarni internet orqali xizmat sifatida olish qanday texnologiya deb ataladi?", options: ["Web texnologiya", "Bulutli texnologiya", "Internet texnologiya", "Intranet texnologiya"], correct: 1 },
+            { q: "89. SaaS (Software as a Service) modelida foydalanuvchi qanday dasturiy tizimdan foydalanadi?", options: ["O'zi o'rnatgan tizimdan", "Virtual mashinada joylashgan tizimdan", "Tayyor tizimdan", "Oʻz kompyuteridagi dasturiy muhitdan"], correct: 2 },
+            { q: "90. SDLC qisqartmasi nimani anglatadi?", options: ["Software Development Life Cycle", "System Design Logical Code", "Software Data Link Control", "Structured Development Logic Code"], correct: 0 },
+            { q: "91. Shaxsiy va tijorat sirlariga oid ma'lumotlar qaysi axborot turiga kiradi?", options: ["Ochiq axborot", "Sonli axborot", "Audio axborot", "Konfidensial axborot"], correct: 3 },
+            { q: "92. Sinovdan muvaffaqiyatli o'tgan dasturiy ta'minotni real ish muhiti(Production)ga o'rnatish va foydalanuvchilar foydalanishiga topshirish jarayoni nima deyiladi?", options: ["Acceptance test - Qabul qilish sinovi", "Deployment - Joriy etish", "Maintenance - Qo'llab-quvvatlash", "Implementation – Dasturlash"], correct: 1 },
+            { q: "93. Talaba ↔ Guruh munosabati nimani ifodalaydi?", options: ["Obyektlar orasidagi bog'lanishni", "Ma'lumot turini va xususiyatlarini", "Fizik saqlash joyini", "Grafik interfeysni"], correct: 0 },
+            { q: "94. Talabalar reytingidan o'rtacha ballni hisoblash axborot tizimi zanjirining qaysi bosqichiga misol bo'ladi?", options: ["Qayta ishlash", "Kirish", "Saqlash", "Uzatish"], correct: 0 },
+            { q: "95. Tarmoqli model nimani ifodalaydi?", options: ["Birga-koʻp bog'lanishlarni", "Ko'pga-koʻp bog'lanishlarni", "Birga-Bir bog'lanishlarni", "Darax ko'rinishidagi tuzilmani"], correct: 1 },
+            { q: "96. Tarmoqli modelning asosiy kamchiligi nimada?", options: ["Tuzilishi murakkab va foydalanish qiyin", "Ma'lumotlar saqlanmaydi", "Grafik ishlatilmaydi", "Jadval tushunchasi yo'q"], correct: 0 },
+            { q: "97. Testlashning asosiy maqsadi nima?", options: ["Grafikni shakllantirish", "Xatolarni aniqlash", "Fayllarni hajmini aniqlash", "Xatolarni dasturlash"], correct: 1 },
+            { q: "98. Tizim funksiyalarining talabga mos ishlashini asosan qaysi testlash orqali aniqlanadi?", options: ["Nofunksional testlash", "Funksional testlash", "Integratsion testlash", "Yuklama testi"], correct: 1 },
+            { q: "99. Wireshark dasturiy vositasi– nimani monitoring qiladi?", options: ["Serverni", "Ma'lumotlar bazasini", "Tarmoq trafigini", "Axborot tizimini to'g'ri ishlash jarayonini"], correct: 2 },
+            { q: "100. Zabbix dasturiy vositasi – asosan nimani monitoring qiladi?", options: ["Saytni va provayderni", "Ma'lumotlar bazasini va foydalanuvchi harakatini", "Server va tarmoq qurilmalarini", "Axborot tizimini to'g'ri ishlash jarayonini"], correct: 2 }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let userName = '';
+        let groupName = '';
+        let timerInterval;
+        let timeLeft = 15;
+        const groupResults = {};
+        let testPart = 1; // 1 or 2
+        let testStartQuestion = 0; // Starting question for the part
+        let testEndQuestion = 50; // Ending question for the part
+
+        function choosePartScreen() {
+            const name = document.getElementById('userName').value.trim();
+            if (!name) {
+                alert('Iltimos, ismingizni kiriting!');
+                return;
+            }
+            userName = name;
+            groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
+            
+            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('partScreen').style.display = 'block';
+        }
+
+        function goBackStart() {
+            document.getElementById('partScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+
+        function startTestPart(part) {
+            testPart = part;
+            if (part === 1) {
+                testStartQuestion = 0;
+                testEndQuestion = 50;
+            } else {
+                testStartQuestion = 50;
+                testEndQuestion = 100;
+            }
+
+            if (!groupResults[groupName]) {
+                groupResults[groupName] = [];
+            }
+
+            userAnswers = new Array(questions.length).fill(-1);
+            currentQuestion = testStartQuestion;
+            
+            document.getElementById('partScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'block';
+            
+            showQuestion();
+            startTimer();
+        }
+
+        function startTest() {
+            const name = document.getElementById('userName').value.trim();
+            if (!name) {
+                alert('Iltimos, ismingizni kiriting!');
+                return;
+            }
+            userName = name;
+            groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
+            
+            if (!groupResults[groupName]) {
+                groupResults[groupName] = [];
+            }
+
+            userAnswers = new Array(questions.length).fill(-1);
+            currentQuestion = 0;
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'block';
+            
+            showQuestion();
+            startTimer();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            const displayQuestionNumber = currentQuestion + 1;
+            const totalQuestions = testEndQuestion - testStartQuestion;
+            const partDisplay = testPart === 1 ? '1-Qism' : '2-Qism';
+            document.getElementById('questionNumber').textContent = `${partDisplay} - Savol ${displayQuestionNumber - testStartQuestion}/50`;
+            document.getElementById('questionText').textContent = q.q;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                label.innerHTML = `
+                    <input type="radio" name="option" value="${index}" ${userAnswers[currentQuestion] === index ? 'checked' : ''}>
+                    <span>${String.fromCharCode(65 + index)}) ${option}</span>
+                `;
+                label.onclick = () => selectOption(index);
+                optionsContainer.appendChild(label);
+            });
+            
+            updateProgress();
+            resetTimer();
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestion] = index;
+            const options = document.querySelectorAll('.option');
+            const correctAnswer = questions[currentQuestion].correct;
+            
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                
+                if (i === index) {
+                    // Selected option
+                    if (i === correctAnswer) {
+                        opt.classList.add('correct');
+                    } else {
+                        opt.classList.add('incorrect');
+                    }
+                } else if (i === correctAnswer) {
+                    // Show correct answer
+                    opt.classList.add('correct');
+                }
+            });
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < testEndQuestion - 1) {
+                currentQuestion++;
+                showQuestion();
+                resetTimer();
+            } else {
+                finishTest();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > testStartQuestion) {
+                currentQuestion--;
+                showQuestion();
+                resetTimer();
+            }
+        }
+
+        function skipQuestion() {
+            userAnswers[currentQuestion] = -1;
+            if (currentQuestion < testEndQuestion - 1) {
+                currentQuestion++;
+                showQuestion();
+                resetTimer();
+            } else {
+                finishTest();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) {
+                    if (currentQuestion < testEndQuestion - 1) {
+                        nextQuestion();
+                    } else {
+                        finishTest();
+                    }
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            timeLeft = 15;
+            updateTimer();
+        }
+
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = timeLeft;
+            timerElement.className = 'timer';
+            if (timeLeft <= 5) timerElement.classList.add('warning');
+            if (timeLeft <= 2) timerElement.classList.add('danger');
+        }
+
+        function updateProgress() {
+            const totalQuestions = testEndQuestion - testStartQuestion;
+            const progress = ((currentQuestion - testStartQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('prevBtn').disabled = currentQuestion === testStartQuestion;
+            document.getElementById('nextBtn').disabled = currentQuestion === testEndQuestion - 1;
+        }
+
+        function goToPartSelection() {
+            clearInterval(timerInterval);
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('partScreen').style.display = 'block';
+            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
+        }
+
+        function finishTest() {
+            clearInterval(timerInterval);
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+            
+            calculateResults();
+        }
+
+        function calculateResults() {
+            let correct = 0;
+            let incorrect = 0;
+            let skipped = 0;
+
+            for (let i = testStartQuestion; i < testEndQuestion; i++) {
+                const answer = userAnswers[i];
+                if (answer === -1) {
+                    skipped++;
+                } else if (answer === questions[i].correct) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+            }
+
+            const percentage = Math.round((correct / 50) * 100);
+            const partText = testPart === 1 ? '1-Qism (Savol 1-50)' : '2-Qism (Savol 51-100)';
+
+            document.getElementById('userNameDisplay').textContent = `${userName} - ${partText}`;
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('scoreText').textContent = `${correct} / 50`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('skippedCount').textContent = skipped;
+
+            // Store group results
+            groupResults[groupName].push({
+                name: userName,
+                part: testPart,
+                correct: correct,
+                percentage: percentage
+            });
+
+            // Show group results if there are multiple users
+            if (groupResults[groupName].length > 1) {
+                displayGroupResults();
+            }
+        }
+
+        function displayGroupResults() {
+            const groupResultsDiv = document.getElementById('groupResults');
+            const table = document.getElementById('groupTable');
+            
+            const group = groupResults[groupName];
+            table.innerHTML = '<tr><th>№</th><th>Ism</th><th>Qism</th><th>To\'g\'ri Javoblar</th><th>Foiz</th></tr>';
+            
+            group.forEach((user, index) => {
+                const row = table.insertRow(-1);
+                const partText = user.part === 1 ? '1-Qism' : '2-Qism';
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${user.name}</td>
+                    <td>${partText}</td>
+                    <td>${user.correct}</td>
+                    <td>${user.percentage}%</td>
+                `;
+            });
+            
+            groupResultsDiv.style.display = 'block';
+        }
+
+        function returnToPartSelection() {
+            clearInterval(timerInterval);
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('partScreen').style.display = 'block';
+            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
+        }
+
+        function restartTest() {
+            clearInterval(timerInterval);
+            currentQuestion = 0;
+            userAnswers = [];
+            timeLeft = 15;
+            
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('partScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'none';
+            
+            document.getElementById('userName').value = '';
+            document.getElementById('groupName').value = '';
+        }
+    </script>
+</body>
+</html>
