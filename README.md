@@ -14,11 +14,23 @@ Agar loyiha papkasida bo'lsangiz, quyidagi komandalarni ishga tushiring:
 
 ```bash
 git init
- git add .
- git commit -m "Add Axborot Tizimi Test website"
- git branch -M main
- git remote add origin <github-repo-url>
- git push -u origin main
+git add .
+git commit -m "Add Axborot Tizimi Test website"
+git branch -M main
+git remote add origin https://github.com/saidkamol1203/test.git
+git push -u origin main
 ```
 
-`<github-repo-url>` o'rniga sizning GitHub repo URL manzilingizni yozing.
+`https://github.com/saidkamol1203/test.git` o'rniga boshqa URL kerak bo'lsa, uni o'zgartiring.
+
+## GitHub Pages orqali link bilan ishlash
+1. Repository sahifasiga kiring: `https://github.com/saidkamol1203/test`
+2. `Settings` -> `Pages` bo‘limini oching.
+3. `Source` uchun `main` branch va `root` papka tanlang.
+4. Saqlang.
+
+Keyin sayt bu manzilda ishlaydi:
+
+`https://saidkamol1203.github.io/test/`
+
+Agar GitHub Pages bir oz kutsa, ba'zi daqiqadan keyin sahifaga kirib ko'ring.
