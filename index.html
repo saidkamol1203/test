@@ -392,9 +392,7 @@
             <div class="question-text" id="questionText"></div>
             <div class="options" id="optionsContainer"></div>
             <div class="buttons-group">
-                <button class="btn btn-small" onclick="goBackStart()">← Orqaga</button>
                 <button class="btn btn-small" onclick="previousQuestion()" id="prevBtn">Oldingi</button>
-                <button class="btn btn-small" onclick="skipQuestion()" id="skipBtn">O'tkazib yuborish</button>
                 <button class="btn btn-small" onclick="nextQuestion()" id="nextBtn">Keyingi →</button>
             </div>
         </div>
@@ -658,17 +656,6 @@
             }
         }
 
-        function skipQuestion() {
-            userAnswers[currentQuestion] = -1;
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                showQuestion();
-                resetTimer();
-            } else {
-                finishTest();
-            }
-        }
-
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -702,12 +689,6 @@
             document.getElementById('progressFill').style.width = progress + '%';
             document.getElementById('prevBtn').disabled = currentQuestion === 0;
             document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
-        }
-
-        function goBackStart() {
-            clearInterval(timerInterval);
-            document.getElementById('testScreen').style.display = 'none';
-            document.getElementById('startScreen').style.display = 'block';
         }
 
         function finishTest() {
