@@ -373,7 +373,6 @@
             <div>
                 <input type="text" id="userName" placeholder="Ismingizni kiriting" maxlength="50">
                 <input type="text" id="groupName" placeholder="Guruh nomini kiriting (ixtiyoriy)" maxlength="50">
-                <input type="email" id="userEmail" placeholder="Emailingiz (ixtiyoriy, natija uchun)" maxlength="100">
                 <button class="btn" onclick="choosePartScreen()">Testni Boshlash</button>
             </div>
         </div>
@@ -561,7 +560,6 @@
         let userAnswers = [];
         let userName = '';
         let groupName = '';
-        let userEmail = '';
         let timerInterval;
         let timeLeft = 10;
         const groupResults = {};
@@ -601,9 +599,8 @@
             }
             userName = name;
             groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
-            userEmail = document.getElementById('userEmail').value.trim();
             
-            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
+            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`; 
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('partScreen').style.display = 'block';
         }
@@ -871,31 +868,6 @@
             }
         }
 
-        function sendResultsByEmail() {
-            if (!userEmail) {
-                alert('Iltimos, natijani qabul qilish uchun email kiriting.');
-                return;
-            }
-
-            let subject = encodeURIComponent('Axborot Tizimi Test Natijalari');
-            let body = `Ism: ${userName}%0D%0AGuruh: ${groupName}%0D%0A`;
-            body += `Qism: ${testPart === 1 ? '1-Qism (Savol 1-50)' : '2-Qism (Savol 51-100)'}%0D%0A`;
-            body += `Natija: ${document.getElementById('scoreNumber').textContent}%0D%0A`;
-            body += `To'g'ri javoblar: ${document.getElementById('correctCount').textContent}%0D%0A`;
-            body += `Noto'g'ri javoblar: ${document.getElementById('incorrectCount').textContent}%0D%0A`;
-            body += `O'tkazib yuborilgan: ${document.getElementById('skippedCount').textContent}%0D%0A%0D%0A`;
-            
-            if (groupResults[groupName] && groupResults[groupName].length > 1) {
-                body += 'Guruh natijalari:%0D%0A';
-                groupResults[groupName].forEach((user, index) => {
-                    body += `${index + 1}. ${user.name} - ${user.part === 1 ? '1-Qism' : '2-Qism'} - ${user.correct}/50 - ${user.percentage}%0D%0A`;
-                });
-            }
-
-            const mailtoLink = `mailto:${encodeURIComponent(userEmail)}?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
-        }
-
         function restartTest() {
             clearInterval(timerInterval);
             currentQuestion = 0;
@@ -909,7 +881,6 @@
             
             document.getElementById('userName').value = '';
             document.getElementById('groupName').value = '';
-            document.getElementById('userEmail').value = '';
         }
     </script>
 </body>
