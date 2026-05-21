@@ -34,3 +34,45 @@ Keyin sayt bu manzilda ishlaydi:
 `https://saidkamol1203.github.io/test/`
 
 Agar GitHub Pages bir oz kutsa, ba'zi daqiqadan keyin sahifaga kirib ko'ring.
+
+## Google Sheets orqali natijalarni saqlash
+
+Bu loyihani Google Sheetsga ulash uchun quyidagicha amalga oshiring:
+
+1. `https://script.google.com/` saytiga kiring va yangi `Apps Script` loyihasini yarating.
+2. Quyidagi kodni `Code.gs` ichiga joylang:
+
+```javascript
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.openById('SHEET_ID').getSheetByName('Sheet1');
+    sheet.appendRow([
+      new Date(),
+      data.name,
+      data.group,
+      data.correct,
+      data.incorrect,
+      data.skipped,
+      data.percentage,
+      data.total,
+      data.timestamp
+    ]);
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
+
+3. `SHEET_ID` o‘rniga Google Sheets hujjatingiz ID sini yozing.
+4. `Deploy` → `New deployment` → `Web app` ni tanlang.
+5. `Execute as` uchun `Me` va `Who has access` uchun `Anyone` (yoki `Anyone with the link`) ni tanlang.
+6. `Deploy` qiling va hosil bo‘lgan `Web app URL` ni oling.
+7. `index.html` ichida `googleSheetApiUrl` qiymatini o‘sha URL bilan almashtiring.
+
+Endi test yakunlanganda natijalar avtomatik Google Sheetsga yuboriladi.
