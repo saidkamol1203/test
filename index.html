@@ -368,29 +368,12 @@
         <div class="start-screen" id="startScreen">
             <div class="header">
                 <h1>🎓 Axborot Tizimi Test</h1>
-                <p>100 savoldan iborat sınaq (2 qismda)</p>
+                <p>100 savoldan iborat sinov</p>
             </div>
             <div>
                 <input type="text" id="userName" placeholder="Ismingizni kiriting" maxlength="50">
                 <input type="text" id="groupName" placeholder="Guruh nomini kiriting (ixtiyoriy)" maxlength="50">
                 <button class="btn" onclick="choosePartScreen()">Testni Boshlash</button>
-            </div>
-        </div>
-
-        <!-- Part Selection Screen -->
-        <div class="start-screen" id="partScreen" style="display:none;">
-            <div class="header">
-                <h1>🎓 Qismni Tanlang</h1>
-                <p id="userDisplayPart"></p>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn part-btn" onclick="startTestPart(1)" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    📝 QISM 1<small>Savol 1-50</small>
-                </button>
-                <button class="btn part-btn" onclick="startTestPart(2)" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
-                    📝 QISM 2<small>Savol 51-100</small>
-                </button>
-                <button class="btn" onclick="goBackStart()" style="background: #999; margin-top: 20px;">← Ortga</button>
             </div>
         </div>
 
@@ -409,7 +392,7 @@
             <div class="question-text" id="questionText"></div>
             <div class="options" id="optionsContainer"></div>
             <div class="buttons-group">
-                <button class="btn btn-small" onclick="goToPartSelection()">← Orqaga</button>
+                <button class="btn btn-small" onclick="goBackStart()">← Orqaga</button>
                 <button class="btn btn-small" onclick="previousQuestion()" id="prevBtn">Oldingi</button>
                 <button class="btn btn-small" onclick="skipQuestion()" id="skipBtn">O'tkazib yuborish</button>
                 <button class="btn btn-small" onclick="nextQuestion()" id="nextBtn">Keyingi →</button>
@@ -445,7 +428,6 @@
                 <table class="group-table" id="groupTable"></table>
             </div>
             <div class="buttons-group" style="justify-content: center; gap: 15px;">
-                <button class="btn btn-small" id="nextPartBtn" onclick="continueToNextPart()">Keyingi Qismga O'tish</button>
                 <button class="btn btn-restart" onclick="restartTest()">Testni Qayta Boshlash</button>
             </div>
         </div>
@@ -563,9 +545,6 @@
         let timerInterval;
         let timeLeft = 10;
         const groupResults = {};
-        let testPart = 1; // 1 or 2
-        let testStartQuestion = 0; // Starting question for the part
-        let testEndQuestion = 50; // Ending question for the part
 
         function loadGroupResults() {
             const stored = localStorage.getItem('groupResults');
@@ -599,60 +578,17 @@
             }
             userName = name;
             groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
-            
-            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`; 
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('partScreen').style.display = 'block';
-        }
 
-        function goBackStart() {
-            document.getElementById('partScreen').style.display = 'none';
-            document.getElementById('startScreen').style.display = 'block';
-        }
-
-        function startTestPart(part) {
-            testPart = part;
-            if (part === 1) {
-                testStartQuestion = 0;
-                testEndQuestion = 50;
-            } else {
-                testStartQuestion = 50;
-                testEndQuestion = 100;
-            }
-
-            if (!groupResults[groupName]) {
-                groupResults[groupName] = [];
-            }
-
-            userAnswers = new Array(questions.length).fill(-1);
-            currentQuestion = testStartQuestion;
-            
-            document.getElementById('partScreen').style.display = 'none';
-            document.getElementById('testScreen').style.display = 'block';
-            
-            showQuestion();
-            startTimer();
-        }
-
-        function startTest() {
-            const name = document.getElementById('userName').value.trim();
-            if (!name) {
-                alert('Iltimos, ismingizni kiriting!');
-                return;
-            }
-            userName = name;
-            groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
-            
             if (!groupResults[groupName]) {
                 groupResults[groupName] = [];
             }
 
             userAnswers = new Array(questions.length).fill(-1);
             currentQuestion = 0;
-            
+
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('testScreen').style.display = 'block';
-            
+
             showQuestion();
             startTimer();
         }
@@ -660,9 +596,8 @@
         function showQuestion() {
             const q = questions[currentQuestion];
             const displayQuestionNumber = currentQuestion + 1;
-            const totalQuestions = testEndQuestion - testStartQuestion;
-            const partDisplay = testPart === 1 ? '1-Qism' : '2-Qism';
-            document.getElementById('questionNumber').textContent = `${partDisplay} - Savol ${displayQuestionNumber - testStartQuestion}/50`;
+            const totalQuestions = questions.length;
+            document.getElementById('questionNumber').textContent = `Savol ${displayQuestionNumber}/${totalQuestions}`;
             document.getElementById('questionText').textContent = q.q;
             
             const optionsContainer = document.getElementById('optionsContainer');
@@ -706,7 +641,7 @@
         }
 
         function nextQuestion() {
-            if (currentQuestion < testEndQuestion - 1) {
+            if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 showQuestion();
                 resetTimer();
@@ -716,7 +651,7 @@
         }
 
         function previousQuestion() {
-            if (currentQuestion > testStartQuestion) {
+            if (currentQuestion > 0) {
                 currentQuestion--;
                 showQuestion();
                 resetTimer();
@@ -725,7 +660,7 @@
 
         function skipQuestion() {
             userAnswers[currentQuestion] = -1;
-            if (currentQuestion < testEndQuestion - 1) {
+            if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 showQuestion();
                 resetTimer();
@@ -739,7 +674,7 @@
                 timeLeft--;
                 updateTimer();
                 if (timeLeft <= 0) {
-                    if (currentQuestion < testEndQuestion - 1) {
+                    if (currentQuestion < questions.length - 1) {
                         nextQuestion();
                     } else {
                         finishTest();
@@ -762,18 +697,17 @@
         }
 
         function updateProgress() {
-            const totalQuestions = testEndQuestion - testStartQuestion;
-            const progress = ((currentQuestion - testStartQuestion + 1) / totalQuestions) * 100;
+            const totalQuestions = questions.length;
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('prevBtn').disabled = currentQuestion === testStartQuestion;
-            document.getElementById('nextBtn').disabled = currentQuestion === testEndQuestion - 1;
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
         }
 
-        function goToPartSelection() {
+        function goBackStart() {
             clearInterval(timerInterval);
             document.getElementById('testScreen').style.display = 'none';
-            document.getElementById('partScreen').style.display = 'block';
-            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
+            document.getElementById('startScreen').style.display = 'block';
         }
 
         function finishTest() {
@@ -789,7 +723,7 @@
             let incorrect = 0;
             let skipped = 0;
 
-            for (let i = testStartQuestion; i < testEndQuestion; i++) {
+            for (let i = 0; i < questions.length; i++) {
                 const answer = userAnswers[i];
                 if (answer === -1) {
                     skipped++;
@@ -800,12 +734,11 @@
                 }
             }
 
-            const percentage = Math.round((correct / 50) * 100);
-            const partText = testPart === 1 ? '1-Qism (Savol 1-50)' : '2-Qism (Savol 51-100)';
+            const percentage = Math.round((correct / questions.length) * 100);
 
-            document.getElementById('userNameDisplay').textContent = `${userName} - ${partText}`;
+            document.getElementById('userNameDisplay').textContent = `${userName} - To'liq Test`;
             document.getElementById('scoreNumber').textContent = percentage + '%';
-            document.getElementById('scoreText').textContent = `${correct} / 50`;
+            document.getElementById('scoreText').textContent = `${correct} / ${questions.length}`;
             document.getElementById('correctCount').textContent = correct;
             document.getElementById('incorrectCount').textContent = incorrect;
             document.getElementById('skippedCount').textContent = skipped;
@@ -813,7 +746,7 @@
             // Store group results
             groupResults[groupName].push({
                 name: userName,
-                part: testPart,
+                part: 'Toʻliq test',
                 correct: correct,
                 percentage: percentage
             });
@@ -824,11 +757,6 @@
             if (groupResults[groupName].length > 1) {
                 displayGroupResults();
             }
-
-            const nextPartBtn = document.getElementById('nextPartBtn');
-            if (nextPartBtn) {
-                nextPartBtn.textContent = testPart === 1 ? '2-Qismga O\'tish' : 'Boshqa Qismga Qaytish';
-            }
         }
 
         function displayGroupResults() {
@@ -836,11 +764,11 @@
             const table = document.getElementById('groupTable');
             
             const group = groupResults[groupName];
-            table.innerHTML = '<tr><th>№</th><th>Ism</th><th>Qism</th><th>To\'g\'ri Javoblar</th><th>Foiz</th></tr>';
+            table.innerHTML = '<tr><th>№</th><th>Ism</th><th>Test</th><th>To\'g\'ri Javoblar</th><th>Foiz</th></tr>';
             
             group.forEach((user, index) => {
                 const row = table.insertRow(-1);
-                const partText = user.part === 1 ? '1-Qism' : '2-Qism';
+                const partText = user.part || 'Toʻliq test';
                 row.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${user.name}</td>
@@ -853,21 +781,6 @@
             groupResultsDiv.style.display = 'block';
         }
 
-        function returnToPartSelection() {
-            clearInterval(timerInterval);
-            document.getElementById('resultsScreen').style.display = 'none';
-            document.getElementById('partScreen').style.display = 'block';
-            document.getElementById('userDisplayPart').textContent = `${userName} (${groupName})`;
-        }
-
-        function continueToNextPart() {
-            if (testPart === 1) {
-                startTestPart(2);
-            } else {
-                returnToPartSelection();
-            }
-        }
-
         function restartTest() {
             clearInterval(timerInterval);
             currentQuestion = 0;
@@ -875,7 +788,6 @@
             timeLeft = 10;
             
             document.getElementById('startScreen').style.display = 'block';
-            document.getElementById('partScreen').style.display = 'none';
             document.getElementById('testScreen').style.display = 'none';
             document.getElementById('resultsScreen').style.display = 'none';
             
