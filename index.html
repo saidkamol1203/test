@@ -11,23 +11,87 @@
             box-sizing: border-box;
         }
 
+        /* Kunduzgi (Light) Rejam ranglari */
+        :root {
+            --bg-body: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-container: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --bg-input: #ffffff;
+            --border-input: #dddddd;
+            --bg-question: #f8f9fa;
+            --border-question: #667eea;
+            --bg-option: #ffffff;
+            --border-option: #dddddd;
+            --bg-option-hover: #f8f9fa;
+            --bg-pagination: #ffffff;
+            --bg-timer: #f0f0f0;
+            --bg-detail-card: #f8f9fa;
+            --shadow-container: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tungi (Dark) Rejam ranglari */
+        [data-theme="dark"] {
+            --bg-body: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-container: #2b2b3d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #aaaaaa;
+            --bg-input: #3a3a50;
+            --border-input: #555577;
+            --bg-question: #33334d;
+            --border-question: #9fa8da;
+            --bg-option: #33334d;
+            --border-option: #555577;
+            --bg-option-hover: #3f3f5c;
+            --bg-pagination: #3a3a50;
+            --bg-timer: #3a3a50;
+            --bg-detail-card: #33334d;
+            --shadow-container: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-body);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.3s ease;
         }
 
         .container {
-            background: white;
+            background: var(--bg-container);
+            color: var(--text-primary);
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-container);
             max-width: 900px;
             width: 100%;
             padding: 40px;
+            position: relative;
+            transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-question);
+            border: 1px solid var(--border-option);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg) scale(1.1);
         }
 
         .header {
@@ -36,13 +100,13 @@
         }
 
         .header h1 {
-            color: #333;
+            color: var(--text-primary);
             font-size: 28px;
             margin-bottom: 10px;
         }
 
         .header p {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 16px;
         }
 
@@ -55,9 +119,11 @@
             width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-input);
             border-radius: 8px;
             font-size: 16px;
+            background: var(--bg-input);
+            color: var(--text-primary);
         }
 
         .start-screen input:focus {
@@ -110,7 +176,7 @@
             align-items: center;
             margin-bottom: 20px;
             font-size: 16px;
-            color: #666;
+            color: var(--text-secondary);
         }
 
         .pagination {
@@ -129,9 +195,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            border: 1px solid #ddd;
-            background: white;
-            color: #333;
+            border: 1px solid var(--border-option);
+            background: var(--bg-pagination);
+            color: var(--text-primary);
             cursor: pointer;
             font-weight: 600;
         }
@@ -166,7 +232,8 @@
             font-weight: bold;
             padding: 10px 20px;
             border-radius: 8px;
-            background: #f0f0f0;
+            background: var(--bg-timer);
+            color: var(--text-primary);
         }
 
         .timer.warning {
@@ -182,11 +249,11 @@
         .question-text {
             font-size: 18px;
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 20px;
             padding: 20px;
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            background: var(--bg-question);
+            border-left: 4px solid var(--border-question);
             border-radius: 8px;
         }
 
@@ -198,16 +265,17 @@
 
         .option {
             padding: 15px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-option);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            background: white;
+            background: var(--bg-option);
+            color: var(--text-primary);
         }
 
         .option:hover {
             border-color: #667eea;
-            background: #f8f9fa;
+            background: var(--bg-option-hover);
         }
 
         .option input[type="radio"] {
@@ -229,11 +297,13 @@
         .option.correct {
             border-color: #4caf50;
             background: #e8f5e9;
+            color: #1b5e20;
         }
 
         .option.incorrect {
             border-color: #f44336;
             background: #ffebee;
+            color: #b71c1c;
         }
 
         .buttons-group {
@@ -254,22 +324,6 @@
             cursor: not-allowed;
         }
 
-        .part-btn {
-            display: block;
-            width: 100%;
-            margin: 15px 0 !important;
-            font-size: 18px !important;
-            padding: 20px 40px !important;
-            line-height: 1.5;
-        }
-
-        .part-btn small {
-            display: block;
-            font-size: 14px;
-            margin-top: 5px;
-            font-weight: normal;
-        }
-
         /* Results Screen */
         .results-screen {
             display: none;
@@ -277,7 +331,7 @@
         }
 
         .results-screen h2 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 20px;
             font-size: 24px;
         }
@@ -309,23 +363,15 @@
         }
 
         .detail-card {
-            background: #f8f9fa;
+            background: var(--bg-detail-card);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
         }
 
-        .detail-card.correct {
-            border-left-color: #4caf50;
-        }
-
-        .detail-card.incorrect {
-            border-left-color: #f44336;
-        }
-
-        .detail-card.skipped {
-            border-left-color: #ff9800;
-        }
+        .detail-card.correct { border-left-color: #4caf50; }
+        .detail-card.incorrect { border-left-color: #f44336; }
+        .detail-card.skipped { border-left-color: #ff9800; }
 
         .detail-number {
             font-size: 32px;
@@ -334,20 +380,12 @@
             margin-bottom: 5px;
         }
 
-        .detail-card.correct .detail-number {
-            color: #4caf50;
-        }
-
-        .detail-card.incorrect .detail-number {
-            color: #f44336;
-        }
-
-        .detail-card.skipped .detail-number {
-            color: #ff9800;
-        }
+        .detail-card.correct .detail-number { color: #4caf50; }
+        .detail-card.incorrect .detail-number { color: #f44336; }
+        .detail-card.skipped .detail-number { color: #ff9800; }
 
         .detail-label {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
@@ -357,7 +395,7 @@
         }
 
         .group-results h3 {
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 20px;
             text-align: center;
         }
@@ -377,11 +415,12 @@
 
         .group-table td {
             padding: 12px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-option);
+            color: var(--text-primary);
         }
 
         .group-table tr:hover {
-            background: #f8f9fa;
+            background: var(--bg-option-hover);
         }
 
         .btn-restart {
@@ -389,55 +428,24 @@
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-
-            .start-screen input,
-            .btn,
-            .btn-small,
-            .page-item,
-            .question-timer-controls {
-                width: 100%;
-            }
-
-            .page-item {
-                min-width: 0;
-                flex: 1 1 auto;
-            }
-
-            .score-details {
-                grid-template-columns: 1fr;
-            }
-
-            .buttons-group {
-                flex-direction: column;
-            }
-
-            .buttons-group .btn-small {
-                width: 100%;
-            }
-
-            .header h1 {
-                font-size: 22px;
-            }
-
-            .question-text {
-                font-size: 16px;
-            }
-
-            .options {
-                gap: 12px;
-            }
-
-            .option {
-                padding: 14px;
-            }
+            .container { padding: 20px; }
+            .start-screen input, .btn, .btn-small, .page-item, .question-timer-controls { width: 100%; }
+            .page-item { min-width: 0; flex: 1 1 auto; }
+            .score-details { grid-template-columns: 1fr; }
+            .buttons-group { flex-direction: column; }
+            .buttons-group .btn-small { width: 100%; }
+            .header h1 { font-size: 22px; }
+            .question-text { font-size: 16px; }
+            .options { gap: 12px; }
+            .option { padding: 14px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Tungi/Kunduzgi rejim">🌙</button>
+
         <!-- Start Screen -->
         <div class="start-screen" id="startScreen">
             <div class="header">
@@ -446,10 +454,10 @@
             </div>
             <div>
                 <input type="text" id="userName" placeholder="Ismingizni kiriting" maxlength="50">
-                <input type="text" id="groupName" placeholder="Guruh nomini kiriting (ixtiyoriy)" maxlength="50">
                 <button class="btn" onclick="choosePartScreen()">Testni Boshlash</button>
                 <button class="btn" style="margin-top: 10px; background: #999;" onclick="randomizeQuestions()">Savollarni Aralashtirish</button>
-                <div id="shuffleStatus" style="margin-top: 10px; color: #555; font-size: 14px;"></div>
+                <div id="shuffleStatus" style="margin-top: 10px; color: var(--text-secondary); font-size: 14px;"></div>
+                <div id="groupNote" style="margin-top: 10px; color: var(--text-secondary); font-size: 14px;"></div>
             </div>
         </div>
 
@@ -464,7 +472,7 @@
             <div class="question-info">
                 <span id="questionNumber">Savol 1/100</span>
                 <div class="question-timer-controls">
-                    <div class="timer" id="timer">10</div>
+                    <div class="timer" id="timer">15</div>
                     <button class="btn btn-small" onclick="togglePause()" id="pauseBtn">To'xtatish</button>
                 </div>
             </div>
@@ -488,7 +496,6 @@
                 <div class="score-number" id="scoreNumber">0%</div>
                 <div class="score-text" id="scoreText">0 / 100</div>
             </div>
-            <div id="sheetStatus" style="margin-top: 15px; color: #333; font-size: 14px;"></div>
             <div class="score-details">
                 <div class="detail-card correct">
                     <div class="detail-number" id="correctCount">0</div>
@@ -509,113 +516,112 @@
             </div>
             <div class="buttons-group" style="justify-content: center; gap: 15px;">
                 <button class="btn btn-restart" onclick="restartTest()">Testni Qayta Boshlash</button>
+                <button class="btn btn-restart" onclick="openNewStudentPanel()" style="background: #4caf50;">Yangi Talaba Qo'shish</button>
             </div>
         </div>
     </div>
 
     <script>
-        // All 100 questions with answers
+        // Arduino va Elektronika savollari
         const questions = [
-            { q: "1. . . . — bu axborot jarayonlarini oldindan belgilangan qoidalar asosida tizimga topshirishdir.", options: ["Algoritmlash", "Testlash", "Modellashtirish", "Avtomatlashtirish"], correct: 0 },
-            { q: "2. . . . — bu axborot tizimidagi jarayonlarni: kamroq vaqt, kamroq resurs, kamroq xarajat va kamroq xatolik bilan bajariladigan holatga keltirishdir.", options: ["Avtomatlashtirish", "Modellashtirish", "Dasturlash", "Optimallashtirish"], correct: 3 },
-            { q: "3. . . . – bu real hodisa va jarayonlar haqidagi, qabul qilinishi, qayta ishlanishi, saqlanishi va uzatilishi mumkin bo'lgan mazmunli ma'lumotdir.", options: ["Axborot tizimi", "Ma'lumot", "Kompyuter", "Axborot"], correct: 3 },
-            { q: "4. . . . . . — bu bulutli texnologiyalarning dastur ishlab chiqish uchun tayyor platforma taqdim etish modeli hisoblanadi.", options: ["IaaS (Infrastructure as a Service)", "SaaS (Software as a Service)", "PaaS (Platform as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
-            { q: "5. . . . . . — bu bulutli texnologiyalarning server, xotira, tarmoq va saqlash infratuzilmasini internet orqali ijaraga berish modelidir.", options: ["SaaS (Software as a Service)", "PaaS (Platform as a Service)", "IaaS (Infrastructure as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
-            { q: "6. . . . . . — bu bulutli texnologiyalarning tayyor dasturiy ta'minotdan internet orqali foydalanish modelidir.", options: ["IaaS (Infrastructure as a Service)", "PaaS (Platform as a Service)", "SaaS (Software as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
-            { q: "7. . . . . . — bu hisoblash resurslari (server, xotira, ma'lumotlar bazasi, dasturiy ta'minot va boshqalar) internet orqali xizmat sifatida taqdim etiladigan modeldir.", options: ["Veb dasturlash (Web Programming)", "Klassik texnologiya(On-Premise)", "To'rli hisoblashlar (Grid Computing)", "Bulutli texnologiyalar (Cloud Computing)"], correct: 3 },
-            { q: "8. . . . . . .— bu axborot tizimining ishlash holatini uzluksiz kuzatish, tahlil qilish va baholash jarayonidir.", options: ["Testlash", "Normallashtirish", "Monitoring", "Dasturlash"], correct: 2 },
-            { q: "9. \"Relyatsion\" atamasi qaysi so'zdan olingan?", options: ["Relation (munosabat)", "Record (Yozuv)", "Object (Obyekt)", "Structure (Struktura)"], correct: 0 },
-            { q: "10. \"Talaba\" axborot tizimida \"Talabani qo'shish/tahrirlash/o'chirish (CRUD)\"- qanday talab hisoblanadi?", options: ["Nofunksional", "Murakkab (composite)", "Funksional", "Yashirin talab"], correct: 2 },
-            { q: "11. Abstraksiya darajasiga ko'ra ma'lumotlar modeli nechta turga bo'linadi?", options: ["3 ta", "2 ta", "4 ta", "5 ta"], correct: 0 },
-            { q: "12. Agar Talaba Entity boʻlsa, TalabaID, FIO kabi elementlar nima deb ataladi?", options: ["Atributlar", "Obyektlar", "Bog'lanishlar", "Metodlar"], correct: 0 },
-            { q: "13. Asosiy afzalligi \"oddiy va tushunarliligi\" hisoblangan ma'lumotlar modeli qaysi?", options: ["Ierarxik model", "Relyatsion model", "Tarmoq modeli", "Landshaft modeli"], correct: 1 },
-            { q: "14. Avtomatlashtirish asosan nimani kamaytiradi?", options: ["Axborot hajmini", "Tizim tezligini", "Natija aniqligini", "Inson ishtirokini"], correct: 3 },
-            { q: "15. Axborot hajmining keskin oshishi, inson omilini kamaytirish va tezkor qaror qabul qilish kerakligi - qanday zaruratni yuzaga keltiradi?", options: ["Modellashtirish", "Talablarni aniqlash", "Jarayonni kuzatish", "Avtomatlashtirish"], correct: 3 },
-            { q: "16. Axborot kechikib kelganda boshqaruv qanday bo'ladi?", options: ["Samarasiz", "Tezkor", "Optimal", "Barqaror"], correct: 0 },
-            { q: "17. Axborot tizimda turli manbalardan olingan ma'lumotlarni yig'ish, tartiblash, qayta ishlash, solishtirish, baholash va ulardan foydali xulosa chiqarish jarayoni nima deyiladi?", options: ["Tizimni testlash", "Ma'lumotlarni tahlil qilish", "Tizimni loyihalash", "Ma'lumotlarni modellashtirish"], correct: 1 },
-            { q: "18. Axborot tizimi qaysi zanjir asosida ishlaydi?", options: ["Kirish → Qayta ishlash → Chiqish", "Chiqish → Saqlash → Kirish", "Grafik → Matn → Ovoz", "Sensor → Printer → Monitor"], correct: 0 },
-            { q: "19. Axborot tizimi sifatini rejalash, nazorat qilish va doimiy yaxshilashga qaratilgan boshqaruv faoliyati nima deyiladi?", options: ["Ekspluatatsiya", "Testlash", "Sifatni boshqarish", "Integratsiya"], correct: 2 },
-            { q: "20. Axborot tizimida \"Bir vaqtning o'zida 10–20 operator ishlasin\" – qanaqa talab turiga kiradi?", options: ["Funksional", "Nofunksional", "Murakkab (composite)", "Yashirin talab"], correct: 1 },
-            { q: "21. Axborot tizimida ma'lumotlar qayerda saqlanadi?", options: ["Dastur kodida", "Ma'lumotlar bazasida", "Seyfda", "Ma'lumotlar modelida"], correct: 1 },
-            { q: "22. Axborot tizimida serverga tushayotgan yuklamani kamaytirish qaysi jarayonga xos?", options: ["Modellashtirish", "Dasturlash", "Testlash", "Optimallashtirish"], correct: 3 },
-            { q: "23. Axborot tizimida: \"Sahifa 3 soniyadan ko'p bo'lmagan vaqtda ochilishi kerak. Hisobot 5 soniya ichida shakllanishi kerak\" – kabi talablar tizimning qaysi turdagi talabiga mos keladi?", options: ["Funksional", "Nofunksional", "Murakkab (composite)", "Yashirin talab"], correct: 1 },
-            { q: "24. Axborot tizimini loyihalashning mazkur turida: ekranlar soni aniqlanadi, formalar va maydonlar joylashuvi belgilanadi, tugmalar, menyular rejalashtiriladi. Bu loyihalashning qaysi turiga mansub?", options: ["Ma'lumotlar bazasini loyihalash (Database Design)", "Interfeysni loyihalash (UI/UX Design)", "Arxitektura loyihalash (Architecture Design)", "Xavfsizlik va ruxsatlarni loyihalash"], correct: 1 },
-            { q: "25. Axborot tizimini loyihalashning ushbu turida: asosiy obyektlar (entity) aniqlanadi, atributlar belgilanadi, bog'lanishlar (1–1, 1–N, N–N) chiziladi, normalizatsiya qilinadi. Gap loyihalashning qaysi turi haqida ketyapti?", options: ["Interfeysni loyihalash (UI/UX Design)", "Ma'lumotlar bazasini loyihalash (Database Design)", "Arxitektura loyihalash (Architecture Design)", "Xavfsizlik va ruxsatlarni loyihalash"], correct: 1 },
-            { q: "26. Axborot tizimining ishlashini doimiy ravishda kuzatish, tizim holati haqida ma'lumot yig'ish, ularni tahlil qilish va muammolarni aniqlashga qaratilgan ketma-ket amallar majmuasi nima deyiladi?", options: ["Testlash", "Monitoring", "Ekspluatatsiya", "Avtomatizatsiya"], correct: 1 },
-            { q: "27. Axborot tizmida - turli manbalardan olingan muhim ma'lumotlarni bitta ekranda vizual tarzda (grafiklar, diagrammalar, indikatorlar) jamlab ko'rsatuvchi panel nima deb ataladi?", options: ["Tashqi interfeys", "Dashboard", "Database", "Interaktiv datchik"], correct: 1 },
-            { q: "28. Axborotni taqdim etish nimani bildiradi?", options: ["Ma'lumotni yig'ish", "Ma'lumotni saqlash", "Ma'lumotni qayta ishlash", "Natijani chiqarish"], correct: 3 },
-            { q: "29. Axborotning aniqligi nimani bildiradi?", options: ["Axborot qanchalik tez uzatilishini", "Axborot hajmining katta bo'lishini", "Axborot dizaynining chiroyliligini", "Real holatni qanchalik to'g'ri aks ettirishini"], correct: 3 },
-            { q: "30. Axborotning ishonchliligi nimaga bog'liq?", options: ["Axborot hajmi va uzatish muhitiga", "Axborot dizayni va loyihalash usuliga", "Axborot rangiga", "Manba va mazmunning haqqoniyligiga"], correct: 3 },
-            { q: "31. Axborotning mavjudligi deganda nima tushuniladi?", options: ["Axborot hajmining katta bo'lishini", "Axborot grafik shaklda bo'lishi shart ekanligini", "Axborot faqat yozma bo'lishini", "Zarur vaqtda foydalanishga yaroqli bo'lishini"], correct: 3 },
-            { q: "32. Ayni vaqtda dunyodagi eng yirik bulutli platforma qaysi?", options: ["Microsoft Azure", "Google Cloud Platform", "Amazon Web Services (AWS)", "Alibaba Cloud"], correct: 2 },
-            { q: "33. Bir vaqtning o'zida 1000 foydalanuvchi kirganda tizim sekinlashadimi yoki yo'qmi tekshirilsa, bu qaysi test turiga kiradi?", options: ["Tizim testi", "Kod tekshiruvi", "Yuklama testi", "Statik tahlil"], correct: 2 },
-            { q: "34. Bir yoki bir nechta takrorlanuvchi maʻlumotlar guruhiga ega boʻlgan jadval qanday shakl(yoki forma) deyiladi.", options: ["1NF(1 – chi normal forma)", "Normallashtirish (Normalization)", "Optimallashtirish", "Normal boʻlmagan shakl (NBSh)"], correct: 3 },
-            { q: "35. Boshqaruv jarayonida noto'g'ri axborot nimaga olib keladi?", options: ["Noto'g'ri qarorga", "Tezkor boshqaruvga", "To'liq tahlilga", "Avtomatlashtirishga"], correct: 0 },
-            { q: "36. Bulutli modelda server resurslaridan odatda qanday foydalaniladi?", options: ["Sotib olinadi", "Yaratiladi", "Ijaraga olinadi", "Sotuvchi bilan bo'lishiladi"], correct: 2 },
-            { q: "37. Bulutli texnologiyalarda hisoblash resurslari foydalanuvchiga qanday shaklda taqdim etiladi?", options: ["Fayl sifatida", "Modul sifatida", "Xizmat sifatida", "Paket sifatida"], correct: 2 },
-            { q: "38. Bulutli texnologiyaning asosiy uchta modelidan SaaS –modeli ko'proq kimga mos keladi?", options: ["Dasturchi", "DevOps", "Oddiy foydalanuvchi", "Administrator"], correct: 2 },
-            { q: "39. Dasturiy mahsulotning g'oya paydo bo'lishidan boshlab, ekspluatatsiyadan chiqarilishigacha bo'lgan barcha bosqichlarini qamrab oluvchi model nima deyiladi?", options: ["BPMN(Business Process Model and Notation) - biznes jarayon modeli", "SDLC (Software Development Life Cycle) - dasturiy ta'minot hayotiy sikli", "S.D&S.DS(System Design / Software Design)-Tizimni loyihalash", "Deployment - Joriy etish"], correct: 1 },
-            { q: "40. Dasturiy ta'minotni tekshirish jarayoni nima deyiladi?", options: ["Loyihalash", "Shifrlash", "Testlash", "Optimallashtirish"], correct: 2 },
-            { q: "41. Davlat va strategik ahamiyatga ega axborotlar axborotning qanday turiga kiradi?", options: ["Maxfiy axborot", "Ochiq axborot", "Sonli axborot", "Audio axborot"], correct: 0 },
-            { q: "42. Diagramma va sxemalar qanday axborot turiga kiradi?", options: ["Matnli axborot", "Audio axborot", "Sonli axborot", "Grafik axborot"], correct: 3 },
-            { q: "43. Django loyihasini joylashtirishda Ubuntu, Python, Django va PostgreSQLni o'zingiz o'rnatsangiz, bu qaysi model bo'ladi?", options: ["PaaS", "SaaS", "IaaS", "Public Cloud"], correct: 2 },
-            { q: "44. Elektron raqamli imzo (ERI) bilan tasdiqlangan ma'lumot axborotning qaysi xususiyatni ta'minlaydi?", options: ["Tushunarlilik", "Grafik ko'rinish", "Axborot sifatini", "Ishonchlilik"], correct: 3 },
-            { q: "45. ER-diagramma odatda qaysi ma'lumotlar modelini loyihalashda qo'llaniladi?", options: ["Relyatsion", "Ierarxik", "Tarmoqli", "Obyektli"], correct: 0 },
-            { q: "46. ERP tizimida real vaqt rejimida yangilanadigan ombor qoldig'i axborotning qaysi xususiyatiga misol bo'ladi?", options: ["Tushunarlilik", "To'liqlik", "Maxfiylik", "Dolzarblik"], correct: 3 },
-            { q: "47. Foydalanuvchi moduli, ma'lumotlar bazasi va hisobot moduli birgalikda tekshirilsa, bu qaysi test turi hisoblanadi?", options: ["Funksional testlash", "Yuklama testi", "Integratsion testlash", "Kodni nazorat qilish"], correct: 2 },
-            { q: "48. Foydalanuvchi tizimga kirishi, ma'lumot kiritishi va hisobot olishi tekshirilsa, bu qaysi test turiga kiradi?", options: ["Integratsion testlash", "Tizim testlash", "Funksional testlash", "Yuklama testi"], correct: 2 },
-            { q: "49. Google BigQuery bilan ishlashda soʻrovlar qanday uslubda beriladi?", options: ["Python pyscript uslubida", "SQL uslubida", "XML uslubida", "JSon uslubida"], correct: 1 },
-            { q: "50. Google Docs bulutli texnologiyaning qaysi modeliga kiradi?", options: ["IaaS", "PaaS", "SaaS", "GdaS"], correct: 2 },
-            { q: "51. Hamma uchun ochiq bo'lgan ma'lumotlar qanday ataladi?", options: ["Konfidensial axborot", "Maxfiy axborot", "Cheklangan axborot", "Ochiq axborot"], correct: 3 },
-            { q: "52. Ierarxik ma'lumotlar modeli qanday tuzilishga ega?", options: ["Daraxt (ota–bola) ko'rinishida", "Jadval (satr-ustun) ko'rinishida", "Graf ko'rinishida", "Obyektlar to'plami ko'rinishida"], correct: 0 },
-            { q: "53. Ierarxik modelda har bir \"bola\" obyekt nechta \"ota\" obyektga ega bo'ladi?", options: ["Faqat bitta", "Ikkita", "Istalgancha", "Umuman ega bo'lmaydi"], correct: 0 },
-            { q: "54. Jadval, qator, ustun, PK, FK lar qaysi modelning asosiy elementlari hisoblanadi?", options: ["Relyatsion", "Ierarxik", "Tarmoqli", "Obyektli"], correct: 0 },
-            { q: "55. Kelajakdagi holat qaysi tahlil turi orqali aniqlanadi?", options: ["Diagnostik tahlil", "Bashoratli tahlil", "Tavsiyaviy tahlil", "Tavsifiy tahlil"], correct: 1 },
-            { q: "56. Kuzatuv kamerasi tasviri qanday axborot hisoblanadi?", options: ["Audio axborot", "Matnli axborot", "Sonli axborot", "Video axborot"], correct: 3 },
-            { q: "57. Ma'lumotlar bazasida \"Manzil (Viloyat, Tuman, Ko'cha)\" tipidagi atributlar qanday atributlar deyiladi?", options: ["Oddiy (simple)", "Ko'p qiymatli (multivalued)", "Murakkab (composite)", "Hosilaviy (derived)"], correct: 2 },
-            { q: "58. Ma'lumotlar bazasida har bir yozuvni yagona identifikatsiya qiluvchi maydon nima deb ataladi?", options: ["Foreign Key (FK)", "Primary Key (PK)", "Atribut key (AK)", "DatabaseKey (DK)"], correct: 1 },
-            { q: "59. Ma'lumotlar bazasini mantiqan tartiblash, takrorlanishni kamaytirish va yangilash, o'chirish hamda qo'shishda yuzaga keladigan xatolarni kamaytirish jarayoni nima deyiladi?", options: ["inventarizatsiya", "lokalizatsiya", "urbanizatsiya", "normalizatsiya"], correct: 3 },
-            { q: "60. Ma'lumotlar modeli bo'lmasa qanday holat yuzaga keladi?", options: ["Ma'lumotlar tartibsiz bo'ladi va takrorlanish ko'payadi", "Tizim tez ishlaydi va foydalanuvchilar ishi yengillashadi", "Axborot xavfsizligi oshadi", "Dastur avtomatik yaratiladi"], correct: 0 },
-            { q: "61. Ma'lumotlar modelida boshqa jadvalga ishora qiluvchi maydon nima deyiladi?", options: ["Primary Key (PK)", "Foreign Key (FK)", "Candidate key", "Composite key"], correct: 1 },
-            { q: "62. Ma'lumotlar modelida Izchillik (integrity) deganda nima tushuniladi?", options: ["Ma'lumotlarning mantiqan to'g'ri va qarama-qarshi bo'lmasligi", "Ma'lumotlarning ko'p nusxada saqlanishi", "Ma'lumotlar rangli bo'lishi va grafik formatda tasvirlanishi", "Ma'lumotlar tez uzatilishi"], correct: 0 },
-            { q: "63. Ma'lumotlar modellarining klassik turlariga qaysilar kiradi?", options: ["Ierarxik, tarmoqli, relyatsion", "Grafik, audio, video, matnli, maxfiy", "Statik va dinamik", "Fizik, virtual va konseptual"], correct: 0 },
-            { q: "64. Ma'lumotlar tahlilining yakuniy bosqichi nima?", options: ["Yig'ish", "Xulosa chiqarish", "Tozalash", "Testlash"], correct: 1 },
-            { q: "65. Ma'lumotlarni modellashtirishda asosiy elementlar qaysilar?", options: ["Dastur, tizim va foydalanuvchi", "Obyekt, atribut, bog'lanish", "Server, mijoz va tarmoq", "Barcha apparat vositalar"], correct: 1 },
-            { q: "66. Ma'lumotlarni obyektlar, atributlar va bog'lanishlar ko'rinishida ifodalash jarayoni nima deyiladi?", options: ["Ma'lumotlarni modellashtirish", "Ma'lumotlar bilan ishlovchi dasturni yozish", "Talablarni yigʻish", "Funksiyalarni aniqlash"], correct: 0 },
-            { q: "67. Ma'lumotlarni tashkil etish usuliga Grafik (ko'p-ko'p bog'lanishli) tuzilma qanday model deyiladi?", options: ["Relyatsion model", "Tarmoq modeli", "Ierarxik model", "Obyektga yo'naltirilgan model"], correct: 1 },
-            { q: "68. Ma'lumotlarni yig'ish, statistik tahlil qilish va modellash optimallashtirishning qaysi bosqichiga kiradi?", options: ["Maqsadni belgilash", "O'zgarish kiritish", "Natijani o'lchash", "Tahlil va prognoz"], correct: 3 },
-            { q: "69. Ma'lumotlarning tuzilishi, bog'lanishlari va ularga qo'yilgan qoidalarni ifodalovchi formal tasvir nima deyiladi?", options: ["Ma'lumotlar modeli", "Axborot tizimi", "Axborot", "Grafik interfeys dasturi"], correct: 0 },
-            { q: "70. Mantiqiy model qaysi bosqichdan keyin tuziladi?", options: ["Kontseptual modeldan keyin", "Fizik modeldan keyin", "Dasturlashdan keyin", "Ekspluatatsiyadan keyin"], correct: 0 },
-            { q: "71. Microsoft Azure (Virtual Machines) - bulutli texnologiyaning qaysi modeliga kiradi?", options: ["SaaS", "PaaS", "IaaS", "DBaaS"], correct: 2 },
-            { q: "72. Monitoring jarayonining birinchi bosqichi qaysi?", options: ["Ma'lumotlarni qayta ishlash va tahlil qilish", "Ogohlantirish", "Ma'lumotlarni yig'ish", "Muammolarni aniqlash va bartaraf etish"], correct: 2 },
-            { q: "73. Monitoring jarayonining ikkinchi bosqichi qaysi?", options: ["Ma'lumotlarni yig'ish", "Ogohlantirish", "Ma'lumotlarni qayta ishlash va tahlil qilish", "Muammolarni aniqlash va bartaraf etish"], correct: 2 },
-            { q: "74. Muammo haqida xabar berish asosan qaysi jarayonga xos?", options: ["Dasturlash", "Monitoring", "Loyihalash", "Tahlil"], correct: 1 },
-            { q: "75. Normalizatsiya nimaga xizmat qiladi?", options: ["Jadvallar hajmini kattalashtirishga", "Foydalanuvchilar sonini ortishiga", "Talablar sonini qisqarishiga", "Takrorlanishni kamaytirishga"], correct: 3 },
-            { q: "76. Normallashtirishning bu normal shakli(formasi)da - har bir maydon faqat bitta qiymatni o'z ichiga oladi. Bu qaysi normal shakl(NF)?", options: ["2NF", "3NF", "4NF", "1NF"], correct: 3 },
-            { q: "77. Nutq va musiqa qanday axborot turiga mansub?", options: ["Grafik axborot", "Matnli axborot", "Sonli axborot", "Audio axborot"], correct: 3 },
-            { q: "78. Obyektga yo'naltirilgan model nimaga asoslanadi?", options: ["Obyektga yo'naltirilgan dasturlash(OOP) tamoyillariga", "Faqat SQLga", "Grafik dizaynga", "Fayl tizimiga"], correct: 0 },
-            { q: "79. Obyektga yo'naltirilgan modelda obyekt nimaga ega bo'ladi?", options: ["Atributlar va metodlarga", "Faqat ustunlarga", "Satrlar va unreal elementlarga", "Kalitlar va qulflarga"], correct: 0 },
-            { q: "80. Optimallashtirish qachon zarur bo'ladi?", options: ["Jarayon tez bo'lsa", "Tizim kichik bo'lsa", "Tizim yangi bo'lsa", "Tizim sekin ishlayotgan bo'lsa"], correct: 3 },
-            { q: "81. Optimallashtirishning qaysi bosqichida : Iterativ yondashuv orqali jarayonni yanada samarali qilish amalga oshiriladi?", options: ["Maqsadni belgilash (Goal Definition)", "Tahlil va prognoz (Analysis & Forecasting)", "Muammoni aniqlash (Problem Identification)", "Takomillashtirish (Continuous Refinement)"], correct: 3 },
-            { q: "82. PaaS modeli ko'proq kimlarga mos keladi?", options: ["Oddiy foydalanuvchilarga", "DevOpsga", "Dasturchilarga", "Administratorga"], correct: 2 },
-            { q: "83. Qaysi bulutli texnologiya modelida foydalanuvchi \"Operatsion tizim\"ni o'zi o'rnatadi?", options: ["SaaS (Software as a Service)", "PaaS (Platform as a Service)", "IaaS (Infrastructure as a Service)", "DbaaS (Database as a Service)"], correct: 2 },
-            { q: "84. Qo'lda bajariladigan axborot jarayonlarini bosqichma-bosqich dasturiy vositalar orqali bajariladigan holatga o'tkazish jarayoni nima deyiladi?", options: ["Optimallashtirish jarayoni", "Avtomatlashtirish jarayoni", "Joriy etish jarayoni", "Monitoring jarayoni"], correct: 1 },
-            { q: "85. Qo'lda bajariladigan jarayonlarning asosiy kamchiligi nima?", options: ["Vaqt kam sarflanishi", "Xatolik ehtimoli yuqori", "Aniqlilik uchun ko'p texnika talab etilishi", "Hisobotlarni avtomatlashganligi"], correct: 1 },
-            { q: "86. Relyatsion ma'lumotlar modeli kim tomonidan taklif etilgan?", options: ["E. Codd", "B. Gates", "L. Torvalds", "S. Jobs"], correct: 0 },
-            { q: "87. Relyatsion modelda ma'lumotlar qanday saqlanadi?", options: ["Jadval (satr–ustun) ko'rinishida", "Daraxt (ota-bola) ko'rinishida", "Graf (diagramma) ko'rinishida", "Obyektlar ko'rinishida"], correct: 0 },
-            { q: "88. Resurslarni internet orqali xizmat sifatida olish qanday texnologiya deb ataladi?", options: ["Web texnologiya", "Bulutli texnologiya", "Internet texnologiya", "Intranet texnologiya"], correct: 1 },
-            { q: "89. SaaS (Software as a Service) modelida foydalanuvchi qanday dasturiy tizimdan foydalanadi?", options: ["O'zi o'rnatgan tizimdan", "Virtual mashinada joylashgan tizimdan", "Tayyor tizimdan", "Oʻz kompyuteridagi dasturiy muhitdan"], correct: 2 },
-            { q: "90. SDLC qisqartmasi nimani anglatadi?", options: ["Software Development Life Cycle", "System Design Logical Code", "Software Data Link Control", "Structured Development Logic Code"], correct: 0 },
-            { q: "91. Shaxsiy va tijorat sirlariga oid ma'lumotlar qaysi axborot turiga kiradi?", options: ["Ochiq axborot", "Sonli axborot", "Audio axborot", "Konfidensial axborot"], correct: 3 },
-            { q: "92. Sinovdan muvaffaqiyatli o'tgan dasturiy ta'minotni real ish muhiti(Production)ga o'rnatish va foydalanuvchilar foydalanishiga topshirish jarayoni nima deyiladi?", options: ["Acceptance test - Qabul qilish sinovi", "Deployment - Joriy etish", "Maintenance - Qo'llab-quvvatlash", "Implementation – Dasturlash"], correct: 1 },
-            { q: "93. Talaba ↔ Guruh munosabati nimani ifodalaydi?", options: ["Obyektlar orasidagi bog'lanishni", "Ma'lumot turini va xususiyatlarini", "Fizik saqlash joyini", "Grafik interfeysni"], correct: 0 },
-            { q: "94. Talabalar reytingidan o'rtacha ballni hisoblash axborot tizimi zanjirining qaysi bosqichiga misol bo'ladi?", options: ["Qayta ishlash", "Kirish", "Saqlash", "Uzatish"], correct: 0 },
-            { q: "95. Tarmoqli model nimani ifodalaydi?", options: ["Birga-koʻp bog'lanishlarni", "Ko'pga-koʻp bog'lanishlarni", "Birga-Bir bog'lanishlarni", "Darax ko'rinishidagi tuzilmani"], correct: 1 },
-            { q: "96. Tarmoqli modelning asosiy kamchiligi nimada?", options: ["Tuzilishi murakkab va foydalanish qiyin", "Ma'lumotlar saqlanmaydi", "Grafik ishlatilmaydi", "Jadval tushunchasi yo'q"], correct: 0 },
-            { q: "97. Testlashning asosiy maqsadi nima?", options: ["Grafikni shakllantirish", "Xatolarni aniqlash", "Fayllarni hajmini aniqlash", "Xatolarni dasturlash"], correct: 1 },
-            { q: "98. Tizim funksiyalarining talabga mos ishlashini asosan qaysi testlash orqali aniqlanadi?", options: ["Nofunksional testlash", "Funksional testlash", "Integratsion testlash", "Yuklama testi"], correct: 1 },
-            { q: "99. Wireshark dasturiy vositasi– nimani monitoring qiladi?", options: ["Serverni", "Ma'lumotlar bazasini", "Tarmoq trafigini", "Axborot tizimini to'g'ri ishlash jarayonini"], correct: 2 },
-            { q: "100. Zabbix dasturiy vositasi – asosan nimani monitoring qiladi?", options: ["Saytni va provayderni", "Ma'lumotlar bazasini va foydalanuvchi harakatini", "Server va tarmoq qurilmalarini", "Axborot tizimini to'g'ri ishlash jarayonini"], correct: 2 }
+            { q: "1. Arduino dasturida setup() funksiyasi qanday vazifani bajaradi?", options: ["Cheksiz ishlaydi", "Bir marta ishga tushadi", "Har sekundda ishlaydi", "Faqat sensorlarni o‘qiydi"], correct: 1 },
+            { q: "2. Arduino dasturida loop() funksiyasi nima qiladi?", options: ["Bir marta ishlaydi", "Arduino o‘chadi", "Cheksiz takrorlanadi", "Faqat LED uchun ishlaydi"], correct: 2 },
+            { q: "3. pinMode(13, OUTPUT); buyrug‘i nimani bildiradi?", options: ["13-pin kirish rejimida ishlaydi", "13-pin chiqish rejimida ishlaydi", "13-pin o‘chiriladi", "13-pin analog rejimda ishlaydi"], correct: 1 },
+            { q: "4. digitalWrite(13, HIGH); buyrug‘i nima qiladi?", options: ["13-pinga kuchlanish beradi", "13-pinni o‘chiradi", "13-pinni kirish qiladi", "Arduino o‘chadi"], correct: 0 },
+            { q: "5. digitalWrite(13, LOW); buyrug‘i nimani anglatadi?", options: ["Pin yoqiladi", "Pin o‘chiriladi", "Pin analog bo‘ladi", "Pin sensor bo‘ladi"], correct: 1 },
+            { q: "6. delay(1000); buyrug‘i nimani bildiradi?", options: ["1 millisekund kutadi", "1 sekund kutadi", "10 sekund kutadi", "100 sekund kutadi"], correct: 1 },
+            { q: "7. Arduino dasturida pinni kirish rejimiga o‘tkazish uchun qaysi buyruq ishlatiladi?", options: ["pinWrite()", "digitalMode()", "pinMode(pin, INPUT)", "pinHigh()"], correct: 2 },
+            { q: "8. Arduino dasturida LED ni yoqish uchun qaysi buyruq ishlatiladi?", options: ["digitalWrite(pin, HIGH)", "digitalWrite(pin, LOW)", "pinMode(pin)", "delay(pin)"], correct: 0 },
+            { q: "9. Arduino dasturida HIGH qiymati nimani bildiradi?", options: ["0 volt", "3 volt", "5 volt", "10 volt"], correct: 2 },
+            { q: "10. Arduino dasturida LOW qiymati nimani bildiradi?", options: ["5 volt", "3 volt", "1 volt", "0 volt"], correct: 3 },
+            { q: "11. Arduino dasturida Serial aloqa boshlanishi uchun qaysi buyruq yoziladi?", options: ["Serial.start()", "Serial.begin()", "Serial.write()", "Serial.read()"], correct: 1 },
+            { q: "12. Serial.begin(9600); dagi 9600 nimani bildiradi?", options: ["Pin raqamini", "Xotira hajmini", "Ma’lumot uzatish tezligini (baud rate)", "Kuchlanishni"], correct: 2 },
+            { q: "13. Quyidagi buyruq nima qiladi? Serial.print(25);", options: ["25 sonini Serial Monitor ga chiqaradi", "25 sonini o‘chiradi", "LED ni yoqadi", "Arduino ni o‘chiradi"], correct: 0 },
+            { q: "14. Serial.println() funksiyasi Serial.print() dan nimasi bilan farq qiladi?", options: ["Yangi qatordan yozadi", "LED ni yoqadi", "Sensorni o‘chiradi", "Arduino ni o‘chiradi"], correct: 0 },
+            { q: "15. Arduino IDE da Serial Monitor ni ochish uchun qaysi klavishlar ishlatiladi?", options: ["Ctrl + S", "Ctrl + Shift + M", "Ctrl + C", "Ctrl + V"], correct: 1 },
+            { q: "16. Quyidagi kod nimani chiqaradi? Serial.println(\"Salom\");", options: ["Salom so‘zini chiqaradi", "LED ni yoqadi", "Arduino ni o‘chiradi", "Sensorni o‘chiradi"], correct: 0 },
+            { q: "17. Serial Monitor qaysi qurilma bilan aloqa qiladi?", options: ["Kompyuter va Arduino", "Sensor va LED", "Batareya va motor", "LCD va relay"], correct: 0 },
+            { q: "18. Serial Monitor ko‘pincha nima uchun ishlatiladi?", options: ["Dastur natijalarini tekshirish uchun", "Arduino ni o‘chirish uchun", "LED ni o‘zgartirish uchun", "Batareyani zaryadlash uchun"], correct: 0 },
+            { q: "19. Serial.print(\"Temp=\"); buyrug‘i nima qiladi?", options: ["Temp= yozuvini Serial Monitor ga chiqaradi", "Arduino ni o‘chiradi", "Sensorni o‘chiradi", "LED ni o‘chiradi"], correct: 0 },
+            { q: "20. Serial Monitor orqali foydalanuvchi nima qilishi mumkin?", options: ["Arduino ga ma’lumot yuborishi mumkin", "Arduino ni buzishi mumkin", "Arduino ni o‘chirishi mumkin", "LED ni olib tashlashi mumkin"], correct: 0 },
+            { q: "21. RTClib kutubxonasi Arduino da nima uchun ishlatiladi?", options: ["Sensorlarni boshqarish uchun", "Haqiqiy vaqt moduli bilan ishlash uchun", "LED ni yoqish uchun", "Motorni boshqarish uchun"], correct: 1 },
+            { q: "22. DS1307 RTC moduli Arduino bilan odatda qaysi aloqa protokoli orqali ishlaydi?", options: ["SPI", "UART", "I2C", "USB"], correct: 2 },
+            { q: "23. DS1307 modulida SDA pini Arduino UNO ning qaysi piniga ulanadi?", options: ["A4", "A5", "D13", "D2"], correct: 0 },
+            { q: "24. DS1307 modulida SCL pini Arduino UNO ning qaysi piniga ulanadi?", options: ["A3", "A4", "A5", "D12"], correct: 2 },
+            { q: "25. DateTime now = rtc.now(); buyrug‘i nima qiladi?", options: ["RTC ni o‘chiradi", "Hozirgi vaqtni RTC modulidan o‘qiydi", "Vaqtni o‘zgartiradi", "Arduino ni o‘chiradi"], correct: 1 },
+            { q: "26. Quyidagi kod nimani bildiradi? Serial.println(now.hour());", options: ["Soatni Serial monitorga chiqaradi", "Yilni chiqaradi", "Kunni chiqaradi", "Minutni chiqaradi"], correct: 0 },
+            { q: "27. Quyidagi kod nimani chiqaradi? Serial.println(now.minute());", options: ["Sekundni", "Soatni", "Minutni", "Yilni"], correct: 2 },
+            { q: "28. Quyidagi kod nimani chiqaradi? Serial.println(now.second());", options: ["Sekundni", "Soatni", "Kunni", "Yilni"], correct: 0 },
+            { q: "29. RTC modulining asosiy vazifasi nima?", options: ["Temperatura o‘lchash", "Haqiqiy vaqtni saqlash va hisoblash", "Kuchlanishni oshirish", "Signal kuchaytirish"], correct: 1 },
+            { q: "30. RTC modulida batareya nima uchun ishlatiladi?", options: ["Arduino ni ishlatish uchun", "Elektr uzilganda ham vaqtni saqlash uchun", "Sensorni ishlatish uchun", "LED ni yoqish uchun"], correct: 1 },
+            { q: "31. digitalRead(pin) funksiyasi qanday ma’lumot qaytaradi?", options: ["Analog qiymatni (0–1023)", "Raqamli holatni: HIGH yoki LOW", "Pin raqamini", "Vaqtni (millisekundlarda)"], correct: 1 },
+            { q: "32. digitalRead() funksiyasidan foydalanish uchun pin qanday rejimga o‘tkazilishi kerak?", options: ["OUTPUT", "INPUT yoki INPUT_PULLUP", "ANALOG", "PWM"], correct: 1 },
+            { q: "34. INPUT_PULLUP rejimi qanday afzallikka ega?", options: ["Tashqi pull-up rezistor kerak emas", "Pin tezroq ishlaydi", "Analog signallarni o‘qiydi", "Faqat LOW holatni beradi"], correct: 0 },
+            { q: "35. INPUT_PULLUP rejimida tugma bosilmaganda digitalRead() qanday qiymat qaytaradi?", options: ["LOW", "HIGH", "0", "1023"], correct: 1 },
+            { q: "36. Tugma bosilganda (INPUT_PULLUP rejimida) odatda qanday qiymat o‘qiladi?", options: ["HIGH", "LOW", "1", "Floating"], correct: 1 },
+            { q: "37. Quyidagi kod parchasi nimani anglatadi? int sensor = digitalRead(4); if (sensor == HIGH) {Serial.println(\"Motion!\"); }", options: ["Harakat yo‘q bo‘lsa xabar chiqadi", "Harakat bo‘lsa xabar chiqadi", "Har doim xabar chiqadi", "Hech qachon xabar chiqarmaydi"], correct: 1 },
+            { q: "38. digitalRead() funksiyasi qaysi turdagi sensorlar bilan ko‘pincha ishlatiladi?", options: ["Faqat harorat sensorlari", "Tugma, rele, PIR motion sensor, ON/OFF datchiklar", "Faqat analog sensorlar", "Faqat ultratovush sensorlari"], correct: 1 },
+            { q: "39. Pull-down rezistor qo‘yilganda tugma bosilmaganda pin qanday holatda bo‘ladi?", options: ["HIGH", "LOW", "Floating", "3.3V"], correct: 1 },
+            { q: "40. Quyidagi holatlardan qaysi biri digitalRead() uchun to‘g‘ri emas?", options: ["HIGH ≈ 5V (yoki 3.3V)", "LOW ≈ 0V", "Qiymatlar 0 yoki 1 sifatida saqlanadi", "Har qanday qiymatni (masalan 512) qaytarishi mumkin"], correct: 3 },
+            { q: "41. HC-SR04 datchigi bilan masofa o‘lchash uchun qaysi pin ishlatiladi?", options: ["Trig – signal yuborish, Echo – signal qabul qilish", "Trig – signal qabul qilish, Echo – signal yuborish", "Ikkalasi ham analog kirish", "Ikkalasi ham chiqish"], correct: 0 },
+            { q: "42. pulseIn(echo, HIGH) funksiyasi qanday ma’lumot beradi?", options: ["Signal kuchini", "Signal vaqtini mikrosekundda", "Pin raqamini", "Masofani santimetrda"], correct: 1 },
+            { q: "43. Masofani hisoblash formulasida vaqtni 2 ga bo‘lish sababini aniqlang:", options: ["Tovush tezligini oshirish uchun", "Signal borib va qaytib kelish vaqtini hisoblash uchun", "Aniqlikni oshirish uchun", "Santimetrga o‘tkazish uchun"], correct: 1 },
+            { q: "44. Havodagi tovush tezligi odatda qancha deb olinadi?", options: ["300 m/s", "340 m/s", "1500 m/s", "1000 m/s"], correct: 1 },
+            { q: "45. Trig piniga impuls berishda delayMicroseconds(10) nima uchun ishlatiladi?", options: ["Sensor minimal 10 mikrosekund impuls yuborishi uchun", "Arduino’ni tezlashtirish uchun", "Echo signalini kutish uchun", "Haroratni barqarorlashtirish uchun"], correct: 0 },
+            { q: "46. HC-SR04 datchigi bilan o‘lchash oralig‘i odatda nechchi santimetr?", options: ["1–100 sm", "2–400 sm", "10–1000 sm", "0–50 sm"], correct: 1 },
+            { q: "47. Ultrasonik datchikning asosiy kamchiligi nima?", options: ["Faqat qorong‘uda ishlaydi", "Yumshoq sirtlar tovushni yutib yuborishi mumkin", "Har doim shaffof narsalarni ko‘radi", "Juda qimmat"], correct: 1 },
+            { q: "48. INPUT_PULLUP rejimida tugma bosilganda digitalRead() qanday qiymat beradi?", options: ["HIGH", "LOW", "Floating", "1023"], correct: 1 },
+            { q: "49. Relay moduli Arduino’da qanday asosiy vazifani bajaradi?", options: ["Masofani o‘lchash", "Katta kuchlanishdagi qurilmalarni (220V) kichik signal bilan boshqarish", "Vaqtni saqlash", "Analog signallarni o‘qish"], correct: 1 },
+            { q: "50. Relay ichida qanday mexanizm yordamida kontaktlar ochiladi/yopiladi?", options: ["Tranzistor orqali", "Elektromagnit (g‘altak) orqali", "Optik sensor orqali", "Kondensator orqali"], correct: 1 },
+            { q: "51. Ko‘pchilik relay modullarida qancha boshqaruv pini bo‘ladi?", options: ["2 ta", "3 ta (VCC, GND, IN)", "4 ta", "5 ta"], correct: 1 },
+            { q: "52. Relayning IN (signal) piniga HIGH berilganda ko‘pincha nima bo‘ladi?", options: ["Relay doim o‘chadi", "Relay yoqiladi (modul turiga qarab, ba’zilarida LOW yoqadi)", "Hech qanday o‘zgarish bo‘lmaydi", "Pin rejimi INPUT ga o‘tadi"], correct: 1 },
+            { q: "53. Relay kontaktalaridan qaysi biri “odatda uzilgan” holatda bo‘ladi?", options: ["COM", "NO (Normally Open)", "NC (Normally Closed)", "VCC"], correct: 1 },
+            { q: "54. NC (Normally Closed) kontakt qachon ulangan bo‘ladi?", options: ["Relay yoqilganda", "Relay o‘chirilganda", "Har doim uzilgan", "Faqat 220V bo‘lganda"], correct: 1 },
+            { q: "55. Relay modulini Arduino’ga ulashda GND piniga nima ulanadi?", options: ["5V", "Arduino GND", "Qurilma (lampa)ning fazasi", "Echo pin"], correct: 1 },
+            { q: "56. Elektronika fani asosan qaysi sohalarga asoslanadi?", options: ["Faqat mexanika va termodinamikaga", "Elektromagnit maydon nazariyasi, kvant mexanikasi, qattiq jism tuzilishi va elektr o‘tkazuvchanlik hodisalariga", "Faqat optika va akustikaga", "Biologiya va kimyoga"], correct: 1 },
+            { q: "57. Sxema nima deb ataladi va uning asosiy vazifasi nima?", options: ["Qurilmaning narxini ko‘rsatuvchi hujjat", "Qurilmaning elementlari qanday ulanganini va ishlashini ko‘rsatuvchi chizma (qurilmaning “pasporti” yoki “xaritasi”)", "Faqat rangli chizma", "Dasturiy ta’minot kodlari"], correct: 1 },
+            { q: "58. Quyidagi sxema turlaridan qaysi biri qurilmaning alohida qismlarini “blok” ko‘rinishida ko‘rsatadi?", options: ["Elektr sxemalari", "Elektron sxemalar", "Funktsional sxemalar", "Blok-sxemalar"], correct: 3 },
+            { q: "59. Tranzistor qaysi yilda ixtiro qilingan va kimlar tomonidan?", options: ["1904-yilda Jon Fleming tomonidan", "1947-yilda John Bardeen, Walter Brattain va William Shockley tomonidan", "1960-yillarda Robert Noyce va Jack Kilby tomonidan", "1971-yilda Intel kompaniyasi tomonidan"], correct: 1 },
+            { q: "60. Zamonaviy elektronika davrida (XXI asr) qaysi yo‘nalishlar asosiy rivojlanish sifatida tilga olinadi?", options: ["Faqat vakuum lampalari va radio", "Nanoelektronika, mobil texnologiyalar (smartfonlar, IoT), sun’iy intellekt chiplari va kvant kompyuterlar", "Faqat shaxsiy kompyuterlar (PC)", "Faqat telegraf va telefon"], correct: 1 },
+            { q: "61. Rezistorning asosiy vazifasi nima?", options: ["Elektr zaryadini saqlash", "Tokni cheklash yoki taqsimlash", "Magnit maydon hosil qilish", "Yorug‘lik chiqarish"], correct: 1 },
+            { q: "62. Kondensatorning shartli grafik belgisi qanday ko‘rinishda bo‘ladi?", options: ["Zigzag chiziq", "Ikki parallel chiziq", "Spiral shakl yoki bobin", "Uchburchak ichida chiziq"], correct: 1 },
+            { q: "63. Quyidagi elementlardan qaysi biri tok o‘tganda yorug‘lik chiqaradi?", options: ["Rezistor", "Kondensator", "Induktor", "LED (Light Emitting Diode)"], correct: 3 },
+            { q: "64. Elektron sxema simulyatorlarining qaysi turi analog va raqamli komponentlarni bir vaqtda ishlatishga imkon beradi?", options: ["Faqat analog simulyatorlar", "Faqat raqamli simulyatorlar", "Aralash (Mixed-signal) simulyatorlar", "Faqat logik simulyatorlar"], correct: 2 },
+            { q: "65. Electronics Workbench (EWB) paketi haqida qaysi gap to‘g‘ri?", options: ["Faqat raqamli sxemalarni simulyatsiya qiladi", "Analog va raqamli sxemalarni yaratish va simulyatsiya qilish uchun ishlatiladi, tok va kuchlanishni o‘lchash imkoniyati bor", "Faqat dasturiy kod yozish uchun mo‘ljallangan", "Haqiqiy komponentlarni majburiy ravishda ulashni talab qiladi"], correct: 1 },
+            { q: "66. Raqamli sxemotexnika asosan qanday signallar bilan ishlaydi?", options: ["Uzluksiz o‘zgaruvchan signallar (analog)", "Faqat ikki holatli signallar: 0 va 1 (raqamli)", "Faqat tovush va harorat signallari", "Magnit maydon signallari"], correct: 1 },
+            { q: "67. Quyidagi mantiqiy elementlardan qaysi biri \"VA\" (AND) deb ataladi?", options: ["OR (YOKI)", "NOT (INKOR)", "AND (VA)", "XOR"], correct: 2 },
+            { q: "68. Hisoblash texnikasining asosiy elementlaridan biri bo‘lgan operativ xotira qanday ataladi?", options: ["ROM (Doimiy xotira)", "RAM (Operativ xotira)", "Mikroprotsessor", "Aloqa interfeysi"], correct: 1 },
+            { q: "69. Quyidagi elektr kattaliklardan qaysi biri quvvatni ifodalaydi?", options: ["(I) – Amper (A)", "(U) – Volt (V)", "(P) – Watt (W)", "(Q) – Kulon (C)"], correct: 2 },
+            { q: "70. Elektr zanjirlarida parallel ulashda qaysi kattalik barcha elementlar uchun bir xil bo‘ladi?", options: ["Tok (I)", "Qarshilik (R)", "Kuchlanish (U)", "Energiya (W)"], correct: 2 },
+            { q: "71. O'zgarmas tok elektr zanjirida Om qonuni qanday ifodalanadi?", options: ["U = I + R", "U = I * R", "P = U / I", "I = U + R"], correct: 1 },
+            { q: "72. Ketma-ket ulangan rezistorlarda qaysi kattalik barcha elementlar uchun bir xil bo‘ladi?", options: ["Kuchlanish (U)", "Tok (I)", "Quvvat (P)", "Qarshilik (R)"], correct: 1 },
+            { q: "73. Kirxgofning birinchi qonuni (toklar qonuni) nimani bildiradi?", options: ["Konturda kuchlanishlar yig'indisi nolga teng", "Tugun nuqtada kiruvchi va chiquvchi toklar yig'indisi nolga teng", "Umumiy quvvat doimiy", "Tok kuchlanishga teskari proportsional"], correct: 1 },
+            { q: "74. Elektr zanjirida quvvat qanday formula bilan hisoblanadi?", options: ["P = U * I", "P = I * R", "P = U / R", "P = U + I"], correct: 0 },
+            { q: "75. Murakkab doimiy tok zanjirlarini hisoblashda kontur toklar usuli qaysi qonunga asoslanadi?", options: ["Faqat Om qonuniga", "Kirxgofning ikkinchi qonuli (kontur bo‘ylab kuchlanishlar yig‘indisi) va birinchi qonunga", "Faqat parallel ulash qoidasiga", "Quvvat hisobiga"], correct: 1 },
+            { q: "76. Murakkab elektr zanjirida Kirxgof qonunlarini qo‘llashning asosiy maqsadi nima?", options: ["Faqat oddiy zanjirlardagi tokni topish", "Tarmoqlangan (murakkab) zanjirlardagi noma'lum toklar va kuchlanishlarni aniqlash", "Faqat quvvatni hisoblash", "Zanjirni faqat ketma-ket ulash uchun"], correct: 1 },
+            { q: "77. Arduino Uno’da raqamli (digital) pinlar nechta?", options: ["10 ta", "12 ta", "14 ta", "16 ta"], correct: 2 },
+            { q: "78. Arduino’da GND pini nima vazifani bajaradi?", options: ["Signal uzatadi", "Quvvat beradi", "Umumiy yer (minus) vazifasini bajaradi", "Reset qiladi"], correct: 2 },
+            { q: "79. LED’ni Arduino’ga ulashda rezistor nima uchun kerak?", options: ["Kuchlanishni oshirish uchun", "Tokni cheklash uchun", "Rangni o‘zgartirish uchun", "Signallarni kuchaytirish uchun"], correct: 1 },
+            { q: "80. LED’ning uzun oyog‘i (anodi) qayerga ulanadi?", options: ["GND ga", "Analog pin ga", "Digital pin ga (rezistor orqali)", "Reset pin ga"], correct: 2 },
+            { q: "81. Arduino Uno’da 5V pini nima uchun ishlatiladi?", options: ["Dastur yozish uchun", "Sensor va modullarni quvvatlash uchun", "Signal qabul qilish uchun", "Reset qilish uchun"], correct: 1 },
+            { q: "82. Ketma-ket ulangan rezistorlarda qaysi kattalik bir xil bo‘ladi?", options: ["Kuchlanish", "Qarshilik", "Tok kuchi", "Quvvat"], correct: 2 },
+            { q: "83. Parallel ulangan rezistorlarda qaysi kattalik bir xil bo‘ladi?", options: ["Tok", "Qarshilik", "Quvvat", "Kuchlanish"], correct: 3 },
+            { q: "84. Parallel ulangan rezistorlarning umumiy qarshiligi qanday bo‘ladi?", options: ["Eng kattasiga teng", "Eng kichigidan katta", "Eng kichigidan kichik", "Nolga teng"], correct: 2 },
+            { q: "85. 12 V manbaga 4 Ω rezistor ulangan. Tok kuchi nechaga teng?", options: ["1 A", "2 A", "3 A", "4 A"], correct: 2 },
+            { q: "86. 12 V manbaga 6 Ω rezistor ulangan. Tok kuchi nechaga teng?", options: ["1 A", "2 A", "3 A", "6 A"], correct: 1 },
+            { q: "87. Kirxgof birinchi qonuni nimani ifodalaydi?", options: ["Kuchlanishlar yig‘indisini", "Qarshiliklar yig‘indisini", "Tugundagi toklar balansini", "Quvvatni"], correct: 2 },
+            { q: "88. Tugunda Kirxgof qonuniga ko‘ra nima bajariladi?", options: ["Kiruvchi toklar yig‘indisi = chiquvchi toklar yig‘indisi", "Kuchlanish nolga teng", "Qarshilik maksimal bo‘ladi", "Tok nol bo‘ladi"], correct: 0 },
+            { q: "89. Bir LED 2V da yonadi. Manba kuchlanishi 5V. LED dan 20 mA tok o‘tkazmoqchisiz. Qanday rezistor qo‘yish kerak?", options: ["100 Ω", "150 Ω", "220 Ω", "330 Ω"], correct: 1 },
+            { q: "90. Arduino pinidan 5V chiqadi. Siz 3.3V bilan ishlaydigan sensorni ulamoqchisiz. Sensor 15 mA tok tortadi. Qarshilikni toping.", options: ["56 Ω", "113 Ω", "120 Ω", "220 Ω"], correct: 1 },
+            { q: "91. 9V manbadan 3V ga tushirmoqchisiz. Qurilma 20 mA tok iste’mol qiladi. Rezistor qiymati qancha?", options: ["150 Ω", "220 Ω", "300 Ω", "330 Ω"], correct: 2 },
+            { q: "92. 12 V kuchlanishli manbaga 4 Ω va 6 Ω rezistorlar parallel ulangan. Har bir tarmoqdagi tokni toping.", options: ["3 A va 2 A", "3 A va 2,5 A", "4 A va 6 A", "2 A va 8 A"], correct: 0 },
+            { q: "93. Ketma-ket ulangan R1 = 2 Ω, R2 = 8 Ω, R3 = 7 Ω. Umumiy qarshilikni toping.", options: ["16 Ω", "25 Ω", "35 Ω", "17 Ω"], correct: 3 },
+            { q: "94. 24 V kuchlanishda 4 A tok oqmoqda. Qarshilikni aniqlang.", options: ["4 Ω", "5 Ω", "6 Ω", "8 Ω"], correct: 2 },
+            { q: "95. Ketma-ket ulangan 4 Ω, 6 Ω va 10 Ω rezistorlar umumiy qarshiligi nechaga teng?", options: ["18 Ω", "20 Ω", "22 Ω", "24 Ω"], correct: 1 },
+            { q: "96. Parallel ulangan 4 Ω va 4 Ω rezistorlar 8 V manbaga ulangan. Umumiy tokni toping.", options: ["2 A", "4 A", "6 A", "8 A"], correct: 1 },
+            { q: "97. 15 V manbaga 3 Ω rezistor ulangan. Tok kuchini aniqlang.", options: ["3 A", "4 A", "5 A", "6 A"], correct: 2 },
+            { q: "98. 5 A tok 5 Ω rezistordan o‘tmoqda. Kuchlanish nechaga teng?", options: ["10 V", "15 V", "20 V", "25 V"], correct: 3 },
+            { q: "99. Ketma-ket ulangan 2 Ω va 3 Ω rezistorlardan 2 A tok o‘tmoqda. Umumiy kuchlanishni toping.", options: ["5 V", "8 V", "10 V", "12 V"], correct: 2 }
         ];
 
         let currentQuestion = 0;
@@ -629,30 +635,32 @@
         let shuffledQuestions = [];
         const groupResults = {};
 
-        // Google Sheets web app URL (replace this with your deployed Apps Script URL)
-        const googleSheetApiUrl = '';
+        // Theme Functions
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
 
-        function loadGroupResults() {
-            const stored = localStorage.getItem('groupResults');
-            if (stored) {
-                try {
-                    const parsed = JSON.parse(stored);
-                    if (parsed && typeof parsed === 'object') {
-                        Object.assign(groupResults, parsed);
-                    }
-                } catch (error) {
-                    console.warn('Group results load failed', error);
-                }
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (theme === 'dark') {
+                toggleBtn.textContent = '☀️';
+            } else {
+                toggleBtn.textContent = '🌙';
             }
         }
 
-        function saveGroupResults() {
-            try {
-                localStorage.setItem('groupResults', JSON.stringify(groupResults));
-            } catch (error) {
-                console.warn('Group results save failed', error);
-            }
-        }
+        // Initialize theme on load
+        initTheme();
 
         function shuffleArray(array) {
             const result = array.slice();
@@ -663,7 +671,22 @@
             return result;
         }
 
-        window.addEventListener('load', loadGroupResults);
+        window.addEventListener('load', async () => {
+            await loadGroupResults();
+            populateFromQuery();
+            updateGroupNote();
+        });
+
+        window.addEventListener('storage', event => {
+            if (event.key === 'groupResults') {
+                loadGroupResults();
+                updateGroupNote();
+                if (document.getElementById('groupResults').style.display === 'block') {
+                    displayGroupResults();
+                }
+            }
+        });
+
         document.addEventListener('copy', event => event.preventDefault());
         document.addEventListener('cut', event => event.preventDefault());
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -677,8 +700,7 @@
                 return;
             }
             userName = name;
-            groupName = document.getElementById('groupName').value.trim() || 'Gurupsiz';
-
+            groupName = 'Ungrouped';
             if (!groupResults[groupName]) {
                 groupResults[groupName] = [];
             }
@@ -876,15 +898,12 @@
             clearInterval(timerInterval);
             document.getElementById('testScreen').style.display = 'none';
             document.getElementById('resultsScreen').style.display = 'block';
-            
             calculateResults();
         }
 
         function gotoQuestion(index) {
             const totalQuestions = getCurrentQuestions().length;
-            if (index < 0 || index >= totalQuestions || isPaused) {
-                return;
-            }
+            if (index < 0 || index >= totalQuestions || isPaused) return;
             currentQuestion = index;
             showQuestion();
             resetTimer();
@@ -894,9 +913,7 @@
             const container = document.getElementById('pagination');
             const totalQuestions = getCurrentQuestions().length;
             const maxButtons = 9;
-            const buttons = [];
-            const left = Math.max(1, currentQuestion + 1 - 3);
-            const right = Math.min(totalQuestions, left + maxButtons - 1);
+            const right = Math.min(totalQuestions, Math.max(1, currentQuestion + 1 - 3) + maxButtons - 1);
             const start = Math.max(1, right - maxButtons + 1);
 
             container.innerHTML = '';
@@ -950,13 +967,9 @@
 
             for (let i = 0; i < currentQuestions.length; i++) {
                 const answer = userAnswers[i];
-                if (answer === -1) {
-                    skipped++;
-                } else if (answer === currentQuestions[i].correct) {
-                    correct++;
-                } else {
-                    incorrect++;
-                }
+                if (answer === -1) skipped++;
+                else if (answer === currentQuestions[i].correct) correct++;
+                else incorrect++;
             }
 
             const percentage = Math.round((correct / currentQuestions.length) * 100);
@@ -968,7 +981,6 @@
             document.getElementById('incorrectCount').textContent = incorrect;
             document.getElementById('skippedCount').textContent = skipped;
 
-            // Store group results
             groupResults[groupName].push({
                 name: userName,
                 part: 'Toʻliq test',
@@ -977,66 +989,40 @@
             });
 
             saveGroupResults();
-            submitResultsToGoogleSheet({
-                name: userName,
-                group: groupName,
-                correct,
-                incorrect,
-                skipped,
-                percentage,
-                total: currentQuestions.length,
-                timestamp: new Date().toISOString()
-            });
 
-            // Show group results if there are multiple users
             if (groupResults[groupName].length > 1) {
                 displayGroupResults();
             }
         }
 
-        function submitResultsToGoogleSheet(result) {
-            const statusEl = document.getElementById('sheetStatus');
-            if (!googleSheetApiUrl) {
-                if (statusEl) {
-                    statusEl.textContent = 'Google Sheets URL belgilanmagan. API manzilni sozlang.';
-                }
-                return;
-            }
-
-            if (statusEl) {
-                statusEl.textContent = 'Natijalar Google Sheetsga yuborilmoqda...';
-            }
-
-            fetch(googleSheetApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(result)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (statusEl) {
-                    if (data && data.success) {
-                        statusEl.textContent = 'Natijalar Google Sheetsga saqlandi.';
-                    } else {
-                        statusEl.textContent = 'Yuborishda xatolik yuz berdi.';
+        async function loadGroupResults() {
+            const stored = localStorage.getItem('groupResults');
+            if (stored) {
+                try {
+                    const parsed = JSON.parse(stored);
+                    if (parsed && typeof parsed === 'object') {
+                        Object.keys(groupResults).forEach(key => delete groupResults[key]);
+                        Object.assign(groupResults, parsed);
                     }
+                } catch (error) {
+                    console.warn('Group results load failed', error);
                 }
-            })
-            .catch(error => {
-                console.error('Google Sheets submit error:', error);
-                if (statusEl) {
-                    statusEl.textContent = 'Google Sheetsga ulanishda xatolik yuz berdi.';
-                }
-            });
+            }
+        }
+
+        function saveGroupResults() {
+            try {
+                localStorage.setItem('groupResults', JSON.stringify(groupResults));
+            } catch (error) {
+                console.warn('Group results save failed', error);
+            }
         }
 
         function displayGroupResults() {
             const groupResultsDiv = document.getElementById('groupResults');
             const table = document.getElementById('groupTable');
             
-            const group = groupResults[groupName];
+            const group = groupResults[groupName] || [];
             table.innerHTML = '<tr><th>№</th><th>Ism</th><th>Test</th><th>To\'g\'ri Javoblar</th><th>Foiz</th></tr>';
             
             group.forEach((user, index) => {
@@ -1052,6 +1038,55 @@
             });
             
             groupResultsDiv.style.display = 'block';
+        }
+
+        function updateGroupNote() {
+            const note = document.getElementById('groupNote');
+            const groupNames = Object.keys(groupResults);
+            if (!note) return;
+            if (groupNames.length === 0) {
+                note.textContent = 'Guruh natijalari brauzerda saqlanadi. Yangi talaba kirishi mumkin.';
+            } else {
+                note.textContent = `Saqlangan guruhlar: ${groupNames.join(', ')}. Boshqa talabalar ham kirib test topshirishi mumkin.`;
+            }
+        }
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get('name') || '',
+                group: params.get('group') || '',
+                autostart: params.get('autostart') === '1'
+            };
+        }
+
+        function populateFromQuery() {
+            const { name, group, autostart } = getQueryParams();
+            if (group) {
+                groupName = group;
+                document.getElementById('shuffleStatus').textContent = `Guruh linki orqali kirdingiz: ${group}`;
+            }
+            if (name) {
+                document.getElementById('userName').value = name;
+            }
+            if (autostart && name) {
+                choosePartScreen();
+            }
+        }
+
+        function openNewStudentPanel() {
+            clearInterval(timerInterval);
+            userName = '';
+            groupName = '';
+            timeLeft = 15;
+            isPaused = false;
+            document.getElementById('pauseBtn').textContent = "To'xtatish";
+            document.getElementById('userName').value = '';
+            document.getElementById('shuffleStatus').textContent = '';
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'none';
+            updateGroupNote();
         }
 
         function restartTest() {

@@ -76,3 +76,37 @@ function doPost(e) {
 7. `index.html` ichida `googleSheetApiUrl` qiymatini o‘sha URL bilan almashtiring.
 
 Endi test yakunlanganda natijalar avtomatik Google Sheetsga yuboriladi.
+
+## Backend orqali ishlatish
+
+Agar siz lokal backend serveridan foydalanmoqchi bo'lsangiz, `server.js` fayliga qarang. Bu server:
+
+- `index.html` faylini xizmat qiladi
+- `/download-test` orqali `.doc` test faylini yuklab beradi
+- `/api/group-results` orqali guruh natijalarini qaytaradi
+- `/api/submit` orqali talaba natijalarini saqlaydi
+
+Lokal serverni ishga tushirish uchun:
+
+```bash
+npm install express
+node server.js
+```
+
+So'ng brauzerda `http://localhost:3000` manzilini oching.
+
+Agar `package.json` yo'q bo'lsa, quyidagilarni yaratishingiz mumkin:
+
+```json
+{
+  "name": "axborot-test-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.4"
+  }
+}
+```
