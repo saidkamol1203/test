@@ -524,105 +524,652 @@
     <script>
         // Arduino va Elektronika savollari
         const questions = [
-            { q: "1. Arduino dasturida setup() funksiyasi qanday vazifani bajaradi?", options: ["Cheksiz ishlaydi", "Bir marta ishga tushadi", "Har sekundda ishlaydi", "Faqat sensorlarni o‘qiydi"], correct: 1 },
-            { q: "2. Arduino dasturida loop() funksiyasi nima qiladi?", options: ["Bir marta ishlaydi", "Arduino o‘chadi", "Cheksiz takrorlanadi", "Faqat LED uchun ishlaydi"], correct: 2 },
-            { q: "3. pinMode(13, OUTPUT); buyrug‘i nimani bildiradi?", options: ["13-pin kirish rejimida ishlaydi", "13-pin chiqish rejimida ishlaydi", "13-pin o‘chiriladi", "13-pin analog rejimda ishlaydi"], correct: 1 },
-            { q: "4. digitalWrite(13, HIGH); buyrug‘i nima qiladi?", options: ["13-pinga kuchlanish beradi", "13-pinni o‘chiradi", "13-pinni kirish qiladi", "Arduino o‘chadi"], correct: 0 },
-            { q: "5. digitalWrite(13, LOW); buyrug‘i nimani anglatadi?", options: ["Pin yoqiladi", "Pin o‘chiriladi", "Pin analog bo‘ladi", "Pin sensor bo‘ladi"], correct: 1 },
-            { q: "6. delay(1000); buyrug‘i nimani bildiradi?", options: ["1 millisekund kutadi", "1 sekund kutadi", "10 sekund kutadi", "100 sekund kutadi"], correct: 1 },
-            { q: "7. Arduino dasturida pinni kirish rejimiga o‘tkazish uchun qaysi buyruq ishlatiladi?", options: ["pinWrite()", "digitalMode()", "pinMode(pin, INPUT)", "pinHigh()"], correct: 2 },
-            { q: "8. Arduino dasturida LED ni yoqish uchun qaysi buyruq ishlatiladi?", options: ["digitalWrite(pin, HIGH)", "digitalWrite(pin, LOW)", "pinMode(pin)", "delay(pin)"], correct: 0 },
-            { q: "9. Arduino dasturida HIGH qiymati nimani bildiradi?", options: ["0 volt", "3 volt", "5 volt", "10 volt"], correct: 2 },
-            { q: "10. Arduino dasturida LOW qiymati nimani bildiradi?", options: ["5 volt", "3 volt", "1 volt", "0 volt"], correct: 3 },
-            { q: "11. Arduino dasturida Serial aloqa boshlanishi uchun qaysi buyruq yoziladi?", options: ["Serial.start()", "Serial.begin()", "Serial.write()", "Serial.read()"], correct: 1 },
-            { q: "12. Serial.begin(9600); dagi 9600 nimani bildiradi?", options: ["Pin raqamini", "Xotira hajmini", "Ma’lumot uzatish tezligini (baud rate)", "Kuchlanishni"], correct: 2 },
-            { q: "13. Quyidagi buyruq nima qiladi? Serial.print(25);", options: ["25 sonini Serial Monitor ga chiqaradi", "25 sonini o‘chiradi", "LED ni yoqadi", "Arduino ni o‘chiradi"], correct: 0 },
-            { q: "14. Serial.println() funksiyasi Serial.print() dan nimasi bilan farq qiladi?", options: ["Yangi qatordan yozadi", "LED ni yoqadi", "Sensorni o‘chiradi", "Arduino ni o‘chiradi"], correct: 0 },
-            { q: "15. Arduino IDE da Serial Monitor ni ochish uchun qaysi klavishlar ishlatiladi?", options: ["Ctrl + S", "Ctrl + Shift + M", "Ctrl + C", "Ctrl + V"], correct: 1 },
-            { q: "16. Quyidagi kod nimani chiqaradi? Serial.println(\"Salom\");", options: ["Salom so‘zini chiqaradi", "LED ni yoqadi", "Arduino ni o‘chiradi", "Sensorni o‘chiradi"], correct: 0 },
-            { q: "17. Serial Monitor qaysi qurilma bilan aloqa qiladi?", options: ["Kompyuter va Arduino", "Sensor va LED", "Batareya va motor", "LCD va relay"], correct: 0 },
-            { q: "18. Serial Monitor ko‘pincha nima uchun ishlatiladi?", options: ["Dastur natijalarini tekshirish uchun", "Arduino ni o‘chirish uchun", "LED ni o‘zgartirish uchun", "Batareyani zaryadlash uchun"], correct: 0 },
-            { q: "19. Serial.print(\"Temp=\"); buyrug‘i nima qiladi?", options: ["Temp= yozuvini Serial Monitor ga chiqaradi", "Arduino ni o‘chiradi", "Sensorni o‘chiradi", "LED ni o‘chiradi"], correct: 0 },
-            { q: "20. Serial Monitor orqali foydalanuvchi nima qilishi mumkin?", options: ["Arduino ga ma’lumot yuborishi mumkin", "Arduino ni buzishi mumkin", "Arduino ni o‘chirishi mumkin", "LED ni olib tashlashi mumkin"], correct: 0 },
-            { q: "21. RTClib kutubxonasi Arduino da nima uchun ishlatiladi?", options: ["Sensorlarni boshqarish uchun", "Haqiqiy vaqt moduli bilan ishlash uchun", "LED ni yoqish uchun", "Motorni boshqarish uchun"], correct: 1 },
-            { q: "22. DS1307 RTC moduli Arduino bilan odatda qaysi aloqa protokoli orqali ishlaydi?", options: ["SPI", "UART", "I2C", "USB"], correct: 2 },
-            { q: "23. DS1307 modulida SDA pini Arduino UNO ning qaysi piniga ulanadi?", options: ["A4", "A5", "D13", "D2"], correct: 0 },
-            { q: "24. DS1307 modulida SCL pini Arduino UNO ning qaysi piniga ulanadi?", options: ["A3", "A4", "A5", "D12"], correct: 2 },
-            { q: "25. DateTime now = rtc.now(); buyrug‘i nima qiladi?", options: ["RTC ni o‘chiradi", "Hozirgi vaqtni RTC modulidan o‘qiydi", "Vaqtni o‘zgartiradi", "Arduino ni o‘chiradi"], correct: 1 },
-            { q: "26. Quyidagi kod nimani bildiradi? Serial.println(now.hour());", options: ["Soatni Serial monitorga chiqaradi", "Yilni chiqaradi", "Kunni chiqaradi", "Minutni chiqaradi"], correct: 0 },
-            { q: "27. Quyidagi kod nimani chiqaradi? Serial.println(now.minute());", options: ["Sekundni", "Soatni", "Minutni", "Yilni"], correct: 2 },
-            { q: "28. Quyidagi kod nimani chiqaradi? Serial.println(now.second());", options: ["Sekundni", "Soatni", "Kunni", "Yilni"], correct: 0 },
-            { q: "29. RTC modulining asosiy vazifasi nima?", options: ["Temperatura o‘lchash", "Haqiqiy vaqtni saqlash va hisoblash", "Kuchlanishni oshirish", "Signal kuchaytirish"], correct: 1 },
-            { q: "30. RTC modulida batareya nima uchun ishlatiladi?", options: ["Arduino ni ishlatish uchun", "Elektr uzilganda ham vaqtni saqlash uchun", "Sensorni ishlatish uchun", "LED ni yoqish uchun"], correct: 1 },
-            { q: "31. digitalRead(pin) funksiyasi qanday ma’lumot qaytaradi?", options: ["Analog qiymatni (0–1023)", "Raqamli holatni: HIGH yoki LOW", "Pin raqamini", "Vaqtni (millisekundlarda)"], correct: 1 },
-            { q: "32. digitalRead() funksiyasidan foydalanish uchun pin qanday rejimga o‘tkazilishi kerak?", options: ["OUTPUT", "INPUT yoki INPUT_PULLUP", "ANALOG", "PWM"], correct: 1 },
-            { q: "34. INPUT_PULLUP rejimi qanday afzallikka ega?", options: ["Tashqi pull-up rezistor kerak emas", "Pin tezroq ishlaydi", "Analog signallarni o‘qiydi", "Faqat LOW holatni beradi"], correct: 0 },
-            { q: "35. INPUT_PULLUP rejimida tugma bosilmaganda digitalRead() qanday qiymat qaytaradi?", options: ["LOW", "HIGH", "0", "1023"], correct: 1 },
-            { q: "36. Tugma bosilganda (INPUT_PULLUP rejimida) odatda qanday qiymat o‘qiladi?", options: ["HIGH", "LOW", "1", "Floating"], correct: 1 },
-            { q: "37. Quyidagi kod parchasi nimani anglatadi? int sensor = digitalRead(4); if (sensor == HIGH) {Serial.println(\"Motion!\"); }", options: ["Harakat yo‘q bo‘lsa xabar chiqadi", "Harakat bo‘lsa xabar chiqadi", "Har doim xabar chiqadi", "Hech qachon xabar chiqarmaydi"], correct: 1 },
-            { q: "38. digitalRead() funksiyasi qaysi turdagi sensorlar bilan ko‘pincha ishlatiladi?", options: ["Faqat harorat sensorlari", "Tugma, rele, PIR motion sensor, ON/OFF datchiklar", "Faqat analog sensorlar", "Faqat ultratovush sensorlari"], correct: 1 },
-            { q: "39. Pull-down rezistor qo‘yilganda tugma bosilmaganda pin qanday holatda bo‘ladi?", options: ["HIGH", "LOW", "Floating", "3.3V"], correct: 1 },
-            { q: "40. Quyidagi holatlardan qaysi biri digitalRead() uchun to‘g‘ri emas?", options: ["HIGH ≈ 5V (yoki 3.3V)", "LOW ≈ 0V", "Qiymatlar 0 yoki 1 sifatida saqlanadi", "Har qanday qiymatni (masalan 512) qaytarishi mumkin"], correct: 3 },
-            { q: "41. HC-SR04 datchigi bilan masofa o‘lchash uchun qaysi pin ishlatiladi?", options: ["Trig – signal yuborish, Echo – signal qabul qilish", "Trig – signal qabul qilish, Echo – signal yuborish", "Ikkalasi ham analog kirish", "Ikkalasi ham chiqish"], correct: 0 },
-            { q: "42. pulseIn(echo, HIGH) funksiyasi qanday ma’lumot beradi?", options: ["Signal kuchini", "Signal vaqtini mikrosekundda", "Pin raqamini", "Masofani santimetrda"], correct: 1 },
-            { q: "43. Masofani hisoblash formulasida vaqtni 2 ga bo‘lish sababini aniqlang:", options: ["Tovush tezligini oshirish uchun", "Signal borib va qaytib kelish vaqtini hisoblash uchun", "Aniqlikni oshirish uchun", "Santimetrga o‘tkazish uchun"], correct: 1 },
-            { q: "44. Havodagi tovush tezligi odatda qancha deb olinadi?", options: ["300 m/s", "340 m/s", "1500 m/s", "1000 m/s"], correct: 1 },
-            { q: "45. Trig piniga impuls berishda delayMicroseconds(10) nima uchun ishlatiladi?", options: ["Sensor minimal 10 mikrosekund impuls yuborishi uchun", "Arduino’ni tezlashtirish uchun", "Echo signalini kutish uchun", "Haroratni barqarorlashtirish uchun"], correct: 0 },
-            { q: "46. HC-SR04 datchigi bilan o‘lchash oralig‘i odatda nechchi santimetr?", options: ["1–100 sm", "2–400 sm", "10–1000 sm", "0–50 sm"], correct: 1 },
-            { q: "47. Ultrasonik datchikning asosiy kamchiligi nima?", options: ["Faqat qorong‘uda ishlaydi", "Yumshoq sirtlar tovushni yutib yuborishi mumkin", "Har doim shaffof narsalarni ko‘radi", "Juda qimmat"], correct: 1 },
-            { q: "48. INPUT_PULLUP rejimida tugma bosilganda digitalRead() qanday qiymat beradi?", options: ["HIGH", "LOW", "Floating", "1023"], correct: 1 },
-            { q: "49. Relay moduli Arduino’da qanday asosiy vazifani bajaradi?", options: ["Masofani o‘lchash", "Katta kuchlanishdagi qurilmalarni (220V) kichik signal bilan boshqarish", "Vaqtni saqlash", "Analog signallarni o‘qish"], correct: 1 },
-            { q: "50. Relay ichida qanday mexanizm yordamida kontaktlar ochiladi/yopiladi?", options: ["Tranzistor orqali", "Elektromagnit (g‘altak) orqali", "Optik sensor orqali", "Kondensator orqali"], correct: 1 },
-            { q: "51. Ko‘pchilik relay modullarida qancha boshqaruv pini bo‘ladi?", options: ["2 ta", "3 ta (VCC, GND, IN)", "4 ta", "5 ta"], correct: 1 },
-            { q: "52. Relayning IN (signal) piniga HIGH berilganda ko‘pincha nima bo‘ladi?", options: ["Relay doim o‘chadi", "Relay yoqiladi (modul turiga qarab, ba’zilarida LOW yoqadi)", "Hech qanday o‘zgarish bo‘lmaydi", "Pin rejimi INPUT ga o‘tadi"], correct: 1 },
-            { q: "53. Relay kontaktalaridan qaysi biri “odatda uzilgan” holatda bo‘ladi?", options: ["COM", "NO (Normally Open)", "NC (Normally Closed)", "VCC"], correct: 1 },
-            { q: "54. NC (Normally Closed) kontakt qachon ulangan bo‘ladi?", options: ["Relay yoqilganda", "Relay o‘chirilganda", "Har doim uzilgan", "Faqat 220V bo‘lganda"], correct: 1 },
-            { q: "55. Relay modulini Arduino’ga ulashda GND piniga nima ulanadi?", options: ["5V", "Arduino GND", "Qurilma (lampa)ning fazasi", "Echo pin"], correct: 1 },
-            { q: "56. Elektronika fani asosan qaysi sohalarga asoslanadi?", options: ["Faqat mexanika va termodinamikaga", "Elektromagnit maydon nazariyasi, kvant mexanikasi, qattiq jism tuzilishi va elektr o‘tkazuvchanlik hodisalariga", "Faqat optika va akustikaga", "Biologiya va kimyoga"], correct: 1 },
-            { q: "57. Sxema nima deb ataladi va uning asosiy vazifasi nima?", options: ["Qurilmaning narxini ko‘rsatuvchi hujjat", "Qurilmaning elementlari qanday ulanganini va ishlashini ko‘rsatuvchi chizma (qurilmaning “pasporti” yoki “xaritasi”)", "Faqat rangli chizma", "Dasturiy ta’minot kodlari"], correct: 1 },
-            { q: "58. Quyidagi sxema turlaridan qaysi biri qurilmaning alohida qismlarini “blok” ko‘rinishida ko‘rsatadi?", options: ["Elektr sxemalari", "Elektron sxemalar", "Funktsional sxemalar", "Blok-sxemalar"], correct: 3 },
-            { q: "59. Tranzistor qaysi yilda ixtiro qilingan va kimlar tomonidan?", options: ["1904-yilda Jon Fleming tomonidan", "1947-yilda John Bardeen, Walter Brattain va William Shockley tomonidan", "1960-yillarda Robert Noyce va Jack Kilby tomonidan", "1971-yilda Intel kompaniyasi tomonidan"], correct: 1 },
-            { q: "60. Zamonaviy elektronika davrida (XXI asr) qaysi yo‘nalishlar asosiy rivojlanish sifatida tilga olinadi?", options: ["Faqat vakuum lampalari va radio", "Nanoelektronika, mobil texnologiyalar (smartfonlar, IoT), sun’iy intellekt chiplari va kvant kompyuterlar", "Faqat shaxsiy kompyuterlar (PC)", "Faqat telegraf va telefon"], correct: 1 },
-            { q: "61. Rezistorning asosiy vazifasi nima?", options: ["Elektr zaryadini saqlash", "Tokni cheklash yoki taqsimlash", "Magnit maydon hosil qilish", "Yorug‘lik chiqarish"], correct: 1 },
-            { q: "62. Kondensatorning shartli grafik belgisi qanday ko‘rinishda bo‘ladi?", options: ["Zigzag chiziq", "Ikki parallel chiziq", "Spiral shakl yoki bobin", "Uchburchak ichida chiziq"], correct: 1 },
-            { q: "63. Quyidagi elementlardan qaysi biri tok o‘tganda yorug‘lik chiqaradi?", options: ["Rezistor", "Kondensator", "Induktor", "LED (Light Emitting Diode)"], correct: 3 },
-            { q: "64. Elektron sxema simulyatorlarining qaysi turi analog va raqamli komponentlarni bir vaqtda ishlatishga imkon beradi?", options: ["Faqat analog simulyatorlar", "Faqat raqamli simulyatorlar", "Aralash (Mixed-signal) simulyatorlar", "Faqat logik simulyatorlar"], correct: 2 },
-            { q: "65. Electronics Workbench (EWB) paketi haqida qaysi gap to‘g‘ri?", options: ["Faqat raqamli sxemalarni simulyatsiya qiladi", "Analog va raqamli sxemalarni yaratish va simulyatsiya qilish uchun ishlatiladi, tok va kuchlanishni o‘lchash imkoniyati bor", "Faqat dasturiy kod yozish uchun mo‘ljallangan", "Haqiqiy komponentlarni majburiy ravishda ulashni talab qiladi"], correct: 1 },
-            { q: "66. Raqamli sxemotexnika asosan qanday signallar bilan ishlaydi?", options: ["Uzluksiz o‘zgaruvchan signallar (analog)", "Faqat ikki holatli signallar: 0 va 1 (raqamli)", "Faqat tovush va harorat signallari", "Magnit maydon signallari"], correct: 1 },
-            { q: "67. Quyidagi mantiqiy elementlardan qaysi biri \"VA\" (AND) deb ataladi?", options: ["OR (YOKI)", "NOT (INKOR)", "AND (VA)", "XOR"], correct: 2 },
-            { q: "68. Hisoblash texnikasining asosiy elementlaridan biri bo‘lgan operativ xotira qanday ataladi?", options: ["ROM (Doimiy xotira)", "RAM (Operativ xotira)", "Mikroprotsessor", "Aloqa interfeysi"], correct: 1 },
-            { q: "69. Quyidagi elektr kattaliklardan qaysi biri quvvatni ifodalaydi?", options: ["(I) – Amper (A)", "(U) – Volt (V)", "(P) – Watt (W)", "(Q) – Kulon (C)"], correct: 2 },
-            { q: "70. Elektr zanjirlarida parallel ulashda qaysi kattalik barcha elementlar uchun bir xil bo‘ladi?", options: ["Tok (I)", "Qarshilik (R)", "Kuchlanish (U)", "Energiya (W)"], correct: 2 },
-            { q: "71. O'zgarmas tok elektr zanjirida Om qonuni qanday ifodalanadi?", options: ["U = I + R", "U = I * R", "P = U / I", "I = U + R"], correct: 1 },
-            { q: "72. Ketma-ket ulangan rezistorlarda qaysi kattalik barcha elementlar uchun bir xil bo‘ladi?", options: ["Kuchlanish (U)", "Tok (I)", "Quvvat (P)", "Qarshilik (R)"], correct: 1 },
-            { q: "73. Kirxgofning birinchi qonuni (toklar qonuni) nimani bildiradi?", options: ["Konturda kuchlanishlar yig'indisi nolga teng", "Tugun nuqtada kiruvchi va chiquvchi toklar yig'indisi nolga teng", "Umumiy quvvat doimiy", "Tok kuchlanishga teskari proportsional"], correct: 1 },
-            { q: "74. Elektr zanjirida quvvat qanday formula bilan hisoblanadi?", options: ["P = U * I", "P = I * R", "P = U / R", "P = U + I"], correct: 0 },
-            { q: "75. Murakkab doimiy tok zanjirlarini hisoblashda kontur toklar usuli qaysi qonunga asoslanadi?", options: ["Faqat Om qonuniga", "Kirxgofning ikkinchi qonuli (kontur bo‘ylab kuchlanishlar yig‘indisi) va birinchi qonunga", "Faqat parallel ulash qoidasiga", "Quvvat hisobiga"], correct: 1 },
-            { q: "76. Murakkab elektr zanjirida Kirxgof qonunlarini qo‘llashning asosiy maqsadi nima?", options: ["Faqat oddiy zanjirlardagi tokni topish", "Tarmoqlangan (murakkab) zanjirlardagi noma'lum toklar va kuchlanishlarni aniqlash", "Faqat quvvatni hisoblash", "Zanjirni faqat ketma-ket ulash uchun"], correct: 1 },
-            { q: "77. Arduino Uno’da raqamli (digital) pinlar nechta?", options: ["10 ta", "12 ta", "14 ta", "16 ta"], correct: 2 },
-            { q: "78. Arduino’da GND pini nima vazifani bajaradi?", options: ["Signal uzatadi", "Quvvat beradi", "Umumiy yer (minus) vazifasini bajaradi", "Reset qiladi"], correct: 2 },
-            { q: "79. LED’ni Arduino’ga ulashda rezistor nima uchun kerak?", options: ["Kuchlanishni oshirish uchun", "Tokni cheklash uchun", "Rangni o‘zgartirish uchun", "Signallarni kuchaytirish uchun"], correct: 1 },
-            { q: "80. LED’ning uzun oyog‘i (anodi) qayerga ulanadi?", options: ["GND ga", "Analog pin ga", "Digital pin ga (rezistor orqali)", "Reset pin ga"], correct: 2 },
-            { q: "81. Arduino Uno’da 5V pini nima uchun ishlatiladi?", options: ["Dastur yozish uchun", "Sensor va modullarni quvvatlash uchun", "Signal qabul qilish uchun", "Reset qilish uchun"], correct: 1 },
-            { q: "82. Ketma-ket ulangan rezistorlarda qaysi kattalik bir xil bo‘ladi?", options: ["Kuchlanish", "Qarshilik", "Tok kuchi", "Quvvat"], correct: 2 },
-            { q: "83. Parallel ulangan rezistorlarda qaysi kattalik bir xil bo‘ladi?", options: ["Tok", "Qarshilik", "Quvvat", "Kuchlanish"], correct: 3 },
-            { q: "84. Parallel ulangan rezistorlarning umumiy qarshiligi qanday bo‘ladi?", options: ["Eng kattasiga teng", "Eng kichigidan katta", "Eng kichigidan kichik", "Nolga teng"], correct: 2 },
-            { q: "85. 12 V manbaga 4 Ω rezistor ulangan. Tok kuchi nechaga teng?", options: ["1 A", "2 A", "3 A", "4 A"], correct: 2 },
-            { q: "86. 12 V manbaga 6 Ω rezistor ulangan. Tok kuchi nechaga teng?", options: ["1 A", "2 A", "3 A", "6 A"], correct: 1 },
-            { q: "87. Kirxgof birinchi qonuni nimani ifodalaydi?", options: ["Kuchlanishlar yig‘indisini", "Qarshiliklar yig‘indisini", "Tugundagi toklar balansini", "Quvvatni"], correct: 2 },
-            { q: "88. Tugunda Kirxgof qonuniga ko‘ra nima bajariladi?", options: ["Kiruvchi toklar yig‘indisi = chiquvchi toklar yig‘indisi", "Kuchlanish nolga teng", "Qarshilik maksimal bo‘ladi", "Tok nol bo‘ladi"], correct: 0 },
-            { q: "89. Bir LED 2V da yonadi. Manba kuchlanishi 5V. LED dan 20 mA tok o‘tkazmoqchisiz. Qanday rezistor qo‘yish kerak?", options: ["100 Ω", "150 Ω", "220 Ω", "330 Ω"], correct: 1 },
-            { q: "90. Arduino pinidan 5V chiqadi. Siz 3.3V bilan ishlaydigan sensorni ulamoqchisiz. Sensor 15 mA tok tortadi. Qarshilikni toping.", options: ["56 Ω", "113 Ω", "120 Ω", "220 Ω"], correct: 1 },
-            { q: "91. 9V manbadan 3V ga tushirmoqchisiz. Qurilma 20 mA tok iste’mol qiladi. Rezistor qiymati qancha?", options: ["150 Ω", "220 Ω", "300 Ω", "330 Ω"], correct: 2 },
-            { q: "92. 12 V kuchlanishli manbaga 4 Ω va 6 Ω rezistorlar parallel ulangan. Har bir tarmoqdagi tokni toping.", options: ["3 A va 2 A", "3 A va 2,5 A", "4 A va 6 A", "2 A va 8 A"], correct: 0 },
-            { q: "93. Ketma-ket ulangan R1 = 2 Ω, R2 = 8 Ω, R3 = 7 Ω. Umumiy qarshilikni toping.", options: ["16 Ω", "25 Ω", "35 Ω", "17 Ω"], correct: 3 },
-            { q: "94. 24 V kuchlanishda 4 A tok oqmoqda. Qarshilikni aniqlang.", options: ["4 Ω", "5 Ω", "6 Ω", "8 Ω"], correct: 2 },
-            { q: "95. Ketma-ket ulangan 4 Ω, 6 Ω va 10 Ω rezistorlar umumiy qarshiligi nechaga teng?", options: ["18 Ω", "20 Ω", "22 Ω", "24 Ω"], correct: 1 },
-            { q: "96. Parallel ulangan 4 Ω va 4 Ω rezistorlar 8 V manbaga ulangan. Umumiy tokni toping.", options: ["2 A", "4 A", "6 A", "8 A"], correct: 1 },
-            { q: "97. 15 V manbaga 3 Ω rezistor ulangan. Tok kuchini aniqlang.", options: ["3 A", "4 A", "5 A", "6 A"], correct: 2 },
-            { q: "98. 5 A tok 5 Ω rezistordan o‘tmoqda. Kuchlanish nechaga teng?", options: ["10 V", "15 V", "20 V", "25 V"], correct: 3 },
-            { q: "99. Ketma-ket ulangan 2 Ω va 3 Ω rezistorlardan 2 A tok o‘tmoqda. Umumiy kuchlanishni toping.", options: ["5 V", "8 V", "10 V", "12 V"], correct: 2 }
-        ];
+  {
+    q: "1. Qaysi asarda dehqonlarga nisbatan: “O‘zing bular bilan aralashgin, qo‘shilgin, tilda yaxshi so‘zla, yuzungni ochiq tut” deya ta’rif berilgan?",
+    options: ["Qutadg‘u bilik", "Hayrat ul-abror", "Mahbub ul-qulub", "Hibat ul-haqoyiq"],
+    correct: 0
+  },
+  {
+    q: "2. Qaysi olim tabiatda hayot bahordan boshlangani kabi ta’lim olish jarayoni uchun eng qulay davr bolalik ekanligini ta’kidlagan?",
+    options: ["Ya.A.Komenskiy", "Abdulla Avloniy", "Disterveg", "Gerbart"],
+    correct: 0
+  },
+  {
+    q: "3. Pedagogika olamiga savol – javob “Evristik” suhbat metodini olib kelgan faylasuf olim?",
+    options: ["Suqrot", "Arastu", "Aflotun", "Demokrit"],
+    correct: 0
+  },
+  {
+    q: "4. “Takrorlash bilimning asosidir”. Ushbu ibora qaysi pedagogga tegishli?",
+    options: ["K. D. Ushinskiy", "YA.A. Komenskiy", "A.S. Makarenko", "A.Avloniy"],
+    correct: 1
+  },
+  {
+    q: "5. Yusuf Hos Hojibning “Qutadg`u bilig” asarini chinliklar qanday nomlagan?",
+    options: ["“Adab ul-mulk”", "“Anis ui mamolik”", "“Ziynal ul umaro”", "“Shohnomai turkiy”"],
+    correct: 0
+  },
+  {
+    q: "6. “Qutadg`u bilig” ma`nosi nimani anglatadi?",
+    options: ["Saodatga boshlovchi bilim", "Haqiqatlar armug`oni", "Baxt-saodatga erishuv to`g`risida", "Ilmlarning kelib chiqishi"],
+    correct: 0
+  },
+  {
+    q: "7. Maktab tarixida ta‘limning mukammal jamoa shakli bo’lgan sinf-dars tizimi qachon va kim tomonidan yaratilgan?",
+    options: ["XVII asr boshlarida Ya. A. Komenskiy tomonidan", "XV asrda Pestallotsi tomonidan", "XI asr oxirida Xorazmiy tonidan", "1985-yilda K. D. Ushinskiy tomonidan"],
+    correct: 0
+  },
+  {
+    q: "8. Ta’lim – tarbiyaga birinchi bo‘lib ilmiy ta’rif bergan olim?",
+    options: ["Abu Nasr Farobiy", "Al – Xorazmiy", "Abdulla Avloniy", "Abu Rayhon Beruniy"],
+    correct: 0
+  },
+  {
+    q: "9. YA.Komenskiy ta’rifi bilan aytganda “Didaktikaning oltin qoidasi bu -…”",
+    options: ["Ko‘rgazmalilik", "Ilmiylik", "Tushunarlilik", "Obrazlilik"],
+    correct: 0
+  },
+  {
+    q: "10. Pedagogika fani rivojlanishiga hissa qo‘shgan Sharq allomalari…",
+    options: ["Abu Nasr Farobiy, Al-Xorazmiy, Abu Rayhon Beruniy", "Sa`diy Sheroziy, Mahmud G`aznaviy, Abdulqodir Bedil", "Yan Amos Komenskiy, Adolf Disterveg, Anton Makarenko", "Kaykovus, Aflotun, Davoniy"],
+    correct: 0
+  },
+  {
+    q: "11. Pedagogika rivojlanishiga hissa qo‘shgan g‘arb pedagog-olimlari...",
+    options: ["Yan Amos Komenskiy, Adolf Disterveg", "Abu Nasr Farobiy, Al-Xorazmiy", "Xudoyberdi To‘xtaboev. Erkin Voxidov", "Arastu, Suqrot"],
+    correct: 0
+  },
+  {
+    q: "12. Mashhur yunon faylasufi Arastudan keyin sharqda kimni ”Muallimi soniy” – ”Ikkinchi muallim” deb ataganlar?",
+    options: ["Farobiy", "Davoniy", "Navoiy", "Komenskiy"],
+    correct: 0
+  },
+  {
+    q: "13. “Fozil odamlar shahri” va “Ruhiy madaniyat haqida risola” asarlari muallifi kim?",
+    options: ["Farobiy", "Davoniy", "Navoiy", "Komenskiy"],
+    correct: 0
+  },
+  {
+    q: "14. Turkiy tilda yaratilgan 1-didaktik asar",
+    options: ["“Qutadg‘u bilig”", "“Turkiy guliston yoxud axloq”", "“Fozil odamlar shahri”", "“Qobusnoma”"],
+    correct: 0
+  },
+  {
+    q: "15. “Usuli jadid” maktablari uchun to‘rt qismdan iborat “Adabiyot yohud milliy she’rlar”, “Birinchi muallim”, “Turkiy guliston yohud ahloq”, “Ikkinchi muallim”, “Maktab gulistoni” kabi darslik va o‘qish kitoblarini qaysi adib yaratgan?",
+    options: ["Abdulla Avloniy", "Mahmud Qoshg‘ariy", "Munavvarqori Abdurashidxonov", "Siddiq Rajabov"],
+    correct: 0
+  },
+  {
+    q: "16. Avestodagi bosh g‘oya - ...",
+    options: ["Ezgu fikr, ezgu so‘z, ezgu amal", "Ozob va obod vatan, farovon turmush", "Dil ba yoru dast bakor", "Kuch – adolatda"],
+    correct: 0
+  },
+  {
+    q: "17. Arablar “daryo orti” deb atagan hudud - ?",
+    options: ["Movarounnahr", "Xuroson", "Kaspiy bo‘yi", "Qashqar"],
+    correct: 0
+  },
+  {
+    q: "18. Xorazm shohi Ma’mun-2 tomonidan tashkil etilgan muassasa - ?",
+    options: ["“Ma’mun akademiyasi”", "“Fanlar akademiyasi”", "“Baytul hikma”", "“Foziliya”"],
+    correct: 0
+  },
+  {
+    q: "19. Bilish nazariyasiga o‘z hissasini qo‘shgan, 1-lardan bo‘lib sinov-kuzatish va sinov metodlariga asos solgan mutafakkir ...",
+    options: ["Muhammad al-Xorazmiy", "Abu Nasr Farobiy", "Abu Rayhon Beruniy", "Munis Xorazmiy"],
+    correct: 2
+  },
+  {
+    q: "20. Abu Rayhon Beruniy inson kamolotida uch narsa muhimligini ta’kidlaydi. Bular qaysilar?",
+    options: ["irsiyat, muhit, tarbiya", "ota-ona, oila, jamiyat", "meros, boylik, davlat", "salomatlik, ilm, hunar"],
+    correct: 0
+  },
+  {
+    q: "21. Sharqda “Shayx ul-rais” unvoniga sazovor bo‘lgan mutafakkir -",
+    options: ["Abu Ali ibn Sino", "Muhammad al-Xorazmiy", "Abu Nasr Farobiy", "Abu Rayhon Beruniy"],
+    correct: 0
+  },
+  {
+    q: "22. Mirzo Ulug‘bek qaysi shaharlarda madrasalar (oliy ta’lim muassasasi) barpo etgan?",
+    options: ["Samarqand, Buxoro, G‘ijduvon", "Toshkent, Samarqand, Buxoro", "Samarqand, Buxoro, Qo‘qon", "Samarqand, Xirot, Bag‘dod"],
+    correct: 0
+  },
+  {
+    q: "23. Samarqanddagi Ulug‘bek qurdirgan madrasa peshtoqiga qanday so‘zlar bitilgan?",
+    options: ["Bilimga intilish har bir mo‘min va muslima uchun farzdir", "Hatto Xitoyda bo‘lsa ham ilm izla", "Oq yo‘l, rohi safed", "Xush kelibsiz, tolibi ilmlar"],
+    correct: 0
+  },
+  {
+    q: "24. Alisher Navoiy ta’rifi bo‘yicha achchiq, ammo foyda beruvchi, qattiq, ammo zararni daf etuvchi va shodliklar kaliti nima?",
+    options: ["Sabr", "Ilm", "Aql", "Donolik"],
+    correct: 0
+  },
+  {
+    q: "25. Ibrat taxallusi qaysi jadid ma’rifatparvar adibga tegishli?",
+    options: ["Isxoqxon Judaydullaxon o‘g‘li", "Mahmudxo‘ja Behbudiy", "Munavvarqori Abdurashidxonov", "Ismoilbek Gaspirinskiy"],
+    correct: 0
+  },
+  {
+    q: "26. Qadimgi Afina davlatida ta’lim-tarbiya ishlari bilan shug‘ukhovchi kishilar qanday atalgan?",
+    options: ["Didaskol", "Efeblar", "Pedonom", "Pedagog"],
+    correct: 3
+  },
+  {
+    q: "27. Qadimgi VI- VIII asr yozma yodgorlik to’g’ri ko’rsatilgan qatorni ko’rsating?",
+    options: ["Orxun – Enasoy yodgorliklari", "Yunon yozuvi", "Irq bitiklari", "Oromiy"],
+    correct: 0
+  },
+  {
+    q: "28. Eng qadimgi madaniy boyliklarimizni o`rganish necha guruhga bo`lingan va qanday manbalarga tayaniladi?",
+    options: [
+      "3 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Buyuk adiblar, allomalarning ijodiy merosiga, Xalq og`zaki ijodi materiallari hamda yozma manbalarga tayanadi",
+      "2 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Quroni Karimga tayanadi",
+      "3 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Urxun-Enisey bitiklari, qadimgi eposlarda aks etgan afsonaviy obrazlar",
+      "4 guruhga bo`linadi va Avestoga, Quronga, qadimgi grek tarixchisi Gerodotning “Tarix”, Strabonning “Geografiya” asarlariga tayanadi"
+    ],
+    correct: 0
+  },
+  {
+    q: "29. “Ustoz shogirdlariga qattiq zulm ham, haddan tashqari ko’ngilchanlik ham qilmasligi lozim”. Ushbu fikr qaysi allomaga tegishli?",
+    options: ["Abu Nasr Forobiy", "Abu Rayhon Beruniy", "Alisher Navoiy", "Abu Ali ibn Sino"],
+    correct: 3
+  },
+  {
+    q: "30. O‘rta Osiyo mutafakkirlaridan qaysi alloma birinchi marta bolalarni jamoa bo‘lib, maktabda o‘qitishning ahamiyatini ilmiy asoslab bergan?",
+    options: ["Ibn Sino", "Forobiy", "Beruniy", "al-Xorazmiy"],
+    correct: 0
+  },
+  {
+    q: "31. “Juvonmardlik asli 3 narsadir: biri ulkim, aytgan so‘zingni o‘zing qilsang, ikkinchisi ulkim, xayrli ishni ilgari tutsang, odamdan qilgan barcha sifatlar bu uch narsaning ostidadur”. Ushbu fikrning muallifi kim?",
+    options: ["Kaykovus", "Yusuf Xos Hojib", "Ahmad Yugnakiy", "Koshifiy"],
+    correct: 0
+  },
+  {
+    q: "32. Turkiy tilda yaratilgan dastlabki ta’limiy-axloqiy asar?",
+    options: ["“Devoni lug‘otit-turk”", "“Qutadg‘u bilig”", "“Hibbat-ul haqoyiq”", "“Mahbub-ul qulub”"],
+    correct: 1
+  },
+  {
+    q: "33. Ibtidoiy jamoa davrlarida tarbiyaning yuzaga kelishiga sabab bo‘lgan shart-sharoitlar nimalardan iborat?",
+    options: [
+      "Ibtidoiy kishilarning mehnat faoliyati va bunda tarkib topgan ijtimoiy munosabatlar.",
+      "Kohinlar va oqsoqollarning maqsadga muvofiq faoliyati.",
+      "Bolalarning kattalarga taqlidi.",
+      "Kishilarning o‘z nasl-nasabini davom ettirishda tabiiy-biologik negizga asoslanishi."
+    ],
+    correct: 0
+  },
+  {
+    q: "34. Eng qadimgi davrlardagi ma’naviy madaniyatimiz, xususan, bolalar tarbiyasi tizimini o‘rganishda asos bo‘lgan manbani ayting.",
+    options: ["Avesto", "Quro‘ni Karim", "Ibn Sino. «Axloq haqida risola»", "Ma’rifatparvarlarning asarlari"],
+    correct: 0
+  },
+  {
+    q: "35. Xalq ommasi tomonidan yaratilgan va avloddan-avlodga o‘tib kelayotgan ta’lim-tarbiya ishlarini amalga oshirish bobida qo‘llanib kelingan usul, vosita, ko‘nikma va malakalar birligini ifodalovchi tajribalar asosida to‘plangan bilim va ma’lumotlar yig‘indisi.",
+    options: ["Xalq pedagogikasi", "Umumiy pedagogika", "Tarbiya nazariyasi", "Didaktik nazariyasi"],
+    correct: 0
+  },
+  {
+    q: "36. Pedagogika tarixi bo‘limining asosiy manbalari qaysilar?",
+    options: [
+      "Xalq og‘zaki ijodi, pedagogik qadriyatlar, tarixiy manbalar, ta’lim tarbiyaga doir asarlar, davlat qonun va qarorlari",
+      "Davlat hujjatlari, tarixiy g‘oyalar, pedagogik meros",
+      "Milliy meros va umumiy qadriyatlar",
+      "Buyuk pedagoglar asarlari, xalq pedagogik adabiyotlari"
+    ],
+    correct: 0
+  },
+  {
+    q: "37. “Turkiy Guliston yoxud axloq” asarining muallifi.",
+    options: ["Abdulla Avloniy", "Munavvar Qori Abdurashitxonov", "Abdulhamid o’g’li Fitrat", "Mahmudxo’ja Behbudiy"],
+    correct: 0
+  },
+  {
+    q: "38. “Qutadg‘u bilig” asarining muallifi.",
+    options: ["Yusuf Xos Hojib", "Kaykovus", "Alisher Navoiy", "Abu Nasr Forobiy"],
+    correct: 0
+  },
+  {
+    q: "39. “Turkiy Guliston yoxud axloq” asarida komil inson tarbiyasiga oid ilgari surilgan g‘oyalar.",
+    options: ["Aqliy tarbiya, axloqiy tarbiya, vijdon tarbiyasi", "Vatan muhabbati, inson odobi.", "Axloqiy tarbiya, vijdon tarbiyasi", "Tarbiya, inson odobi"],
+    correct: 0
+  },
+  {
+    q: "40. “Mudarris ota-onasining mansabi, boyligiga qarab bolaga muomala qilmasligi kerak”. Ushbu fikrlar qaysi Sharq mutafakkirining qalamiga mansub?",
+    options: ["Alisher Navoiy", "Abdurahmon Jomiy", "Abu Nasr Forobiy", "Abu Ali ibn Sino"],
+    correct: 3
+  },
+  {
+    q: "41. Odob – bu:",
+    options: [
+      "Har bir insonning o‘zi bir inson yoki jamoa bilan bo‘lgan muloqotida hamda yurish-turishida o‘zini tuta bilishidir",
+      "Insonning yurish-turishini belgilab beradi",
+      "Insonning muomala odobini belgilab beradi",
+      "Insonning kuchli iroda egasi ekanligi"
+    ],
+    correct: 0
+  },
+  {
+    q: "42. XIX asrning 2-yarimi – XX asrda pedagogika faniga hissa qo‘shgan olimlar qaysi qatorda to‘g‘ri ko‘rsatilgan?",
+    options: ["Abdulla Avloniy, Abdurauf Fitrat, Mahmudxo’ja Behbudiy", "Abdurahmon Jomiy, Abdurauf Fitrat", "Amir Temur, Boborahim Mashrab", "Ibn Sino, Gulxaniy"],
+    correct: 0
+  },
+  {
+    q: "43. Tarbiyaning tabiatga uyg‘un bo‘lish prinsipini qaysi pedagog o‘z ishida ta’riflagan?",
+    options: ["Yan Amon Komenskiy", "Adolf Disterveg", "Jan Jak Russo", "Iogani Genrix Pestolotsiy"],
+    correct: 0
+  },
+  {
+    q: "44. O‘qituvchi – bu:",
+    options: [
+      "Fundamental va mutaxassislik fanlarini chuqur egallagan yuqori saviyali dars beradigan kishi",
+      "Madaniyatli, to‘g‘ri yo‘nalish ola biladigan shaxs",
+      "Yuksak madaniyatli, o‘quvchilar qiziqishini qondira oladigan odam",
+      "O‘quvchilarga bilim beruvchi shaxs"
+    ],
+    correct: 0
+  },
+  {
+    q: "45. Pedagogik faoliyatning obyekti kim?",
+    options: ["O'quvchi / Bola", "O'qituvchi", "Darslik", "Maktab"],
+    correct: 0
+  },
+  {
+    q: "46. Pedagogik mahorat qanday asosiy tarkibiy qismlarga ega?",
+    options: [
+      "o'qituvchi shaxsiyatining insonparvar yo'nalishi, kasbiy bilimlar, pedagogik qobiliyat, pedagogik texnika",
+      "kasbiy ta'lim, metodik bilim, pedagogik texnika, pedagogik qobiliyat",
+      "pedagogik texnika, o'qituvchi shaxsiyatining insonparvar yo'nalishi, kasbiy bilim, metodik bilim",
+      "fan metodologiyasi, pedagogik qobiliyat, pedagogik mahorat, muloqot ehtiyoji"
+    ],
+    correct: 0
+  },
+  {
+    q: "47. Akademik qobiliyat nima?",
+    options: [
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
+      "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
+      "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
+      "sinf guruhini uyushtirish va boshqarish iste'dodi"
+    ],
+    correct: 0
+  },
+  {
+    q: "48. Kommunikativ qobiliyat bu nima?",
+    options: [
+      "muomala va muloqot o'rnata olish mahorati",
+      "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
+      "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
+    ],
+    correct: 0
+  },
+  {
+    q: "49. Tashkilotchilik qobiliyati deganda nimani tushunasiz?",
+    options: [
+      "o'quvchilar faoliyatini, sinf jamoasini uyushtirish va uni boshqara olish",
+      "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
+      "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
+    ],
+    correct: 0
+  },
+  {
+    q: "50. Nutqiy qobiliyat nima?",
+    options: [
+      "ixcham, ma'noli, ohangdor, muayyan ritm, tempga ega bo'lgan nutq, nutqning mantiqiy ifodaliligi",
+      "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
+      "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
+    ],
+    correct: 0
+  },
+  {
+    q: "51. Perseptiv qobiliyatga berilgan to'g'ri ta'rifni belgilang!",
+    options: [
+      "qisqa daqiqalarda sinf holatini idrok qila olish fazilati",
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
+      "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
+      "sinf guruhini uyushtirish va boshqarish iste'dodi"
+    ],
+    correct: 0
+  },
+  {
+    q: "52. Konstruktiv qobiliyat nima?",
+    options: [
+      "o'quv-tarbiya ishlarini rejalashtirish va natijasini oldindan ko'ra bilish",
+      "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
+      "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
+      "sinf guruhini uyushtirish va boshqarish iste'dodi"
+    ],
+    correct: 0
+  },
+  {
+    q: "53. Mimika nima?",
+    options: [
+      "yuz muskullari orqali o'z sezgisi, fikri kayfiyatini ifodalash (yuz ifodasi)",
+      "gavda, qo'l va oyoqlarning harakati",
+      "o'qituvchining gavda harakatlari va yuz ifodasi",
+      "o'z xatti-harakatlarini boshqara olish malaka va ko'nikmalari"
+    ],
+    correct: 0
+  },
+  {
+    q: "54. Pedagogik takt nima?",
+    options: [
+      "o'quvchilar faoliyatining turli doiralarida ular bilan muloqotda bo'lishning pedagogik tamoyili, o'lchovi, o'quvchilar bilan ularning shaxsiy xususiyatlarini hisobga olgan holda to'g'ri muloqotda bo'la olish malakasi",
+      "har bir ta'lim oluvchi va jamoaning faolligini pedagogik jihatdan ta'minlash uchun zarur bo'lgan malaka va ko'nikmalar",
+      "har bir ta'lim oluvchiga va jamoaga pedagogik ta'sir o'tkazishni samarali qo'llash uchun zarur bo'lgan malaka va ko'nikmalar majmuasi",
+      "pedagogning yutuqlariga kafolat beradigan aniq ishlab chiqilgan va qat'iy ilmiy loyihalashtirilgan pedagogik harakat"
+    ],
+    correct: 0
+  },
+  {
+    q: "55. Pedagogik texnikaning tarkibiy qismlarini belgilang.",
+    options: [
+      "nutq malakalari; pedagogning mimikasi va pantomimikasi; o'z hissiy (ruhiy) holatini boshqara olishi; o'qituvchining aktyorlik va rejissyorlik mahorati",
+      "pedagogning nutq malakalari; pedagog odobi va nazokati; o'quvchilarga pedagogik ta'sir ko'rsata olish mahorati",
+      "pedagogning mimikasi va pantomimikasi; o'qituvchining aktyorlik va rejissyorlik mahorati; pedagogik qobiliyatlar yig'indisi",
+      "o'qituvchining o'z hissiy (psixik) holatini boshqara olishi; pedagogning mimikasi va pantomimikasi"
+    ],
+    correct: 0
+  },
+  {
+    q: "56. Pedagogning kommunikativ madaniyati deganda nimani tushunasiz?",
+    options: [
+      "pedagogning o'quvchilar va atrofdagilar bilan qisqa muddatda muloqot o'rnatishga bo'lgan doimiy intilishi",
+      "pedagogning dunyoga, pedagogik voqelikka va pedagogik jarayonga bo'lgan intellektual va hissiy munosabati",
+      "pedagogik jarayonni bilish, uni tashkil eta olish",
+      "o'quvchi va jamoaning faolligini pedagogik jihatdan ta'minlash uchun zarur bo'lgan malaka va ko'nikmalar"
+    ],
+    correct: 0
+  },
+  {
+    q: "57. O'qituvchining o'quvchilarni boshqarish uslublari berilgan javobni toping.",
+    options: [
+      "avtoritar uslub, demokratik uslub, liberal uslub",
+      "demokratik uslub, liberal uslub, muloqot - masofa uslubi",
+      "demokratik uslub, avtoritar uslub, hazil-mutoyiba uslubi",
+      "avtoritar uslub, liberal uslub, muloqot - qo'rqitish uslubi"
+    ],
+    correct: 0
+  },
+  {
+    q: "58. Pedagogik muloqotning asosiy funksiyalarini aniqlang.",
+    options: [
+      "shaxsni o'rganish (bilish), axborot almashish va faoliyatni tashkil etish",
+      "o'quvchi shaxsini o'rganish (bilish), psixologik muhitni yaratish",
+      "axborot almashish, o'quvchilar faoliyatini uyushtirish",
+      "o'qituvchining o'quvchi hissiyotlarini tushunish, axborot almashish va o'quvchi faoliyatini uyushtirish"
+    ],
+    correct: 0
+  },
+  {
+    q: "59. Nutq madaniyati deganda nimani tushunish zarur?",
+    options: [
+      "Og'zaki va yozma adabiyot til me'yorlarini egallash, nutqning mazmuni va maqsadiga qarab turli muomala sharoitida til imkoniyatlaridan to'g'ri foydalana bilish",
+      "Pedagogning o'quvchilar ongi va hissiyotiga nutq orqali ta'sir eta olish mahorati",
+      "Pedagogning o'z tarbiyalanuvchilari bilan muloqotga kirisha olish mahorati",
+      "Pedagog va o'quvchilar jamoasi o'rtasida o'zaro birgalikdagi harakatning mazmunan axborot ayirboshlashdan iborat tizimi, usullari va malakalari"
+    ],
+    correct: 0
+  },
+  {
+    q: "60. Diksiya nima?",
+    options: [
+      "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli",
+      "Tovush hajmi, uning chegarasi",
+      "Tovush rangdorligi, yorqinligi, uning yumshoqligi va alohidaligi",
+      "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish"
+    ],
+    correct: 0
+  },
+  {
+    q: "61. Diapazon tushunchasi to'g'ri ifodalangan javobni toping.",
+    options: [
+      "Tovush hajmi va ovoz hajmi bo'lib, uning chegarasi eng yuqori va quyi ohanglar bilan belgilanadi",
+      "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
+      "Tovush rangdorligi, yorqinligi, uning yumshoqligi va alohidaligi",
+      "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
+    ],
+    correct: 0
+  },
+  {
+    q: "62. Tembr nima?",
+    options: [
+      "Tovush rangdorligi, yorqinligi, hamda uning yumshoqligi va alohidaligi",
+      "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
+      "Tovush hajmi, uning chegarasi",
+      "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
+    ],
+    correct: 0
+  },
+  {
+    q: "63. Nutq ritmi to'g'ri ifodalangan javobni belgilang.",
+    options: [
+      "Tovush, nutq elementlarining muntazam izchillikda, chastotada takrorlanishi",
+      "Tovush hajmi, uning chegarasi",
+      "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
+      "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
+    ],
+    correct: 0
+  },
+  {
+    q: "64. Pedagog mehnatini ilmiy tashkil etish tamoyillarini belgilang.",
+    options: [
+      "Rejalashtirish, tashkil etish, boshqarish, nazorat qilish",
+      "Rejalashtirish, tashkil etish, boshqarish",
+      "Nazorat qilish, boshqarish, tashkil etish",
+      "Rejalashtirish, boshqarish, nazorat qilish"
+    ],
+    correct: 0
+  },
+  {
+    q: "65. O'z-o'ziga ta'sir qilish usullarini toping.",
+    options: [
+      "O'z-o'zini ishontirish, o'z-o'ziga buyruq berish, o'z-o'zini majbur qilish, o'z-o'zini rag'batlantirish, o'z-o'zini jazolash, o'z-o'zini mashq qildirish",
+      "Tushuntirish, rag'batlantirish, ishontirish, o'z-o'ziga ta'sir qilish, o'z-o'zini mashq qildirish",
+      "Ibrat-namuna, ma'qullash, rag'batlantirish, o'z-o'zini majbur qilish, o'z-o'ziga buyruq berish",
+      "Ishontirish, uqtirish, talablar qo'yish, namuna ko'rsatish, qoralash, rag'batlantirish"
+    ],
+    correct: 0
+  },
+  {
+    q: "66. Ilg'or pedagogik tajriba nima?",
+    options: [
+      "Pedagogning o'z vazifasiga ijodiy yondashib, ta'lim-tarbiyada yangi, samarali yo'l va vositalarni topishi",
+      "Pedagogik faoliyatning maqsadi va xarakterini belgilay olish",
+      "Yangi pedagogik hodisa va qonuniyatlarni ochib berish",
+      "Pedagogik ijodkorlik, pedagogik masalalarni hal qila olish"
+    ],
+    correct: 0
+  },
+  {
+    q: "67. O‘qituvchi jamoa va shaxsga ta’sir eta olish bo‘yicha qanday malakalarga ega bo‘lmog‘i lozim?",
+    options: [
+      "didaktik, tashkilotchilik, konstruktiv, kommunikativ pedagogik mahorat",
+      "kommunikativ, pertseptiv, didaktik",
+      "kommunikativ, pertseptiv, tashkilotchilik",
+      "didaktik, malakaviy, ijodiy, tashkilotchilik, aqliy"
+    ],
+    correct: 0
+  },
+  {
+    q: "68. O‘qituvchi uchun eng muhim xususiyat nima?",
+    options: [
+      "o‘zini tutish va kayfiyatni boshqarish; mehr va sabrli bo‘lish, bilimdonlik, mas’uliyat, muloqot qobiliyati",
+      "xayol va fantaziya",
+      "qobiliyat va aql",
+      "xotira va temperament"
+    ],
+    correct: 0
+  },
+  {
+    q: "69. O‘qituvchi axloqiy-ma’naviy qiyofasini namoyon etuvchi me’yor tuyg‘usi yoki xulq va odob qoidalariga rioya qilishi nima deyiladi?",
+    options: ["Pedagogik nazokat", "Pedagogik odob", "Pedagogik madaniyat", "Pedagogik mahorat"],
+    correct: 1
+  },
+  {
+    q: "70. Pedagogik texnologiyaning asosiy maqsadi nimalardan iborat?",
+    options: [
+      "takomillashtirish yoki o‘quvchilarning bilish faoliyatini rivojlantirishdan",
+      "o‘quvchiga qo‘yib borilgan baholarni predmet bo‘yicha umumiy bahoga birlashtirish qoidalaridan",
+      "o‘quv jarayonini uzluksiz, uzoq vaqt muttasil kuzatish va uni boshqarishdan",
+      "o‘quvchilarning bilish faoliyatini rivojlantirishdan"
+    ],
+    correct: 0
+  },
+  {
+    q: "71. Tizim so‘zi haqida tushuncha?",
+    options: [
+      "qismlardan tuzilgan, birikkan yaxlit narsa yoki hodisa",
+      "gaplarni yozib, saqlab olish",
+      "ijodiy yondashuv",
+      "o‘quvchilarning bilish faoliyatini rivojlantirish"
+    ],
+    correct: 0
+  },
+  {
+    q: "72. Pedagog uchun eng zarur nutq madaniyatini belgilang?",
+    options: [
+      "Nutqning grammatik to‘g‘riligi, uning leksik boyligi, aniq va ravshan ifodalanganligi",
+      "Keng fikrlilik, tinglovchini zeriktirmaydigan muloqot o‘rnatish",
+      "Tinglay olish, qo‘llab-quvvatlash",
+      "Tanqidiy nuqtai nazar, o‘z fikrini himoya qilish"
+    ],
+    correct: 0
+  },
+  {
+    q: "73. “Agar har kishi qunt bilan mehnat qilsa, u o‘ziga nisbatan talabchan bo‘lsa, u yaxshi pedagog bo‘lishi mumkin” ushbu fikr kimga tegishli?",
+    options: ["A.S. Makarenko", "K.D. Ushinskiy", "L.N. Tolstoy", "Redkin"],
+    correct: 0
+  },
+  {
+    q: "74. Izchil ravishda kasbiy o‘sishga erishishda pedagogga xos qanday kompetentlik aks etadi?",
+    options: ["Shaxsiy kompetentlik", "Maxsus kompetentlik", "Ijtimoiy kompetentlik", "Ekstremal kasbiy kompetentlik"],
+    correct: 0
+  },
+  {
+    q: "75. Shaxs ichki kechinmalari, o‘y-fikrlari, xarakterining gavda harakati va imo-ishoralar yordamidagi ifodasi qanday nomlanadi?",
+    options: ["Fantomimika", "Etika", "Jest", "Mimika"],
+    correct: 0
+  },
+  {
+    q: "76. Ta’lim-tarbiya jarayonida o‘qituvchi mahoratini belgilovchi maqsadlar?",
+    options: [
+      "Ta’limiy, tarbiyaviy, rivojlantiruvchi",
+      "Ilmiy, texnik, psixik",
+      "Texnik, texnologik, ishlab chiqaruvchi",
+      "Yozish, chizish, o‘qish, aytish"
+    ],
+    correct: 0
+  },
+  {
+    q: "77. Refleksiya bosqichi pedagogik mahoratni rivojlantirishda nima uchun zarur?",
+    options: [
+      "O‘z-o‘zini baholash va takomillashtirish",
+      "Yangicha texnikalarni joriy etish",
+      "Dars jadvalini tayyorlash",
+      "Auditoriya dizaynini o‘rganish"
+    ],
+    correct: 0
+  },
+  {
+    q: "78. Farobiyning qaysi asarida davlat rahbarining o‘n ikki fazilati ko‘rsatiladi?",
+    options: ["Fozil odamlar shahri", "Aql to‘g‘risida risola", "Musiqa to‘g‘risida trakt", "Ruh madaniyati haqida risola"],
+    correct: 0
+  },
+  {
+    q: "79. “Ey o‘g‘il, farzandlaringni tarbiyalashdan oldin o‘zingni tarbiyala, tarbiya ko‘rgan oilada baodob, yaxshi fazilatli, bilimli odam voyaga yetadi” degan ibora qaysi alloma asarida bayon etilgan?",
+    options: [
+      "Kaykovusning “Qobusnoma” asarida",
+      "Ibn Sinoning “Donishnoma” asarida",
+      "Abu Lays Samarqandiyning “Bostonul orifin” asarida",
+      "Yusuf Xos Hojibning “Qutadg‘u bilig” asarida"
+    ],
+    correct: 0
+  },
+  {
+    q: "80. Tabiatni asrash, uning ne’matlarini avaylash va parvarishlash, atrof-muhitni toza tutish haqidagi fikrlar qaysi manbada keltirilgan?",
+    options: ["Avesto", "Buyuk didaktika", "Qutadg‘u bilig", "Donishnoma"],
+    correct: 0
+  },
+  {
+    q: "81. XIX asrning oxirida jadidlar qaysi shaharlarda o‘z gazetalarini chiqara boshlaydilar?",
+    options: [
+      "Toshkent, Samarqand, Buxoro",
+      "Samarqand, Buxoro, Chorjo‘y",
+      "Toshkent, Buxoro, Termiz",
+      "Buxoro, Marv, Urganch"
+    ],
+    correct: 0
+  },
+  {
+    q: "82. XX asr boshlarida Samarqandda dehqon va hunarmand bolalari uchun maktab ochgan ma’rifatparvar alloma kim?",
+    options: ["Saidahmad Siddiqiy", "Abdulla Avloniy", "Munavvarqori Abdurashidxonov", "Anbar otin"],
+    correct: 0
+  },
+  {
+    q: "83. “Mehnat axloqiylikning asosi, saxovatlilik belgisi” deb qaysi ta’limotda ko‘rsatilgan?",
+    options: ["Zardushtiylik", "Muzdakiylik", "Naqshbandiya", "Kubroviya"],
+    correct: 2
+  },
+  {
+    q: "84. Markaziy Osiyoda Musulmon maktablari tizimi qaysi tarixiy davrda tashkil topgan?",
+    options: ["VII-XII asr", "VII asr", "VI-XIII asr", "XIV-XVII asr"],
+    correct: 0
+  },
+  {
+    q: "85. “Kimga qanday pandu-nasihat qilsang, unga avvalo o‘zing amal qil” – ushbu ta’rif muallifini toping.",
+    options: ["Abu Ali Ibn Sino", "Ahmad Yugnakiy", "Kaykovus", "Abu Lays Samarqandiy"],
+    correct: 1
+  },
+  {
+    q: "86. Dastlabki arab tilidagi maktablarning yaratilishiga nimalar ta’sir etadi?",
+    options: [
+      "Islom g‘oyalarining tarqalishi va Qur’oni Karimning o‘rganilishi",
+      "Bolalarni tarbiyalash zarurligi",
+      "Bolalarni mehnatga tayyorlash zarurligi",
+      "Yozuv madaniyatini rivojlantirish"
+    ],
+    correct: 0
+  },
+  {
+    q: "87. Hadis ilmining yaratilishidagi eng oltin davr qaysi asrlar hisoblanadi?",
+    options: ["VIII-IX asrlar", "VII asr", "XV asr", "XVI asr"],
+    correct: 0
+  },
+  {
+    q: "88. Hadis ilmida “Sahih” yo‘nalishining asoschisi hamda “Al-Jome’ as-sahih” asarining muallifi kim?",
+    options: ["Imom Al-Buxoriy", "Imom Ismoil al-Nishopuriy", "Imom Ibn Moja", "Imom ibn Muso at-Termiziy"],
+    correct: 0
+  },
+  {
+    q: "89. Farobiy qaysi risolasida bilimlarni oʻrganish tartibini birma-bir sanab oʻtadi?",
+    options: ["“Baxt saodatga erishuv haqida”", "“Aql haqidagi risola”", "“Ilmlarning kelib chiqishi”", "“Aqlli risola”"],
+    correct: 2
+  },
+  {
+    q: "90. Kaykovusning “Qobusnoma” asari nechta bobdan iborat?",
+    options: ["44 bob", "40 bob", "50 bob", "45 bob"],
+    correct: 0
+  },
+  {
+    q: "91. Imom Buxoriy qachon va qayerda tavallud topgan?",
+    options: ["810-yil Buxoroda", "982-yil Buxoroda", "870-yil Xartangda", "820-yil Xartangda"],
+    correct: 0
+  },
+  {
+    q: "92. Islom dini ta’limotidagi Qur’oni Karimdan keyingi mo‘tabar manba qaysi?",
+    options: ["Hadis Sharif", "Hikmatli so‘z", "Maqol", "Avesto"],
+    correct: 0
+  },
+  {
+    q: "93. Kimni “Adiblari adibi, Fozillar sardori” deb atashgan?",
+    options: ["Ahmad Yugnakiy", "Abdurahmon Jomiy", "Alisher Navoiy", "Imom Buxoriy"],
+    correct: 0
+  }
+];
 
         let currentQuestion = 0;
         let userAnswers = [];
