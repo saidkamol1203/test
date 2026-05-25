@@ -1176,7 +1176,7 @@
         let userName = '';
         let groupName = '';
         let timerInterval;
-        let timeLeft = 15;
+        let timeLeft = 40;
         let isPaused = false;
         let optionOrder = [];
         let shuffledQuestions = [];
@@ -1416,7 +1416,7 @@
         }
 
         function resetTimer() {
-            timeLeft = 15;
+            timeLeft = 40;
             updateTimer();
         }
 
@@ -1625,7 +1625,7 @@
             clearInterval(timerInterval);
             userName = '';
             groupName = '';
-            timeLeft = 15;
+            timeLeft = 40;
             isPaused = false;
             document.getElementById('pauseBtn').textContent = "To'xtatish";
             document.getElementById('userName').value = '';
@@ -1642,7 +1642,7 @@
             currentQuestion = 0;
             userAnswers = new Array(currentQuestions.length).fill(-1);
             optionOrder = currentQuestions.map(q => shuffleArray(q.options.map((_, index) => index)));
-            timeLeft = 15;
+            timeLeft = 40;
             isPaused = false;
             document.getElementById('pauseBtn').textContent = "To'xtatish";
             document.getElementById('shuffleStatus').textContent = '';
