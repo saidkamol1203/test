@@ -90,8 +90,8 @@
         [data-theme="dark"] .badge-danger { background: rgba(214, 48, 49, 0.15); }
         .login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--modal-bg); display: flex; justify-content: center; align-items: center; z-index: 999; backdrop-filter: blur(5px); }
         .login-box { background: var(--bg-container); padding: 40px; border-radius: 15px; width: 380px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
-        .login-box h2 { margin-bottom: 10px; font-size: 24px; }
-        .login-box p { margin-bottom: 20px; color: var(--text-secondary); }
+        
+        /* BATAFSIL MODAL STILLARI */
         .detail-modal { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--modal-bg); display: none; justify-content: center; align-items: flex-start; padding-top: 50px; z-index: 200; overflow-y: auto; backdrop-filter: blur(5px); }
         .detail-content { background: var(--bg-container); width: 90%; max-width: 800px; border-radius: 15px; padding: 30px; position: relative; margin-bottom: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
@@ -107,6 +107,7 @@
         .dq-opt.was-incorrect { background: #ffeaea; border-color: #d63031; color: #d63031; text-decoration: line-through; }
         [data-theme="dark"] .dq-opt.was-correct { background: rgba(0, 184, 148, 0.15); }
         [data-theme="dark"] .dq-opt.was-incorrect { background: rgba(214, 48, 49, 0.15); }
+        
         .hidden { display: none !important; }
 
         @media (max-width: 768px) {
@@ -144,7 +145,6 @@
                 <span id="qNum" style="font-weight:bold; color:var(--text-secondary)">1/10</span>
                 <div class="timer-container">
                     <button class="btn btn-orange btn-sm" id="pauseBtn" onclick="togglePause()">⏸</button>
-                    <!-- YANGI QO'SHILGAN TUGMA -->
                     <button class="btn btn-red btn-sm" onclick="finishTest()">🏁 Tugatish</button>
                     <div class="timer" id="timerDiv">00:40</div>
                 </div>
@@ -162,6 +162,12 @@
             <div class="header"><h1>🎉 Test Yakunlandi!</h1></div>
             <div style="text-align:center; font-size:48px; font-weight:900; color:#6c5ce7;" id="scorePercent">0%</div>
             <p class="text-center" id="scoreText" style="font-size:18px; margin-bottom:20px; text-align:center;">0 / 10</p>
+            
+            <!-- O'QUVCHINING O'Z NATIJASINI KO'RISH UCHUN YANGI JOY -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="btn btn-blue" onclick="showUserMistakes()">📋 Xatolarni batafsil ko'rish</button>
+            </div>
+
             <div class="leaderboard">
                 <h3>🏆 Guruh Reytingi</h3>
                 <table class="lb-table">
@@ -169,7 +175,7 @@
                     <tbody id="leaderboardBody"></tbody>
                 </table>
             </div>
-            <div class="text-center" style="margin-top: 20px; text-align: center;">
+            <div style="margin-top: 20px; text-align: center;">
                 <button class="btn btn-red" onclick="goHome()">Bosh sahifaga qaytish</button>
             </div>
         </div>
@@ -218,6 +224,7 @@
         </div>
     </div>
 
+    <!-- Modal Oyna (Batafsil va Xatolar uchun) -->
     <div id="detailModal" class="detail-modal">
         <div class="detail-content">
             <span class="close-modal" onclick="closeDetailModal()">✕</span>
@@ -228,7 +235,7 @@
     </div>
 
     <script>
-        // ===== 1-TEST SAVOLLARI (Pedagogika tarixi) =====
+         // ===== 1-TEST SAVOLLARI (Pedagogika tarixi) =====
         const questions1 = [
             {
                 q: "1. Qaysi asarda dehqonlarga nisbatan: “O‘zing bular bilan aralashgin, qo‘shilgin, tilda yaxshi so‘zla, yuzungni ochiq tut” deya ta’rif berilgan?",
@@ -1092,6 +1099,43 @@
             localStorage.setItem('results', JSON.stringify(results)); loadLeaderboard(groupName);
         }
 
+        // ===== Foydalanuvchi o'z xatosini ko'rish uchun yangi funksiya =====
+        function showUserMistakes() {
+            let correct = 0;
+            let answeredCount = 0;
+            userAnswers.forEach(ans => { if(ans !== -1) answeredCount++; });
+            activeQuestions.forEach((q, i) => { if(userAnswers[i] === q.correct) correct++; });
+            let incorrect = answeredCount - correct;
+
+            document.getElementById('detailTitle').innerText = `📋 Sizning natijalaringiz`;
+            document.getElementById('detailStats').innerHTML = `<div class="d-stat bg-correct"><h3>${correct}</h3><p>To'g'ri</p></div><div class="d-stat bg-incorrect"><h3>${incorrect > 0 ? incorrect : 0}</h3><p>Noto'g'ri</p></div>`;
+            
+            const qContainer = document.getElementById('detailQuestions'); qContainer.innerHTML = '';
+            activeQuestions.forEach((qD, idx) => { 
+                let ans = userAnswers[idx];
+                let isC = ans !== -1 && ans === qD.correct; 
+                let isSkipped = ans === -1;
+                
+                // Faqat xato qilingan yoki tushirib qoldirilgan savollarni ko'rsatamiz
+                if(!isC) {
+                    let optH = '';
+                    qD.options.forEach((o,i) => { 
+                        let cls='dq-opt'; 
+                        if(i===qD.correct) cls+=' was-correct'; 
+                        if(i===ans && !isC) cls+=' was-incorrect'; 
+                        optH+=`<div class="${cls}">${String.fromCharCode(65+i)}) ${o}</div>`; 
+                    });
+                    qContainer.innerHTML += `<div class="detail-question"><div class="dq-title">${isSkipped ? '⏭️ Tushirib qoldirilgan' : '❌ Noto\'g\'ri'} <br>${qD.q}</div><div>${optH}</div></div>`; 
+                }
+            });
+            
+            if(qContainer.innerHTML === '') {
+                qContainer.innerHTML = '<p style="text-align:center; color:#00b894; font-weight:bold; padding: 30px 0;">🏆 Tabriklaymiz! Barcha javoblar to\'g\'ri!</p>';
+            }
+
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
         function loadLeaderboard(group) {
             const tbody = document.getElementById('leaderboardBody'); tbody.innerHTML = '';
             const results = JSON.parse(localStorage.getItem('results') || '{}'); const groupData = results[group] ? Object.values(results[group]) : [];
@@ -1165,6 +1209,7 @@
             }
             document.getElementById('detailModal').style.display = 'flex';
         }
+        
         function closeDetailModal() { document.getElementById('detailModal').style.display = 'none'; }
 
         initSystem();
