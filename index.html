@@ -3,27 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guruhli Test Tizimi</title>
+    <title>Guruhli Test Tizimi (8 Ta Fan)</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root {
-            --bg-body: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            --bg-container: rgba(255, 255, 255, 0.95);
-            --text-primary: #2d3436; --text-secondary: #636e72;
-            --border-color: #e0e0e0; --hover-bg: #f8f9fa;
-            --modal-bg: rgba(0,0,0,0.85);
-        }
-        [data-theme="dark"] {
-            --bg-body: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --bg-container: #2b2b3d; --text-primary: #e0e0e0; --text-secondary: #aaaaaa;
-            --border-color: #40405a; --hover-bg: #363650;
-        }
+        :root { --bg-body: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); --bg-container: rgba(255, 255, 255, 0.95); --text-primary: #2d3436; --text-secondary: #636e72; --border-color: #e0e0e0; --hover-bg: #f8f9fa; --modal-bg: rgba(0,0,0,0.85); }
+        [data-theme="dark"] { --bg-body: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); --bg-container: #2b2b3d; --text-primary: #e0e0e0; --text-secondary: #aaaaaa; --border-color: #40405a; --hover-bg: #363650; }
         body { background: var(--bg-body); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; color: var(--text-primary); }
         .container { background: var(--bg-container); backdrop-filter: blur(20px); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); max-width: 900px; width: 100%; padding: 40px; position: relative; border: 1px solid rgba(255,255,255,0.3); }
         .header { text-align: center; margin-bottom: 30px; }
         .header h1 { font-size: 28px; font-weight: 800; background: linear-gradient(to right, #6a11cb, #2575fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header p { color: var(--text-secondary); margin-top: 5px; }
-        input { width: 100%; padding: 12px 15px; margin: 8px 0; border: 2px solid rgba(108, 92, 231, 0.2); border-radius: 10px; font-size: 16px; background: rgba(255,255,255,0.1); color: var(--text-primary); transition: 0.3s; }
+        input { width: 100%; padding: 12px 15px; margin: 8px 0; border: 2px solid rgba(108, 92, 231, 0.2); border-radius: 10px; font-size: 16px; background: rgba(255,255,255,0.1); color: var(--text-primary); }
         input:focus { outline: none; border-color: #6c5ce7; }
         .btn { background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); color: white; padding: 12px 25px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4); transition: transform 0.2s; }
         .btn:hover { transform: translateY(-2px); }
@@ -32,9 +21,9 @@
         .btn-blue { background: linear-gradient(135deg, #0984e3, #74b9ff); box-shadow: 0 4px 15px rgba(9,132,227,0.4); }
         .btn-sm { padding: 8px 15px; font-size: 14px; }
         .btn-orange { background: linear-gradient(135deg, #e17055, #fab1a0); box-shadow: 0 4px 15px rgba(225,112,85,0.4); }
-        .test-selection { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .test-selection { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .test-row { display: flex; gap: 10px; align-items: center; }
-        .time-input { width: 80px; margin: 0; }
+        .time-input { width: 70px; margin: 0; }
         .theme-toggle { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; }
         .progress-bar { background: #dfe6e9; height: 8px; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
         .progress-fill { background: linear-gradient(90deg, #6c5ce7, #a29bfe); height: 100%; transition: width 0.3s; }
@@ -44,8 +33,8 @@
         .option.correct { border-color: #00b894; background: rgba(0, 184, 148, 0.1); color: #00b894; pointer-events: none; }
         .option.incorrect { border-color: #d63031; background: rgba(214, 48, 49, 0.1); color: #d63031; pointer-events: none; }
         .option.disabled { pointer-events: none; opacity: 0.7; }
-        .timer-container { display: flex; align-items: center; gap: 10px; }
-        .timer { font-size: 22px; font-weight: bold; color: #6c5ce7; font-family: monospace; letter-spacing: 1px; }
+        .timer-container { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .timer { font-size: 22px; font-weight: bold; color: #6c5ce7; font-family: monospace; }
         .timer.danger { color: #d63031; animation: pulse 1s infinite; }
         .timer.paused { color: #e17055; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
@@ -53,16 +42,15 @@
         .lb-table { width: 100%; border-collapse: collapse; }
         .lb-table th { background: rgba(108, 92, 231, 0.2); padding: 10px; text-align: left; border-radius: 8px; }
         .lb-table td { padding: 10px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
-
         .admin-wrapper { display: none; min-height: 100vh; background: #f4f6f9; color: var(--text-primary); }
         [data-theme="dark"] .admin-wrapper { background: #1a1a2e; }
-        .admin-header { background: linear-gradient(135deg, #2d3436 0%, #000000 100%); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 10; position: relative; }
+        .admin-header { background: linear-gradient(135deg, #2d3436 0%, #000000 100%); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
         .admin-container { display: flex; height: calc(100vh - 60px); }
         .sidebar { width: 280px; background: var(--bg-container); padding: 25px 15px; overflow-y: auto; border-right: 1px solid var(--border-color); }
         .sidebar h3 { margin-bottom: 20px; color: var(--text-secondary); font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; padding-left: 10px; }
         .group-item { padding: 12px 15px; margin-bottom: 6px; background: transparent; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; border: 1px solid transparent; color: var(--text-primary); font-weight: 500; }
         .group-item:hover { background: var(--hover-bg); border-color: var(--border-color); }
-        .group-item.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3); }
+        .group-item.active { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; border-color: transparent; }
         .group-count { background: rgba(0,0,0,0.08); padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
         .group-item.active .group-count { background: rgba(255,255,255,0.2); color: white; }
         .main-content { flex: 1; padding: 30px; overflow-y: auto; background: #f4f6f9; }
@@ -78,7 +66,7 @@
         .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; }
         .panel-header h2 { font-size: 20px; color: var(--text-primary); font-weight: 700; }
         .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { background: var(--hover-bg); padding: 12px 15px; text-align: left; font-size: 14px; color: var(--text-secondary); border-bottom: 2px solid var(--border-color); font-weight: 600; }
+        .data-table th { background: var(--hover-bg); padding: 12px 15px; text-align: left; font-size: 14px; color: var(--text-secondary); border-bottom: 2px solid var(--border-color); }
         .data-table td { padding: 14px 15px; border-bottom: 1px solid var(--border-color); font-size: 15px; vertical-align: middle; }
         .data-table tr:hover { background: var(--hover-bg); }
         .badge { padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block; text-align: center; min-width: 50px; }
@@ -89,14 +77,12 @@
         [data-theme="dark"] .badge-warning { background: rgba(243, 156, 18, 0.15); }
         [data-theme="dark"] .badge-danger { background: rgba(214, 48, 49, 0.15); }
         .login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--modal-bg); display: flex; justify-content: center; align-items: center; z-index: 999; backdrop-filter: blur(5px); }
-        .login-box { background: var(--bg-container); padding: 40px; border-radius: 15px; width: 380px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
-        
-        /* BATAFSIL MODAL STILLARI */
+        .login-box { background: var(--bg-container); padding: 40px; border-radius: 15px; width: 380px; text-align: center; }
         .detail-modal { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--modal-bg); display: none; justify-content: center; align-items: flex-start; padding-top: 50px; z-index: 200; overflow-y: auto; backdrop-filter: blur(5px); }
-        .detail-content { background: var(--bg-container); width: 90%; max-width: 800px; border-radius: 15px; padding: 30px; position: relative; margin-bottom: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
+        .detail-content { background: var(--bg-container); width: 90%; max-width: 800px; border-radius: 15px; padding: 30px; position: relative; margin-bottom: 50px; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-secondary); }
         .close-modal:hover { color: #d63031; transform: rotate(90deg); }
-        .d-stat { padding: 20px; border-radius: 10px; text-align: center; color: white; flex: 1; margin: 0 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .d-stat { padding: 20px; border-radius: 10px; text-align: center; color: white; flex: 1; margin: 0 5px; }
         .d-stat h3 { font-size: 32px; font-weight: 800; margin-bottom: 5px; }
         .bg-correct { background: linear-gradient(135deg, #00b894, #55efc4); }
         .bg-incorrect { background: linear-gradient(135deg, #d63031, #ff7675); }
@@ -107,37 +93,20 @@
         .dq-opt.was-incorrect { background: #ffeaea; border-color: #d63031; color: #d63031; text-decoration: line-through; }
         [data-theme="dark"] .dq-opt.was-correct { background: rgba(0, 184, 148, 0.15); }
         [data-theme="dark"] .dq-opt.was-incorrect { background: rgba(214, 48, 49, 0.15); }
-        
         .hidden { display: none !important; }
-
-        @media (max-width: 768px) {
-            .admin-container { flex-direction: column; height: auto; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); max-height: 40vh; }
-            .timer-container { flex-wrap: wrap; justify-content: center; }
-        }
+        @media (max-width: 768px) { .admin-container { flex-direction: column; height: auto; } .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); max-height: 40vh; } }
     </style>
 </head>
 <body>
-
     <div class="container" id="studentView">
         <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         <div id="startScreen">
-            <div class="header"><h1>🎓 Sinov Tizimi</h1><p>Bilimingizni sinab ko'ring!</p></div>
+            <div class="header"><h1>🎓 Sinov Tizimi</h1><p>Fanni tanlang va bilimingizni sinab ko'ring!</p></div>
             <input type="text" id="userName" placeholder="Ismingizni kiriting">
             <input type="text" id="groupName" placeholder="Guruh nomi">
             <input type="password" id="groupPass" placeholder="Guruh paroli">
-            <div class="test-selection">
-                <div class="test-row">
-                    <input type="number" id="time1" class="time-input" value="40" min="5">
-                    <button class="btn" onclick="startTest(1)" style="flex:1">1-Test: Pedagogika</button>
-                </div>
-                <div class="test-row">
-                    <input type="number" id="time2" class="time-input" value="30" min="5">
-                    <button class="btn btn-green" onclick="startTest(2)" style="flex:1">2-Test: Amaliy dasturlar</button>
-                </div>
-            </div>
+            <div class="test-selection" id="testButtonsContainer"></div>
         </div>
-
         <div id="testScreen" class="hidden">
             <div class="header"><h1 id="testTitle">Test</h1></div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -157,17 +126,13 @@
                 <button class="btn btn-sm" onclick="nextQ()">Keyingi →</button>
             </div>
         </div>
-
         <div id="resultScreen" class="hidden">
             <div class="header"><h1>🎉 Test Yakunlandi!</h1></div>
             <div style="text-align:center; font-size:48px; font-weight:900; color:#6c5ce7;" id="scorePercent">0%</div>
-            <p class="text-center" id="scoreText" style="font-size:18px; margin-bottom:20px; text-align:center;">0 / 10</p>
-            
-            <!-- O'QUVCHINING O'Z NATIJASINI KO'RISH UCHUN YANGI JOY -->
+            <p id="scoreText" style="font-size:18px; margin-bottom:20px; text-align:center;">0 / 10</p>
             <div style="text-align: center; margin-bottom: 20px;">
                 <button class="btn btn-blue" onclick="showUserMistakes()">📋 Xatolarni batafsil ko'rish</button>
             </div>
-
             <div class="leaderboard">
                 <h3>🏆 Guruh Reytingi</h3>
                 <table class="lb-table">
@@ -195,16 +160,13 @@
         <header class="admin-header">
             <h1 style="font-size: 20px; font-weight: 700;">🎓 Admin Boshqaruvi</h1>
             <div style="display:flex; gap:15px; align-items:center;">
-                <button class="theme-toggle" onclick="toggleTheme()" style="position: relative; top:0; right:0; width:35px; height:35px; font-size:16px;">🌙</button>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
                 <button class="btn btn-blue btn-sm" onclick="refreshAdmin()">🔄 Yangilash</button>
                 <button class="btn btn-red btn-sm" onclick="exitAdminMode()">🚪 Chiqish</button>
             </div>
         </header>
         <div class="admin-container">
-            <aside class="sidebar">
-                <h3>Guruhlar</h3>
-                <div id="groupList"></div>
-            </aside>
+            <aside class="sidebar"><h3>Guruhlar</h3><div id="groupList"></div></aside>
             <main class="main-content">
                 <div class="stats-grid">
                     <div class="stat-card"><div class="stat-icon bg-purple">👥</div><div class="stat-info"><h2 id="statTotalStudents">0</h2><p>O'quvchilar</p></div></div>
@@ -224,7 +186,6 @@
         </div>
     </div>
 
-    <!-- Modal Oyna (Batafsil va Xatolar uchun) -->
     <div id="detailModal" class="detail-modal">
         <div class="detail-content">
             <span class="close-modal" onclick="closeDetailModal()">✕</span>
@@ -235,740 +196,578 @@
     </div>
 
     <script>
-         // ===== 1-TEST SAVOLLARI (Pedagogika tarixi) =====
-        const questions1 = [
-            {
-                q: "1. Qaysi asarda dehqonlarga nisbatan: “O‘zing bular bilan aralashgin, qo‘shilgin, tilda yaxshi so‘zla, yuzungni ochiq tut” deya ta’rif berilgan?",
-                options: ["Qutadg‘u bilik", "Hayrat ul-abror", "Mahbub ul-qulub", "Hibat ul-haqoyiq"],
-                correct: 0
-            },
-            {
-                q: "2. Qaysi olim tabiatda hayot bahordan boshlangani kabi ta’lim olish jarayoni uchun eng qulay davr bolalik ekanligini ta’kidlagan?",
-                options: ["Ya.A.Komenskiy", "Abdulla Avloniy", "Disterveg", "Gerbart"],
-                correct: 0
-            },
-            {
-                q: "3. Pedagogika olamiga savol – javob “Evristik” suhbat metodini olib kelgan faylasuf olim?",
-                options: ["Suqrot", "Arastu", "Aflotun", "Demokrit"],
-                correct: 0
-            },
-            {
-                q: "4. “Takrorlash bilimning asosidir”. Ushbu ibora qaysi pedagogga tegishli?",
-                options: ["K. D. Ushinskiy", "YA.A. Komenskiy", "A.S. Makarenko", "A.Avloniy"],
-                correct: 1
-            },
-            {
-                q: "5. Yusuf Hos Hojibning “Qutadg`u bilig” asarini chinliklar qanday nomlagan?",
-                options: ["“Adab ul-mulk”", "“Anis ui mamolik”", "“Ziynal ul umaro”", "“Shohnomai turkiy”"],
-                correct: 0
-            },
-            {
-                q: "6. “Qutadg`u bilig” ma`nosi nimani anglatadi?",
-                options: ["Saodatga boshlovchi bilim", "Haqiqatlar armug`oni", "Baxt-saodatga erishuv to`g`risida", "Ilmlarning kelib chiqishi"],
-                correct: 0
-            },
-            {
-                q: "7. Maktab tarixida ta‘limning mukammal jamoa shakli bo’lgan sinf-dars tizimi qachon va kim tomonidan yaratilgan?",
-                options: ["XVII asr boshlarida Ya. A. Komenskiy tomonidan", "XV asrda Pestallotsi tomonidan", "XI asr oxirida Xorazmiy tonidan", "1985-yilda K. D. Ushinskiy tomonidan"],
-                correct: 0
-            },
-            {
-                q: "8. Ta’lim – tarbiyaga birinchi bo‘lib ilmiy ta’rif bergan olim?",
-                options: ["Abu Nasr Farobiy", "Al – Xorazmiy", "Abdulla Avloniy", "Abu Rayhon Beruniy"],
-                correct: 0
-            },
-            {
-                q: "9. YA.Komenskiy ta’rifi bilan aytganda “Didaktikaning oltin qoidasi bu -…”",
-                options: ["Ko‘rgazmalilik", "Ilmiylik", "Tushunarlilik", "Obrazlilik"],
-                correct: 0
-            },
-            {
-                q: "10. Pedagogika fani rivojlanishiga hissa qo‘shgan Sharq allomalari…",
-                options: ["Abu Nasr Farobiy, Al-Xorazmiy, Abu Rayhon Beruniy", "Sa`diy Sheroziy, Mahmud G`aznaviy, Abdulqodir Bedil", "Yan Amos Komenskiy, Adolf Disterveg, Anton Makarenko", "Kaykovus, Aflotun, Davoniy"],
-                correct: 0
-            },
-            {
-                q: "11. Pedagogika rivojlanishiga hissa qo‘shgan g‘arb pedagog-olimlari...",
-                options: ["Yan Amos Komenskiy, Adolf Disterveg", "Abu Nasr Farobiy, Al-Xorazmiy", "Xudoyberdi To‘xtaboev. Erkin Voxidov", "Arastu, Suqrot"],
-                correct: 0
-            },
-            {
-                q: "12. Mashhur yunon faylasufi Arastudan keyin sharqda kimni ”Muallimi soniy” – ”Ikkinchi muallim” deb ataganlar?",
-                options: ["Farobiy", "Davoniy", "Navoiy", "Komenskiy"],
-                correct: 0
-            },
-            {
-                q: "13. “Fozil odamlar shahri” va “Ruhiy madaniyat haqida risola” asarlari muallifi kim?",
-                options: ["Farobiy", "Davoniy", "Navoiy", "Komenskiy"],
-                correct: 0
-            },
-            {
-                q: "14. Turkiy tilda yaratilgan 1-didaktik asar",
-                options: ["“Qutadg‘u bilig”", "“Turkiy guliston yoxud axloq”", "“Fozil odamlar shahri”", "“Qobusnoma”"],
-                correct: 0
-            },
-            {
-                q: "15. “Usuli jadid” maktablari uchun to‘rt qismdan iborat “Adabiyot yohud milliy she’rlar”, “Birinchi muallim”, “Turkiy guliston yohud ahloq”, “Ikkinchi muallim”, “Maktab gulistoni” kabi darslik va o‘qish kitoblarini qaysi adib yaratgan?",
-                options: ["Abdulla Avloniy", "Mahmud Qoshg‘ariy", "Munavvarqori Abdurashidxonov", "Siddiq Rajabov"],
-                correct: 0
-            },
-            {
-                q: "16. Avestodagi bosh g‘oya - ...",
-                options: ["Ezgu fikr, ezgu so‘z, ezgu amal", "Ozob va obod vatan, farovon turmush", "Dil ba yaru dast bakor", "Kuch – adolatda"],
-                correct: 0
-            },
-            {
-                q: "17. Arablar “daryo orti” deb atagan hudud - ?",
-                options: ["Movarounnahr", "Xuroson", "Kaspiy bo‘yi", "Qashqar"],
-                correct: 0
-            },
-            {
-                q: "18. Xorazm shohi Ma’mun-2 tomonidan tashkil etilgan muassasa - ?",
-                options: ["“Ma’mun akademiyasi”", "“Fanlar akademiyasi”", "“Baytul hikma”", "“Foziliya”"],
-                correct: 0
-            },
-            {
-                q: "19. Bilish nazariyasiga o‘z hissasini qo‘shgan, 1-lardan bo‘lib sinov-kuzatish va sinov metodlariga asos solgan mutafakkir ...",
-                options: ["Muhammad al-Xorazmiy", "Abu Nasr Farobiy", "Abu Rayhon Beruniy", "Munis Xorazmiy"],
-                correct: 2
-            },
-            {
-                q: "20. Abu Rayhon Beruniy inson kamolotida uch narsa muhimligini ta’kidlaydi. Bular qaysilar?",
-                options: ["irsiyat, muhit, tarbiya", "ota-ona, oila, jamiyat", "meros, boylik, davlat", "salomatlik, ilm, hunar"],
-                correct: 0
-            },
-            {
-                q: "21. Sharqda “Shayx ul-rais” unvoniga sazovor bo‘lgan mutafakkir -",
-                options: ["Abu Ali ibn Sino", "Muhammad al-Xorazmiy", "Abu Nasr Farobiy", "Abu Rayhon Beruniy"],
-                correct: 0
-            },
-            {
-                q: "22. Mirzo Ulug‘bek qaysi shaharlarda madrasalar (oliy ta’lim muassasasi) barpo etgan?",
-                options: ["Samarqand, Buxoro, G‘ijduvon", "Toshkent, Samarqand, Buxoro", "Samarqand, Buxoro, Qo‘qon", "Samarqand, Xirot, Bag‘dod"],
-                correct: 0
-            },
-            {
-                q: "23. Samarqanddagi Ulug‘bek qurdirgan madrasa peshtoqiga qanday so‘zlar bitilgan?",
-                options: ["Bilimga intilish har bir mo‘min va muslima uchun farzdir", "Hatto Xitoyda bo‘lsa ham ilm izla", "Oq yo‘l, rohi safed", "Xush kelibsiz, tolibi ilmlar"],
-                correct: 0
-            },
-            {
-                q: "24. Alisher Navoiy ta’rifi bo‘yicha achchiq, ammo foyda beruvchi, qattiq, ammo zararni daf etuvchi va shodliklar kaliti nima?",
-                options: ["Sabr", "Ilm", "Aql", "Donolik"],
-                correct: 0
-            },
-            {
-                q: "25. Ibrat taxallusi qaysi jadid ma’rifatparvar adibiga tegishli?",
-                options: ["Isxoqxon Judaydullaxon o‘g‘li", "Mahmudxo‘ja Behbudiy", "Munavvarqori Abdurashidxonov", "Ismoilbek Gaspirinskiy"],
-                correct: 0
-            },
-            {
-                q: "26. Qadimgi Afina davlatida ta’lim-tarbiya ishlari bilan shug‘ukhovchi kishilar qanday atalgan?",
-                options: ["Didaskol", "Efeblar", "Pedonom", "Pedagog"],
-                correct: 3
-            },
-            {
-                q: "27. Qadimgi VI- VIII asr yozma yodgorlik to’g’ri ko’rsatilgan qatorni ko’rsating?",
-                options: ["Orxun – Enasoy yodgorliklari", "Yunon yozuvi", "Irq bitiklari", "Oromiy"],
-                correct: 0
-            },
-            {
-                q: "28. Eng qadimgi madaniy boyliklarimizni o`rganish necha guruhga bo`lingan va qanday manbalarga tayaniladi?",
-                options: [
-                    "3 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Buyuk adiblar, allomalarning ijodiy merosiga, Xalq og`zaki ijodi materiallari hamda yozma manbalarga tayanadi",
-                    "2 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Quroni Karimga tayanadi",
-                    "3 guruhga bo`linadi va Arxeologik qazilmalar natijasida topilgan ko`rgazmali ashyolar, Urxun-Enisey bitiklari, qadimgi eposlarda aks etgan afsonaviy obrazlar",
-                    "4 guruhga bo`linadi va Avestoga, Quronga, qadimgi grek tarixchisi Gerodotning “Tarix”, Strabonning “Geografiya” asarlariga tayanadi"
-                ],
-                correct: 0
-            },
-            {
-                q: "29. “Ustoz shogirdlariga qattiq zulm ham, haddan tashqari ko’ngilchanlik ham qilmasligi lozim”. Ushbu fikr qaysi allomaga tegishli?",
-                options: ["Abu Nasr Forobiy", "Abu Rayhon Beruniy", "Alisher Navoiy", "Abu Ali ibn Sino"],
-                correct: 3
-            },
-            {
-                q: "30. O‘rta Osiyo mutafakkirlaridan qaysi alloma birinchi marta bolalarni jamoa bo‘lib, maktabda o‘qitishning ahamiyatini ilmiy asoslab bergan?",
-                options: ["Ibn Sino", "Forobiy", "Beruniy", "al-Xorazmiy"],
-                correct: 0
-            },
-            {
-                q: "31. “Juvonmardlik asli 3 narsadir: biri ulkim, aytgan so‘zingni o‘zing qilsang, ikkinchisi ulkim, xayrli ishni ilgari tutsang, odamdan qilgan barcha sifatlar bu uch narsaning ostidadur”. Ushbu fikrning muallifi kim?",
-                options: ["Kaykovus", "Yusuf Xos Hojib", "Ahmad Yugnakiy", "Koshifiy"],
-                correct: 0
-            },
-            {
-                q: "32. Turkiy tilda yaratilgan dastlabki ta’limiy-axloqiy asar?",
-                options: ["“Devoni lug‘otit-turk”", "“Qutadg‘u bilig”", "“Hibbat-ul haqoyiq”", "“Mahbub-ul qulub”"],
-                correct: 1
-            },
-            {
-                q: "33. Ibtidoiy jamoa davrlarida tarbiyaning yuzaga kelishiga sabab bo‘lgan shart-sharoitlar nimalardan iborat?",
-                options: [
-                    "Ibtidoiy kishilarning mehnat faoliyati va bunda tarkib topgan ijtimoiy munosabatlar.",
-                    "Kohinlar va oqsoqollarning maqsadga muvofiq faoliyati.",
-                    "Bolalarning kattalarga taqlidi.",
-                    "Kishilarning o‘z nasl-nasabini davom ettirishda tabiiy-biologik negizga asoslanishi."
-                ],
-                correct: 0
-            },
-            {
-                q: "34. Eng qadimgi davrlardagi ma’naviy madaniyatimiz, xususan, bolalar tarbiyasi tizimini o‘rganishda asos bo‘lgan manbani ayting.",
-                options: ["Avesto", "Quro‘ni Karim", "Ibn Sino. «Axloq haqida risola»", "Ma’rifatparvarlarning asarlari"],
-                correct: 0
-            },
-            {
-                q: "35. Xalq ommasi tomonidan yaratilgan va avloddan-avlodga o‘tib kelayotgan ta’lim-tarbiya ishlarini amalga oshirish bobida qo‘llanib kelingan usul, vosita, ko‘nikma va malakalar birligini ifodalovchi tajribalar asosida to‘plangan bilim va ma’lumotlar yig‘indisi.",
-                options: ["Xalq pedagogikasi", "Umumiy pedagogika", "Tarbiya nazariyasi", "Didaktik nazariyasi"],
-                correct: 0
-            },
-            {
-                q: "36. Pedagogika tarixi bo‘limining asosiy manbalari qaysilar?",
-                options: [
-                    "Xalq og‘zaki ijodi, pedagogik qadriyatlar, tarixiy manbalar, ta’lim tarbiyaga doir asarlar, davlat qonun va qarorlari",
-                    "Davlat hujjatlari, tarixiy g‘oyalar, pedagogik meros",
-                    "Milliy meros va umumiy qadriyatlar",
-                    "Buyuk pedagoglar asarlari, xalq pedagogik adabiyotlari"
-                ],
-                correct: 0
-            },
-            {
-                q: "37. “Turkiy Guliston yoxud axloq” asarining muallifi.",
-                options: ["Abdulla Avloniy", "Munavvar Qori Abdurashitxonov", "Abdulhamid o’g’li Fitrat", "Mahmudxo’ja Behbudiy"],
-                correct: 0
-            },
-            {
-                q: "38. “Qutadg‘u bilig” asarining muallifi.",
-                options: ["Yusuf Xos Hojib", "Kaykovus", "Alisher Navoiy", "Abu Nasr Forobiy"],
-                correct: 0
-            },
-            {
-                q: "39. “Turkiy Guliston yoxud axloq” asarida komil inson tarbiyasiga oid ilgari surilgan g‘oyalar.",
-                options: ["Aqliy tarbiya, axloqiy tarbiya, vijdon tarbiyasi", "Vatan muhabbati, inson odobi.", "Axloqiy tarbiya, vijdon tarbiyasi", "Tarbiya, inson odobi"],
-                correct: 0
-            },
-            {
-                q: "40. “Mudarris ota-onasining mansabi, boyligiga qarab bolaga muomala qilmasligi kerak”. Ushbu fikrlar qaysi Sharq mutafakkirining qalamiga mansub?",
-                options: ["Alisher Navoiy", "Abdurahmon Jomiy", "Abu Nasr Forobiy", "Abu Ali ibn Sino"],
-                correct: 3
-            },
-            {
-                q: "41. Odob – bu:",
-                options: [
-                    "Har bir insonning o‘zi bir inson yoki jamoa bilan bo‘lgan muloqotida hamda yurish-turishida o‘zini tuta bilishidir",
-                    "Insonning yurish-turishini belgilab beradi",
-                    "Insonning muomala odobini belgilab beradi",
-                    "Insonning kuchli iroda egasi ekanligi"
-                ],
-                correct: 0
-            },
-            {
-                q: "42. XIX asrning 2-yarimi – XX asrda pedagogika faniga hissa qo‘shgan olimlar qaysi qatorda to‘g‘ri ko‘rsatilgan?",
-                options: ["Abdulla Avloniy, Abdurauf Fitrat, Mahmudxo’ja Behbudiy", "Abdurahmon Jomiy, Abdurauf Fitrat", "Amir Temur, Boborahim Mashrab", "Ibn Sino, Gulxaniy"],
-                correct: 0
-            },
-            {
-                q: "43. Tarbiyaning tabiatga uyg‘un bo‘lish prinsipini qaysi pedagog o‘z ishida ta’riflagan?",
-                options: ["Yan Amon Komenskiy", "Adolf Disterveg", "Jan Jak Russo", "Iogani Genrix Pestolotsiy"],
-                correct: 0
-            },
-            {
-                q: "44. O‘qituvchi – bu:",
-                options: [
-                    "Fundamental va mutaxassislik fanlarini chuqur egallagan yuqori saviyali dars beradigan kishi",
-                    "Madaniyatli, to‘g‘ri yo‘nalish ola biladigan shaxs",
-                    "Yuksak madaniyatli, o‘quvchilar qiziqishini qondira oladigan odam",
-                    "O‘quvchilarga bilim beruvchi shaxs"
-                ],
-                correct: 0
-            },
-            {
-                q: "45. Pedagogik faoliyatning obyekti kim?",
-                options: ["O'quvchi / Bola", "O'qituvchi", "Darslik", "Maktab"],
-                correct: 0
-            },
-            {
-                q: "46. Pedagogik mahorat qanday asosiy tarkibiy qismlarga ega?",
-                options: [
-                    "o'qituvchi shaxsiyatining insonparvar yo'nalishi, kasbiy bilimlar, pedagogik qobiliyat, pedagogik texnika",
-                    "kasbiy ta'lim, metodik bilim, pedagogik texnika, pedagogik qobiliyat",
-                    "pedagogik texnika, o'qituvchi shaxsiyatining insonparvar yo'nalishi, kasbiy bilim, metodik bilim",
-                    "fan metodologiyasi, pedagogik qobiliyat, pedagogik mahorat, muloqot ehtiyoji"
-                ],
-                correct: 0
-            },
-            {
-                q: "47. Akademik qobiliyat nima?",
-                options: [
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
-                    "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
-                    "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
-                    "sinf guruhini uyushtirish va boshqarish iste'dodi"
-                ],
-                correct: 0
-            },
-            {
-                q: "48. Kommunikativ qobiliyat bu nima?",
-                options: [
-                    "muomala va muloqot o'rnata olish mahorati",
-                    "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
-                    "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
-                ],
-                correct: 0
-            },
-            {
-                q: "49. Tashkilotchilik qobiliyati deganda nimani tushunasiz?",
-                options: [
-                    "o'quvchilar faoliyatini, sinf jamoasini uyushtirish va uni boshqara olish",
-                    "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
-                    "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
-                ],
-                correct: 0
-            },
-            {
-                q: "50. Nutqiy qobiliyat nima?",
-                options: [
-                    "ixcham, ma'noli, ohangdor, muayyan ritm, tempga ega bo'lgan nutq, nutqning mantiqiy ifodaliligi",
-                    "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
-                    "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik"
-                ],
-                correct: 0
-            },
-            {
-                q: "51. Perseptiv qobiliyatga berilgan to'g'ri ta'rifni belgilang!",
-                options: [
-                    "qisqa daqiqalarda sinf holatini idrok qila olish fazilati",
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
-                    "oson yo'l bilan murakkab bilimlarni o'quvchilarga tushuntira olish",
-                    "sinf guruhini uyushtirish va boshqarish iste'dodi"
-                ],
-                correct: 0
-            },
-            {
-                q: "52. Konstruktiv qobiliyat nima?",
-                options: [
-                    "o'quv-tarbiya ishlarini rejalashtirish va natijasini oldindan ko'ra bilish",
-                    "qisqa daqiqalarda auditoriya (sinf) holatini idrok qila olish fazilati",
-                    "barcha fanlar yuzasidan muayyan bilimga ega bo'lishlik",
-                    "sinf guruhini uyushtirish va boshqarish iste'dodi"
-                ],
-                correct: 0
-            },
-            {
-                q: "53. Mimika nima?",
-                options: [
-                    "yuz muskullari orqali o'z sezgisi, fikri kayfiyatini ifodalash (yuz ifodasi)",
-                    "gavda, qo'l va oyoqlarning harakati",
-                    "o'qituvchining gavda harakatlari va yuz ifodasi",
-                    "o'z xatti-harakatlarini boshqara olish malaka va ko'nikmalari"
-                ],
-                correct: 0
-            },
-            {
-                q: "54. Pedagogik takt nima?",
-                options: [
-                    "o'quvchilar faoliyatining turli doiralarida ular bilan muloqotda bo'lishning pedagogik tamoyili, o'lchovi, o'quvchilar bilan ularning shaxsiy xususiyatlarini hisobga olgan holda to'g'ri muloqotda bo'la olish malakasi",
-                    "har bir ta'lim oluvchi va jamoaning faolligini pedagogik jihatdan ta'minlash uchun zarur bo'lgan malaka va ko'nikmalar",
-                    "har bir ta'lim oluvchiga va jamoaga pedagogik ta'sir o'tkazishni samarali qo'llash uchun zarur bo'lgan malaka va ko'nikmalar majmuasi",
-                    "pedagogning yutuqlariga kafolat beradigan aniq ishlab chiqilgan va qat'iy ilmiy loyihalashtirilgan pedagogik harakat"
-                ],
-                correct: 0
-            },
-            {
-                q: "55. Pedagogik texnikaning tarkibiy qismlarini belgilang.",
-                options: [
-                    "nutq malakalari; pedagogning mimikasi va pantomimikasi; o'z hissiy (ruhiy) holatini boshqara olishi; o'qituvchining aktyorlik va rejissyorlik mahorati",
-                    "pedagogning nutq malakalari; pedagog odobi va nazokati; o'quvchilarga pedagogik ta'sir ko'rsata olish mahorati",
-                    "pedagogning mimikasi va pantomimikasi; o'qituvchining aktyorlik va rejissyorlik mahorati; pedagogik qobiliyatlar yig'indisi",
-                    "o'qituvchining o'z hissiy (psixik) holatini boshqara olishi; pedagogning mimikasi va pantomimikasi"
-                ],
-                correct: 0
-            },
-            {
-                q: "56. Pedagogning kommunikativ madaniyati deganda nimani tushunasiz?",
-                options: [
-                    "pedagogning o'quvchilar va atrofdagilar bilan qisqa muddatda muloqot o'rnatishga bo'lgan doimiy intilishi",
-                    "pedagogning dunyoga, pedagogik voqelikka va pedagogik jarayonga bo'lgan intellektual va hissiy munosabati",
-                    "pedagogik jarayonni bilish, uni tashkil eta olish",
-                    "o'quvchi va jamoaning faolligini pedagogik jihatdan ta'minlash uchun zarur bo'lgan malaka va ko'nikmalar"
-                ],
-                correct: 0
-            },
-            {
-                q: "57. O'qituvchining o'quvchilarni boshqarish uslublari berilgan javobni toping.",
-                options: [
-                    "avtoritar uslub, demokratik uslub, liberal uslub",
-                    "demokratik uslub, liberal uslub, muloqot - masofa uslubi",
-                    "demokratik uslub, avtoritar uslub, hazil-mutoyiba uslubi",
-                    "avtoritar uslub, liberal uslub, muloqot - qo'rqitish uslubi"
-                ],
-                correct: 0
-            },
-            {
-                q: "58. Pedagogik muloqotning asosiy funksiyalarini aniqlang.",
-                options: [
-                    "shaxsni o'rganish (bilish), axborot almashish va faoliyatni tashkil etish",
-                    "o'quvchi shaxsini o'rganish (bilish), psixologik muhitni yaratish",
-                    "axborot almashish, o'quvchilar faoliyatini uyushtirish",
-                    "o'qituvchining o'quvchi hissiyotlarini tushunish, axborot almashish va o'quvchi faoliyatini uyushtirish"
-                ],
-                correct: 0
-            },
-            {
-                q: "59. Nutq madaniyati deganda nimani tushunish zarur?",
-                options: [
-                    "Og'zaki va yozma adabiyot til me'yorlarini egallash, nutqning mazmuni va maqsadiga qarab turli muomala sharoitida til imkoniyatlaridan to'g'ri foydalana bilish",
-                    "Pedagogning o'quvchilar ongi va hissiyotiga nutq orqali ta'sir eta olish mahorati",
-                    "Pedagogning o'z tarbiyalanuvchilari bilan muloqotga kirisha olish mahorati",
-                    "Pedagog va o'quvchilar jamoasi o'rtasida o'zaro birgalikdagi harakatning mazmunan axborot ayirboshlashdan iborat tizimi, usullari va malakalari"
-                ],
-                correct: 0
-            },
-            {
-                q: "60. Diksiya nima?",
-                options: [
-                    "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli",
-                    "Tovush hajmi, uning chegarasi",
-                    "Tovush rangdorligi, yorqinligi, uning yumshoqligi va alohidaligi",
-                    "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish"
-                ],
-                correct: 0
-            },
-            {
-                q: "61. Diapazon tushunchasi to'g'ri ifodalangan javobni toping.",
-                options: [
-                    "Tovush hajmi va ovoz hajmi bo'lib, uning chegarasi eng yuqori va quyi ohanglar bilan belgilanadi",
-                    "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
-                    "Tovush rangdorligi, yorqinligi, uning yumshoqligi va alohidaligi",
-                    "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
-                ],
-                correct: 0
-            },
-            {
-                q: "62. Tembr nima?",
-                options: [
-                    "Tovush rangdorligi, yorqinligi, hamda uning yumshoqligi va alohidaligi",
-                    "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
-                    "Tovush hajmi, uning chegarasi",
-                    "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
-                ],
-                correct: 0
-            },
-            {
-                q: "63. Nutq ritmi to'g'ri ifodalangan javobni belgilang.",
-                options: [
-                    "Tovush, nutq elementlarining muntazam izchillikda, chastotada takrorlanishi",
-                    "Tovush hajmi, uning chegarasi",
-                    "So'zlayotganda obrazga kirish, ovozni kerakli joyda pastlatish, ohista gapirish",
-                    "So'zlarni aniq, ravshan talaffuz etish, so'zlash usuli"
-                ],
-                correct: 0
-            },
-            {
-                q: "64. Pedagog mehnatini ilmiy tashkil etish tamoyillarini belgilang.",
-                options: [
-                    "Rejalashtirish, tashkil etish, boshqarish, nazorat qilish",
-                    "Rejalashtirish, tashkil etish, boshqarish",
-                    "Nazorat qilish, boshqarish, tashkil etish",
-                    "Rejalashtirish, boshqarish, nazorat qilish"
-                ],
-                correct: 0
-            },
-            {
-                q: "65. O'z-o'ziga ta'sir qilish usullarini toping.",
-                options: [
-                    "O'z-o'zini ishontirish, o'z-o'ziga buyruq berish, o'z-o'zini majbur qilish, o'z-o'zini rag'batlantirish, o'z-o'zini jazolash, o'z-o'zini mashq qildirish",
-                    "Tushuntirish, rag'batlantirish, ishontirish, o'z-o'ziga ta'sir qilish, o'z-o'zini mashq qildirish",
-                    "Ibrat-namuna, ma'qullash, rag'batlantirish, o'z-o'zini majbur qilish, o'z-o'ziga buyruq berish",
-                    "Ishontirish, uqtirish, talablar qo'yish, namuna ko'rsatish, qoralash, rag'batlantirish"
-                ],
-                correct: 0
-            },
-            {
-                q: "66. Ilg'or pedagogik tajriba nima?",
-                options: [
-                    "Pedagogning o'z vazifasiga ijodiy yondashib, ta'lim-tarbiyada yangi, samarali yo'l va vositalarni topishi",
-                    "Pedagogik faoliyatning maqsadi va xarakterini belgilay olish",
-                    "Yangi pedagogik hodisa va qonuniyatlarni ochib berish",
-                    "Pedagogik ijodkorlik, pedagogik masalalarni hal qila olish"
-                ],
-                correct: 0
-            },
-            {
-                q: "67. O‘qituvchi jamoa va shaxsga ta’sir eta olish bo‘yicha qanday malakalarga ega bo‘lmog‘i lozim?",
-                options: [
-                    "didaktik, tashkilotchilik, konstruktiv, kommunikativ pedagogik mahorat",
-                    "kommunikativ, pertseptiv, didaktik",
-                    "kommunikativ, pertseptiv, tashkilotchilik",
-                    "didaktik, malakaviy, ijodiy, tashkilotchilik, aqliy"
-                ],
-                correct: 0
-            },
-            {
-                q: "68. O‘qituvchi uchun eng muhim xususiyat nima?",
-                options: [
-                    "o‘zini tutish va kayfiyatni boshqarish; mehr va sabrli bo‘lish, bilimdonlik, mas’uliyat, muloqot qobiliyati",
-                    "xayol va fantaziya",
-                    "qobiliyat va aql",
-                    "xotira va temperament"
-                ],
-                correct: 0
-            },
-            {
-                q: "69. O‘qituvchi axloqiy-ma’naviy qiyofasini namoyon etuvchi me’yor tuyg‘usi yoki xulq va odob qoidalariga rioya qilishi nima deyiladi?",
-                options: ["Pedagogik nazokat", "Pedagogik odob", "Pedagogik madaniyat", "Pedagogik mahorat"],
-                correct: 1
-            },
-            {
-                q: "70. Pedagogik texnologiyaning asosiy maqsadi nimalardan iborat?",
-                options: [
-                    "takomillashtirish yoki o‘quvchilarning bilish faoliyatini rivojlantirishdan",
-                    "o‘quvchiga qo‘yib borilgan baholarni predmet bo‘yicha umumiy bahoga birlashtirish qoidalaridan",
-                    "o‘quv jarayonini uzluksiz, uzoq vaqt muttasil kuzatish va uni boshqarishdan",
-                    "o‘quvchilarning bilish faoliyatini rivojlantirishdan"
-                ],
-                correct: 0
-            },
-            {
-                q: "71. Tizim so‘zi haqida tushuncha?",
-                options: [
-                    "qismlardan tuzilgan, birikkan yaxlit narsa yoki hodisa",
-                    "gaplarni yozib, saqlab olish",
-                    "ijodiy yondashuv",
-                    "o‘quvchilarning bilish faoliyatini rivojlantirish"
-                ],
-                correct: 0
-            },
-            {
-                q: "72. Pedagog uchun eng zarur nutq madaniyatini belgilang?",
-                options: [
-                    "Nutqning grammatik to‘g‘riligi, uning leksik boyligi, aniq va ravshan ifodalanganligi",
-                    "Keng fikrlilik, tinglovchini zeriktirmaydigan muloqot o‘rnatish",
-                    "Tinglay olish, qo‘llab-quvvatlash",
-                    "Tanqidiy nuqtai nazar, o‘z fikrini himoya qilish"
-                ],
-                correct: 0
-            },
-            {
-                q: "73. “Agar har kishi qunt bilan mehnat qilsa, u o‘ziga nisbatan talabchan bo‘lsa, u yaxshi pedagog bo‘lishi mumkin” ushbu fikr kimga tegishli?",
-                options: ["A.S. Makarenko", "K.D. Ushinskiy", "L.N. Tolstoy", "Redkin"],
-                correct: 0
-            },
-            {
-                q: "74. Izchil ravishda kasbiy o‘sishga erishishda pedagogga xos qanday kompetentlik aks etadi?",
-                options: ["Shaxsiy kompetentlik", "Maxsus kompetentlik", "Ijtimoiy kompetentlik", "Ekstremal kasbiy kompetentlik"],
-                correct: 0
-            },
-            {
-                q: "75. Shaxs ichki kechinmalari, o‘y-fikrlari, xarakterining gavda harakati va imo-ishoralar yordamidagi ifodasi qanday nomlanadi?",
-                options: ["Fantomimika", "Etika", "Jest", "Mimika"],
-                correct: 0
-            },
-            {
-                q: "76. Ta’lim-tarbiya jarayonida o‘qituvchi mahoratini belgilovchi maqsadlar?",
-                options: [
-                    "Ta’limiy, tarbiyaviy, rivojlantiruvchi",
-                    "Ilmiy, texnik, psixik",
-                    "Texnik, texnologik, ishlab chiqaruvchi",
-                    "Yozish, chizish, o‘qish, aytish"
-                ],
-                correct: 0
-            },
-            {
-                q: "77. Refleksiya bosqichi pedagogik mahoratni rivojlantirishda nima uchun zarur?",
-                options: [
-                    "O‘z-o‘zini baholash va takomillashtirish",
-                    "Yangicha texnikalarni joriy etish",
-                    "Dars jadvalini tayyorlash",
-                    "Auditoriya dizaynini o‘rganish"
-                ],
-                correct: 0
-            },
-            {
-                q: "78. Farobiyning qaysi asarida davlat rahbarining o‘n ikki fazilati ko‘rsatiladi?",
-                options: ["Fozil odamlar shahri", "Aql to‘g‘risida risola", "Musiqa to‘g‘risida trakt", "Ruh madaniyati haqida risola"],
-                correct: 0
-            },
-            {
-                q: "79. “Ey o‘g‘il, farzandlaringni tarbiyalashdan oldin o‘zingni tarbiyala, tarbiya ko‘rgan oilada baodob, yaxshi fazilatli, bilimli odam voyaga yetadi” degan ibora qaysi alloma asarida bayon etilgan?",
-                options: [
-                    "Kaykovusning “Qobusnoma” asarida",
-                    "Ibn Sinoning “Donishnoma” asarida",
-                    "Abu Lays Samarqandiyning “Bostonul orifin” asarida",
-                    "Yusuf Xos Hojibning “Qutadg‘u bilig” asarida"
-                ],
-                correct: 0
-            },
-            {
-                q: "80. Tabiatni asrash, uning ne’matlarini avaylash va parvarishlash, atrof-muhitni toza tutish haqidagi fikrlar qaysi manbada keltirilgan?",
-                options: ["Avesto", "Buyuk didaktika", "Qutadg‘u bilig", "Donishnoma"],
-                correct: 0
-            },
-            {
-                q: "81. XIX asrning oxirida jadidlar qaysi shaharlarda o‘z gazetalarini chiqara boshlaydilar?",
-                options: [
-                    "Toshkent, Samarqand, Buxoro",
-                    "Samarqand, Buxoro, Chorjo‘y",
-                    "Toshkent, Buxoro, Termiz",
-                    "Buxoro, Marv, Urganch"
-                ],
-                correct: 0
-            },
-            {
-                q: "82. XX asr boshlarida Samarqandda dehqon va hunarmand bolalari uchun maktab ochgan ma’rifatparvar alloma kim?",
-                options: ["Saidahmad Siddiqiy", "Abdulla Avloniy", "Munavvarqori Abdurashidxonov", "Anbar otin"],
-                correct: 0
-            },
-            {
-                q: "83. “Mehnat axloqiylikning asosi, saxovatlilik belgisi” deb qaysi ta’limotda ko‘rsatilgan?",
-                options: ["Zardushtiylik", "Muzdakiylik", "Naqshbandiya", "Kubroviya"],
-                correct: 2
-            },
-            {
-                q: "84. Markaziy Osiyoda Musulmon maktablari tizimi qaysi tarixiy davrda tashkil topgan?",
-                options: ["VII-XII asr", "VII asr", "VI-XIII asr", "XIV-XVII asr"],
-                correct: 0
-            },
-            {
-                q: "85. “Kimga qanday pandu-nasihat qilsang, unga avvalo o‘zing amal qil” – ushbu ta’rif muallifini toping.",
-                options: ["Abu Ali Ibn Sino", "Ahmad Yugnakiy", "Kaykovus", "Abu Lays Samarqandiy"],
-                correct: 1
-            },
-            {
-                q: "86. Dastlabki arab tilidagi maktablarning yaratilishiga nimalar ta’sir etadi?",
-                options: [
-                    "Islom g‘oyalarining tarqalishi va Qur’oni Karimning o‘rganilishi",
-                    "Bolalarni tarbiyalash zarurligi",
-                    "Bolalarni mehnatga tayyorlash zarurligi",
-                    "Yozuv madaniyatini rivojlantirish"
-                ],
-                correct: 0
-            },
-            {
-                q: "87. Hadis ilmining yaratilishidagi eng oltin davr qaysi asrlar hisoblanadi?",
-                options: ["VIII-IX asrlar", "VII asr", "XV asr", "XVI asr"],
-                correct: 0
-            },
-            {
-                q: "88. Hadis ilmida “Sahih” yo‘nalishining asoschisi hamda “Al-Jome’ as-sahih” asarining muallifi kim?",
-                options: ["Imom Al-Buxoriy", "Imom Ismoil al-Nishopuriy", "Imom Ibn Moja", "Imom ibn Muso at-Termiziy"],
-                correct: 0
-            },
-            {
-                q: "89. Farobiy qaysi risolasida bilimlarni oʻrganish tartibini birma-bir sanab oʻtadi?",
-                options: ["“Baxt saodatga erishuv haqida”", "“Aql haqidagi risola”", "“Ilmlarning kelib chiqishi”", "“Aqlli risola”"],
-                correct: 2
-            },
-            {
-                q: "90. Kaykovusning “Qobusnoma” asari nechta bobdan iborat?",
-                options: ["44 bob", "40 bob", "50 bob", "45 bob"],
-                correct: 0
-            },
-            {
-                q: "91. Imom Buxoriy qachon va qayerda tavallud topgan?",
-                options: ["810-yil Buxoroda", "982-yil Buxoroda", "870-yil Xartangda", "820-yil Xartangda"],
-                correct: 0
-            },
-            {
-                q: "92. Islom dini ta’limotidagi Qur’oni Karimdan keyingi mo‘tabar manba qaysi?",
-                options: ["Hadis Sharif", "Hikmatli so‘z", "Maqol", "Avesto"],
-                correct: 0
-            },
-            {
-                q: "93. Kimni “Adiblari adibi, Fozillar sardori” deb atashgan?",
-                options: ["Ahmad Yugnakiy", "Abdurahmon Jomiy", "Alisher Navoiy", "Imom Buxoriy"],
-                correct: 0
-            }
-        ];
-        
-       // ===== 2-TEST SAVOLLARI (Amaliy dasturlash paketlari) =====
-        const questions2 = [
-            { q: "1. MathCAD dasturida integralni hisoblash uchun qaysi panel ishlatiladi?", options: ["Calculus paneli", "Graph paneli", "Algebra paneli", "Matrix paneli"], correct: 0 },
-            { q: "2. MathCAD dasturida chiziqli tenglamalar sistemasini yechish uchun qaysi blok ishlatiladi?", options: ["Given...Find bloki", "Solve bloki", "Matrix bloki", "Calculus bloki"], correct: 0 },
-            { q: "3. MathCAD dasturida matritsaning determinantini hisoblash uchun qaysi funksiya ishlatiladi?", options: ["det(M)", "tr(M)", "rank(M)", "inv(M)"], correct: 0 },
-            { q: "4. MathCAD dasturida simvolli hisoblashni faollashtirish uchun qaysi operator ishlatiladi?", options: ["O'q belgisi (->)", "Uch chiziq (≡)", "Ikki nuqta teng (:=)", "Teng belgisi (=)"], correct: 0 },
-            { q: "5. MathCAD dasturida matritsaning transponirlanganini topish funksiyasi qaysi?", options: ["transpose(M)", "det(M)", "rank(M)", "inv(M)"], correct: 0 },
-            { q: "6. MathCAD dasturida oddiy differensial tenglamani yechish uchun qaysi funksiya qo'llaniladi?", options: ["odesolve()", "solve()", "dsolve()", "nsolve()"], correct: 0 },
-            { q: "7. MathCAD interfeysida Math toolbar nima uchun xizmat qiladi?", options: ["Matematik operatorlar va funksiyalarni kiritish uchun", "Matnni formatlash va tahrirlash uchun", "Grafiklarni tahrirlash va sozlash uchun", "Faylni saqlash va eksport qilish uchun"], correct: 0 },
-            { q: "8. MathCAD dasturida algebraik tenglamani yechish uchun qaysi funksiya ishlatiladi?", options: ["solve()", "calc()", "roots()", "find()"], correct: 0 },
-            { q: "9. MathCAD dasturida grafik yaratishda qaysi ob'ektdan foydalaniladi?", options: ["X-Y Plot", "Line Graph", "Scatter Plot", "Bar Chart"], correct: 0 },
-            { q: "10. MathCAD dasturida vektorning uzunligini (normini) hisoblash funksiyasi qaysi?", options: ["Modul belgisi |v|", "len(v)", "abs(v)", "norm(v)"], correct: 0 },
-            { q: "11. MathCAD dasturida cheksiz qatorning yig'indisini hisoblash uchun qaysi panel ishlatiladi?", options: ["Calculus paneli", "Boolean paneli", "Graph paneli", "Matrix paneli"], correct: 0 },
-            { q: "12. MathCAD dasturida o'zgaruvchiga boshlang'ich qiymat berish uchun qaysi belgi ishlatiladi?", options: [":= (ikki nuqta va teng)", "== (ikki teng belgisi)", "-> (o'q belgisi)", "= (teng belgisi)"], correct: 0 },
-            { q: "13. MathCAD da Koshi masalasini yechishda qaysi boshlang'ich shart ko'rsatiladi?", options: ["Boshlang'ich nuqtadagi funksiya qiymati", "Oxirgi nuqtadagi funksiya qiymati", "Integralning chegaraviy qiymati", "Matritsaning o'lcham qiymati"], correct: 0 },
-            { q: "14. MathCAD dasturida ikkita matritsani ko'paytirish uchun qaysi operator ishlatiladi?", options: ["* (yulduzcha)", ". (nuqta)", "^ (daraja)", "x (xoch belgisi)"], correct: 0 },
-            { q: "15. MathCAD dasturida grafikda o'q sarlavhalarini qo'shish qayerdan amalga oshiriladi?", options: ["Grafik ustiga ikki marta bosib, label maydoniga yozish", "Format menyusidan sarlavha bo'limini tanlash orqali", "Insert menyusidan label bo'limini tanlash orqali", "Tools menyusidan options bo'limini tanlash orqali"], correct: 0 },
-            { q: "16. MathCAD dasturida hisob natijasini ko'rsatish uchun qaysi belgi bosiladi?", options: ["= (teng belgisi)", ":= (ikki nuqta teng)", "-> (o'q belgisi)", "; (nuqtali vergul)"], correct: 0 },
-            { q: "17. MathCAD dasturida Range variable (diapason o'zgaruvchi) qanday e'lon qilinadi?", options: ["x := 0, 0.1 .. 10 ko'rinishida", "x = range(0,10) ko'rinishida", "x := [0, 10] ko'rinishida", "x = 0:10 ko'rinishida"], correct: 0 },
-            { q: "18. MathCAD dasturida teskari matritsani hisoblash funksiyasi qaysi?", options: ["inv(M) yoki M^-1", "transpose(M)", "det(M)", "rank(M)"], correct: 0 },
-            { q: "19. MathCAD dasturida Gauss usuli bilan tenglamalar sistemasini yechishda nechta tenglama va noma'lum bo'lishi kerak?", options: ["Tenglama va noma'lumlar soni teng bo'lishi kerak", "Noma'lumlar soni ko'proq bo'lishi kerak", "Soni muhim emas, ixtiyoriy bo'lishi mumkin", "Tenglamalar soni ko'proq bo'lishi kerak"], correct: 0 },
-            { q: "20. MathCAD da grafikni chizish uchun qaysi tartib to'g'ri?", options: ["O'zgaruvchini aniqlash, funksiyani yozish, X-Y Plot kiritish", "Faqat funksiya yozish yetarli, boshqa narsa kerak emas", "Avval grafik kiritish, keyin funksiya yozish kerak", "Calculus panelidan foydalanish yetarli, boshqa narsa kerak emas"], correct: 0 },
-            { q: "21. MATLAB dasturida for tsikli qanday yoziladi?", options: ["for i=1:n ... end", "for(i=0; i<n; i++) { ... }", "for i in range(n): ...", "loop i=1 to n ... endloop"], correct: 0 },
-            { q: "22. MATLAB dasturida ikkita vektorni skalyar ko'paytirish uchun qaysi operator ishlatiladi?", options: ["dot(a,b)", "a*b", "a&b", "cross(a,b)"], correct: 0 },
-            { q: "23. MATLAB dasturida if-else shartli operatori qanday yakunlanadi?", options: ["end", "fi", "endif", "close"], correct: 0 },
-            { q: "24. MATLAB dasturida funksiya faylini yaratish uchun fayl qanday boshlanadi?", options: ["function natija = funksiya_nomi(argumentlar)", "def funksiya_nomi(argumentlar):", "sub funksiya_nomi(argumentlar)", "func funksiya_nomi(argumentlar)"], correct: 0 },
-            { q: "25. MATLAB dasturida while tsikli qanday yoziladi?", options: ["while shart ... end", "while(shart) { ... }", "do ... while(shart)", "repeat ... until shart"], correct: 0 },
-            { q: "26. MATLAB dasturida massivning o'lchamini aniqlash funksiyasi qaysi?", options: ["size(A)", "dim(A)", "count(A)", "len(A)"], correct: 0 },
-            { q: "27. MATLAB dasturida ikkita matritsani element bo'yicha ko'paytirish uchun qaysi operator ishlatiladi?", options: [".* (nuqtali yulduzcha)", "* (yulduzcha)", "x (ko'paytirish belgisi)", "&* (ampersand yulduzcha)"], correct: 0 },
-            { q: "28. MATLAB dasturida grafikda panjara (grid) ko'rsatish buyrug'i qaysi?", options: ["grid on", "enable grid", "show grid", "grid true"], correct: 0 },
-            { q: "29. MATLAB dasturida y o'qi bo'yicha sarlavha qo'yish buyrug'i qaysi?", options: ["ylabel('matn')", "ytitle('matn')", "yaxis('matn')", "yname('matn')"], correct: 0 },
-            { q: "30. MATLAB dasturida grafik oynasini yaratish buyrug'i qaysi?", options: ["figure", "draw", "graph", "plot"], correct: 0 },
-            { q: "31. MATLAB dasturida ikkita grafik bir oynada chizish uchun qaysi buyruq ishlatiladi?", options: ["hold on", "add plot", "multi plot", "combine on"], correct: 0 },
-            { q: "32. MATLAB dasturida 1 dan 10 gacha butun sonlardan iborat vektor yaratish buyrug'i?", options: ["v = 1:10", "v = vector(1:10)", "v = [1,10]", "v = range(1,10)"], correct: 0 },
-            { q: "33. MATLAB dasturida nol matritsa yaratish funksiyasi qaysi?", options: ["zeros(m,n)", "null(m,n)", "blank(m,n)", "empty(m,n)"], correct: 0 },
-            { q: "34. MATLAB dasturida birlik matritsa yaratish funksiyasi qaysi?", options: ["eye(n)", "ones(n)", "unit(n)", "identity(n)"], correct: 0 },
-            { q: "35. MATLAB dasturida sin funksiyasining grafigini chizish buyrug'i qaysi?", options: ["plot(x, sin(x))", "chart(x, sin(x))", "graph(sin(x))", "draw(x, sin(x))"], correct: 0 },
-            { q: "36. MATLAB dasturida qoldiqli bo'lish (modul) operatori qaysi?", options: ["mod(a,b)", "a%b", "a rem b", "rem(a,b)"], correct: 0 },
-            { q: "37. MATLAB dasturida dastur ichidagi izohlar qaysi belgi bilan boshlanadi?", options: ["% (foiz belgisi)", "// (ikki slesh)", "# (panjara belgisi)", "/* (slesh yulduzcha)"], correct: 0 },
-            { q: "38. MATLAB dasturida abs() funksiyasi nima uchun ishlatiladi?", options: ["Sonning mutlaq qiymatini hisoblash uchun", "Sonning darajasini hisoblash uchun", "Sonni yaxlitlash va qisqartirish uchun", "Sonning kvadrat ildizini topish uchun"], correct: 0 },
-            { q: "39. MATLAB dasturida sqrt() funksiyasi nima qaytaradi?", options: ["Sonning kvadrat ildizini", "Sonning kubini", "Sonning kvadratini", "Sonning mutlaq qiymatini"], correct: 0 },
-            { q: "40. MATLAB dasturida disp() funksiyasining vazifasi nima?", options: ["Ekranga ma'lumot chiqarish", "O'zgaruvchi yaratish va saqlash", "Grafikni chizish va ko'rsatish", "Ma'lumotni o'chirish va tozalash"], correct: 0 },
-            { q: "41. MATLAB dasturida sum() funksiyasi nima uchun ishlatiladi?", options: ["Massiv elementlari yig'indisini hisoblash uchun", "Massiv elementlarini saralash uchun", "Massivning maksimal elementini topish uchun", "Massiv elementlarining sonini topish uchun"], correct: 0 },
-            { q: "42. MATLAB dasturida max() funksiyasi nima qaytaradi?", options: ["Massivning maksimal elementini", "Massivning minimal elementini", "Elementlar yig'indisini", "Elementlar o'rtachasini"], correct: 0 },
-            { q: "43. MATLAB dasturida sort() funksiyasi nima uchun ishlatiladi?", options: ["Massiv elementlarini saralash uchun", "Massiv elementlarini qo'shish uchun", "Massivni aylantirish uchun", "Massivni o'chirish uchun"], correct: 0 },
-            { q: "44. Simulink nima?", options: ["MATLABning dinamik tizimlarni modellashtirish uchun grafik muhiti", "MATLABning grafik chizish va vizualizatsiya paneli", "MATLABning statistik tahlil va hisoblash vositasi", "MATLABning matritsa hisoblash va saqlash kutubxonasi"], correct: 0 },
-            { q: "45. Simulinkda blok-diagramma nima?", options: ["Tizimning grafik ko'rinishdagi matematik modeli", "Tizimning jadval ko'rinishdagi sonli tahlili", "Tizimning matnli tavsifi va formulalar ro'yxati", "Tizimning formulalar to'plami va tenglamalar tizimi"], correct: 0 },
-            { q: "46. Simulinkda simulyatsiya ishga tushirish tugmasi qanday ko'rinadi?", options: ["Uchburchak (Play) tugmasi", "Kvadrat (Stop) tugmasi", "Doira (Record) tugmasi", "X belgili (Close) tugmasi"], correct: 0 },
-            { q: "47. Simulinkda Scope bloki nima uchun ishlatiladi?", options: ["Signallarni vaqt bo'yicha ko'rsatish uchun", "Signallarni saqlash va eksport qilish uchun", "Signallarni filtrlash va tozalash uchun", "Signallarni kuchaytirish va sozlash uchun"], correct: 0 },
-            { q: "48. Simulinkda Integrator bloki nima vazifani bajaradi?", options: ["Kirish signalini vaqt bo'yicha integrallaydi", "Kirish signalini vaqt bo'yicha differensiyalaydi", "Kirish signalini kuchaytirib uzatadi", "Kirish signalini kechiktirib uzatadi"], correct: 0 },
-            { q: "49. Simulinkda Transfer Function bloki nima uchun ishlatiladi?", options: ["Tizimning uzatish funksiyasini modellashtirish uchun", "Signalni integrallash va yig'indini hisoblash uchun", "Signalni grafik ko'rinishida chizish uchun", "Signalni saqlash va faylga yozish uchun"], correct: 0 },
-            { q: "50. Simulinkda Step bloki qanday signal hosil qiladi?", options: ["Bosqichli (step) kirish signalini", "Sinusoidal (to'lqinsimon) signalni", "Tasodifiy (random) signalni", "Impuls (lahzali) signalni"], correct: 0 },
-            { q: "51. MS Excel dasturida IF funksiyasining sintaksisi qanday?", options: ["=IF(shart; rost_qiymat; yolg'on_qiymat)", "=IF{shart; rost_qiymat; yolg'on_qiymat}", "=IF[shart; rost_qiymat; yolg'on_qiymat]", "=IF(shart, rost_qiymat)"], correct: 0 },
-            { q: "52. MS Excel dasturida VLOOKUP funksiyasi nima uchun ishlatiladi?", options: ["Jadvalda qiymatni qidirish va tegishli ustundagi qiymatni qaytarish uchun", "Qiymatlarni o'sish tartibida saralash va tartiblash uchun", "Yacheykalarni birlashtirish va formatlash uchun", "Grafiklarni chizish va vizualizatsiya qilish uchun"], correct: 0 },
-            { q: "53. MS Excel dasturida COUNT funksiyasi nima hisoblaydi?", options: ["Raqamli qiymat mavjud yacheykallar sonini", "Barcha yacheykalar sonini diapazon ichida", "Bo'sh yacheykalar sonini diapazon ichida", "Matnli yacheykalar sonini diapazon ichida"], correct: 0 },
-            { q: "54. MS Excel dasturida COUNTIF funksiyasi nima uchun ishlatiladi?", options: ["Shartga mos keladigan yacheykalar sonini hisoblash uchun", "O'rtacha qiymat topish va natijani ko'rsatish uchun", "Maksimal qiymat topish va natijani qaytarish uchun", "Barcha sonlarni qo'shish va yig'indini hisoblash uchun"], correct: 0 },
-            { q: "55. MS Excel dasturida MAX funksiyasi nima qaytaradi?", options: ["Tanlangan diapazonning maksimal qiymatini", "Tanlangan diapazonning minimal qiymatini", "Tanlangan diapazonning yig'indi qiymatini", "Tanlangan diapazonning o'rtacha qiymatini"], correct: 0 },
-            { q: "56. MS Excel dasturida CONCATENATE operatori nima uchun ishlatiladi?", options: ["Matn qatorlarini birlashtirish uchun", "Yacheykalarni o'chirish uchun", "Formulalarni hisoblash uchun", "Raqamlarni qo'shish uchun"], correct: 0 },
-            { q: "57. MS Excel dasturida ustun kengligi qanday o'zgartiriladi?", options: ["Ustun chegarasini sichqon bilan sudrab yoki Format menyusi orqali", "Faqat Page Layout menyusi orqali o'zgartirish mumkin", "Faqat Print Preview rejimida o'zgartirish mumkin", "Faqat klaviatura yorliqlaridan foydalanib o'zgartirish mumkin"], correct: 0 },
-            { q: "58. MS Excel dasturida pivot table (pivot jadval) nima uchun ishlatiladi?", options: ["Katta ma'lumotlarni guruhlash va tahlil qilish uchun", "Formulalarni hisoblash va natijalarni ko'rsatish uchun", "Grafiklarni chizish va vizualizatsiya qilish uchun", "Yacheykalarni formatlash va bezash uchun"], correct: 0 },
-            { q: "59. MS Excel dasturida conditional formatting nima uchun ishlatiladi?", options: ["Shartga qarab yacheykalarga avtomatik formatlash qo'llash uchun", "Formulalarni hisoblash va natijalarni ko'rsatish uchun", "Grafiklarni chizish va vizualizatsiya qilish uchun", "Ma'lumotlarni saralash va filtrlash uchun"], correct: 0 },
-            { q: "60. MS Excel dasturida Freeze Panes funksiyasi nima uchun ishlatiladi?", options: ["Sarlavha qatorlarini yoki ustunlarni joyida qotirib qo'yish uchun", "Yacheykalarni birlashtirish va formatlash uchun", "Jadval chegaralarini chizish va bezash uchun", "Formulalarni qulflash va o'zgartirishdan himoyalash uchun"], correct: 0 },
-            { q: "61. MS Excel dasturida SUMIF funksiyasi nima uchun ishlatiladi?", options: ["Shartga mos kelgan yacheykalar qiymatlarini qo'shish uchun", "O'rtacha qiymat topish va natijani ko'rsatish uchun", "Yacheykalar sonini hisoblash va natijani qaytarish uchun", "Barcha yacheykalarni qo'shish va yig'indini ko'rsatish uchun"], correct: 0 },
-            { q: "62. MS Excel dasturida grafik (diagramma) yaratish uchun qaysi menyu ishlatiladi?", options: ["Insert menyusi", "Data menyusi", "Review menyusi", "Format menyusi"], correct: 0 },
-            { q: "63. MS Excel dasturida bir nechta varaqlar (sheet) o'rtasida ma'lumotga murojaat qilish qanday yoziladi?", options: ["=Varaq1!A1 ko'rinishida", "=Varaq1/A1 ko'rinishida", "=Varaq1:A1 ko'rinishida", "=Varaq1-A1 ko'rinishida"], correct: 0 },
-            { q: "64. MS Excel dasturida TEXT funksiyasi nima uchun ishlatiladi?", options: ["Raqamni belgilangan formatda matnga aylantirish uchun", "Raqamlarni qo'shish va yig'indini hisoblash uchun", "Matnni raqamga aylantirish va hisoblash uchun", "Matnni o'chirish va yacheykani tozalash uchun"], correct: 0 },
-            { q: "65. MS Excel dasturida ROUND funksiyasi nima uchun ishlatiladi?", options: ["Sonni belgilangan xonagacha yaxlitlash uchun", "Sonning ildizini topish va hisoblash uchun", "Sonning mutlaq qiymatini topish uchun", "Sonning darajasini hisoblash uchun"], correct: 0 },
-            { q: "66. MS Excel dasturida ma'lumotlarni o'sish tartibida saralash uchun qaysi amal bajariladi?", options: ["Data menyusi → Sort → Ascending", "Format menyusi → Sort → A to Z", "Insert menyusi → Sort → Ascending", "Home menyusi → Sort → A to Z"], correct: 0 },
-            { q: "67. MS Excel dasturida yacheykaga sharh (comment) qo'shish uchun qaysi menyu ishlatiladi?", options: ["Review → New Comment", "Format → Comment", "Data → Comment", "Insert → Note"], correct: 0 },
-            { q: "68. Differensial tenglama tartibi nima bilan aniqlanadi?", options: ["Tenglamadagi eng yuqori tartibli hosilaning tartibi bilan", "Tenglamaning o'ng tomonidagi ifoda bilan", "Tenglamadagi noma'lumlar soni bilan", "Tenglamadagi koeffitsientlar soni bilan"], correct: 0 },
-            { q: "69. Birinchi tartibli oddiy differensial tenglamaning umumiy ko'rinishi qanday?", options: ["y' = f(x, y)", "y'' = f(x, y)", "y''' = f(x)", "∫y dx = f(x)"], correct: 0 },
-            { q: "70. Differensial tenglamaning xususiy yechimi nima?", options: ["Boshlang'ich shartlarni qanoatlantiruvchi yechim", "Barcha boshlang'ich shartlar uchun umumiy yechim", "Taxminiy hisoblash natijasida olingan yechim", "Faqat grafikda ifodalangan taqribiy yechim"], correct: 0 },
-            { q: "71. Eyler usuli differensial tenglamalarni yechishning qaysi turi?", options: ["Sonli (taqribiy) yechish usuli", "Aniq (analitik) yechish usuli", "Matritsa orqali yechish usuli", "Grafik orqali yechish usuli"], correct: 0 },
-            { q: "72. Differensial tenglamalar sistemasi deb nimaga aytiladi?", options: ["Bir necha differensial tenglamalarni o'z ichiga olgan sistema", "Algebraik tenglamalar to'plami va ularning yechimlari", "Faqat bitta differensial tenglama va uning yechimi", "Integral tenglamalar to'plami va ularning yechimlari"], correct: 0 },
-            { q: "73. Koshi masalasi nima?", options: ["Boshlang'ich shartlar berilgan differensial tenglama masalasi", "Chegaraviy shartlar berilgan differensial tenglama masalasi", "Faqat aniq yechimga ega bo'lgan matematik masala", "Matritsaviy tenglama va uning yechimi masalasi"], correct: 0 },
-            { q: "74. Separabel differensial tenglama qanday tenglamaga aytiladi?", options: ["O'zgaruvchilarni ikki tomonga ajratish mumkin bo'lgan tenglama", "Chiziqli bo'lmagan va murakkab ko'rinishdagi tenglama", "Ikkinchi tartibli va yuqori darajali tenglama", "Faqat sonli usullar bilan yechiladigan tenglama"], correct: 0 },
-            { q: "75. Amaliy dasturlar paketi (ADP) nima uchun yaratilgan?", options: ["Muayyan sohalardagi muammolarni hal qilish uchun ixtisoslashtirilgan dasturlar", "Umumiy maqsadli operatsion tizim yaratish va boshqarish uchun", "Faqat o'yinlar uchun mo'ljallangan ko'ngilochar dasturlar", "Internet brauzerlar to'plami va tarmoq vositalari sifatida"], correct: 0 },
-            { q: "76. MathCAD, MATLAB, MS Excel qaysi turkumga kiradi?", options: ["Amaliy dasturlar paketi (ADP)", "Tizim dasturlari va drayverlar", "Operatsion tizimlar va platformalar", "Antivirus dasturlari va himoya vositalari"], correct: 0 },
-            { q: "77. Jadval protsessori (elektron jadval) dasturining asosiy vazifasi nima?", options: ["Jadval ko'rinishidagi ma'lumotlarni kiritish, hisoblash va tahlil qilish", "Faqat internet bilan ishlash va veb-sahifalarni ko'rsatish", "Faqat grafika bilan ishlash va rasmlar yaratish", "Faqat matn yozish va hujjatlarni formatlash"], correct: 0 }
-        ];
-        
+        const allTests = {
+            "Tabiat bilan tanishtirish": [
+                { q: "1. Ekologiya necha bo‘limga bo‘lib o‘rganiladi?", options: ["3 bo‘limga", "2 bo‘limga", "4 bo‘limga", "5 bo‘limga"], correct: 0 },
+                { q: "2. Autekologiya qanday ma’noni bildiradi?", options: ["Yakka organizmni o‘rganadi", "Populyatsiyani o'rganadi", "Jamoa ekologiyasi", "Muhitni o'rganadi"], correct: 0 },
+                { q: "3. Amaliy metod nima?", options: ["Tajriba, mehnat va o‘yin orqali o‘rgatish", "Faqat kitob o'qish", "Faqat suhbat", "Mustaqil o'qish"], correct: 0 },
+                { q: "4. Tabiat bilan tanishtirish ishlarini qaysi mashg‘ulotlar orqali olib borish mumkin?", options: ["Mashg‘ulot, ekskursiya, o‘yin va mehnat", "Faqat mashg'ulot", "Faqat o'yin", "Uyga vazifa"], correct: 0 },
+                { q: "5. Tabiat burchagidagi mehnat turlari nimalardan iborat?", options: ["Sug‘orish, tozalash, oziqlantirish", "O'qish, yozish", "O'yin o'ynash", "Kuzatish"], correct: 0 },
+                { q: "6. Maktabgacha yoshdagi bolalarning tabiatdagi mehnat turlari qanday?", options: ["Oddiy parvarish va kuzatish ishlari", "Murakkab tajribalar", "Faqat o'yin", "Ilmiy izlanishlar"], correct: 0 },
+                { q: "7. Tabiat burchagida qanday qushlar parvarish qilinadi?", options: ["Kanareyka, to‘tiqush", "Burgut, lochin", "Kabutar, chumchuq", "O'rdak, goz"], correct: 0 },
+                { q: "8. Ekologik omil deganda nimani tushunasiz?", options: ["Tirik organizmga ta’sir qiluvchi omillar", "O'lik tabiat", "Faqat iqlim", "O'simliklar"], correct: 0 },
+                { q: "9. Beruniy “Saydana” asarida nechta dori-darmonlarni tavsiflagan?", options: ["1116 xil", "500 xil", "100 xil", "800 xil"], correct: 0 },
+                { q: "10. “Saydana” asari kimga tegishli?", options: ["Abu Rayhon Beruniy", "Ibn Sino", "Farobiy", "Ulug'bek"], correct: 0 },
+                { q: "11. Tabiat bilan tanishtirish metodlari nechta guruhga bo‘linadi?", options: ["3 guruhga", "2 guruhga", "4 guruhga", "5 guruhga"], correct: 0 },
+                { q: "12. Kichik guruh tabiat burchagida uzoq gullaydigan o‘simliklar joylashtirish nimani anglatadi?", options: ["Tarbiyaviy ishni tashkil etish", "Bezash", "Faqat havo tozalash", "Hech narsani anglatmaydi"], correct: 0 },
+                { q: "13. Qaysi qushlar tutqunlikda ko‘paytiriladi?", options: ["Kanareyka", "Burgut", "Chumchuq", "Qarg'a"], correct: 0 },
+                { q: "14. Sutemizuvchilar sinfiga kiruvchi quyonning vatani qayer?", options: ["Yevropa", "Osiyo", "Afrika", "Amerika"], correct: 0 },
+                { q: "15. Yer maydonchasi qanday joy hisoblanadi?", options: ["Ochiq tarbiyaviy maydon", "Yopiq xona", "Omborxona", "O'yin maydonchasi"], correct: 0 },
+                { q: "16. Kuzatishlar qanday bo‘lishi mumkin?", options: ["Qisqa va uzoq muddatli", "Faqat qisqa", "Faqat uzoq", "Kuzatish bo'lmaydi"], correct: 0 },
+                { q: "17. Qisqa muddat ichida tabiatda nimani kuzatish mumkin?", options: ["Ob-havo o‘zgarishini", "O'simlik o'sishini", "Fasl o'zgarishini", "Hayotni rivojlanishini"], correct: 0 },
+                { q: "18. Yer maydonchasi yo‘lkasining kengligi qancha bo‘ladi?", options: ["1–1,5 metr", "5 metr", "10 metr", "0.5 metr"], correct: 0 },
+                { q: "19. Ko‘rgazmali metodlarga nimalar kiradi?", options: ["Kuzatish va namoyish", "Hikoya", "Suhbat", "Mashq"], correct: 0 },
+                { q: "20. So‘ngi yillarda metodika rivojiga hissa qo‘shgan olimlar kimlar?", options: ["Komenskiy, Ushinskiy", "Ibn Sino", "Navoiy", "G'afur G'ulom"], correct: 0 },
+                { q: "21. Og‘zaki metod usullariga nimalar kiradi?", options: ["Hikoya, suhbat, tushuntirish", "Kuzatish", "Tajriba", "O'yin"], correct: 0 },
+                { q: "22. Tabiat bilan tanishtirish dasturi qanday tuziladi?", options: ["Maqsad, vazifa, mazmun asosida", "Ixtiyoriy", "Faqat mavzular", "O'qituvchining xohishiga qarab"], correct: 0 },
+                { q: "23. Hozirgi davrda ekologik tanglikning asosiy sababi nima?", options: ["Inson faoliyati", "Tabiiy ofatlar", "Hayvonlar", "O'simliklar"], correct: 0 },
+                { q: "24. Tabiatga oid mashg‘ulot necha qismdan iborat?", options: ["3 qismdan", "1 qismdan", "2 qismdan", "5 qismdan"], correct: 0 },
+                { q: "25. Bolalarni tabiat bilan tanishtirishda MTTning vazifalari nimalardan iborat?", options: ["Tabiatga mehr uyg‘otish va bilim berish", "Faqat o'qitish", "Faqat o'yinturgazish", "Bolalarni jazo berish"], correct: 0 },
+                { q: "26. “Insonni tarbiyalashdagi muhim agentlardan biri tabiatdir” fikri kimga tegishli?", options: ["K.D. Ushinskiy", "Komenskiy", "Makarenko", "Avloniy"], correct: 0 },
+                { q: "27. Xona o‘simliklariga shira (bit)ga qarshi kurash choralari qanday?", options: ["Dori sepish va yuvish", "O'simlikni tashlab yuborish", "Sug'ormaslik", "Kuzatish"], correct: 0 },
+                { q: "28. Kichik yosh guruhda nechta xona gullari bilan tanishtiriladi?", options: ["2–3 ta", "10 ta", "5 ta", "1 ta"], correct: 0 },
+                { q: "29. Tabiat bilan tanishtirish prinsiplari nimalardan iborat?", options: ["Tizimlilik, izchillik, ko‘rgazmalilik", "Qiziqish, majburlash", "Tartib, intizom", "O'yin, mehnat"], correct: 0 },
+                { q: "30. “Uz vaqtida yerga toza urug‘ sepmoq...” fikri qaysi asarda keltirilgan?", options: ["Avestoda", "Qutadg'u bilig", "Xamsa", "Alpomish"], correct: 0 },
+                { q: "31. “Bioekosan” qachon tashkil etilgan?", options: ["1992-yilda", "2000-yilda", "1980-yilda", "2010-yilda"], correct: 0 },
+                { q: "32. Amaliy metod turlari nimalardan iborat?", options: ["Tajriba, mehnat, o‘yin", "Suhbat, hikoya", "Kuzatish, namoyish", "Tushuntirish"], correct: 0 },
+                { q: "33. “Qizil kitob” mamlakatimizda qachon chop etilgan?", options: ["1984-yilda", "1991-yilda", "2005-yilda", "1970-yilda"], correct: 0 },
+                { q: "34. Tabiat tarbiyasi haqidagi fikr kimga tegishli?", options: ["Ushinskiy", "Navoiy", "Lenin", "Stalin"], correct: 0 },
+                { q: "35. O‘simliklar necha marta o‘gitlanadi?", options: ["Oyiga 1–2 marta", "Haftasiga", "Yiliga 1 marta", "Hech qachon"], correct: 0 },
+                { q: "36. Sabzavot ekinlari zararkunandalari qaysilar?", options: ["Shira, qurtlar", "Qushlar", "Kemiruvchilar", "Baliqlar"], correct: 0 },
+                { q: "37. Xona o‘simliklarining zararkunandalari qaysilar?", options: ["Shira, o‘rgimchak kana", "Qurtlar", "Sichqonlar", "Köpük"], correct: 0 },
+                { q: "38. “Xinagul” nima?", options: ["Xina o‘simligi", "Baliq turi", "Qush turi", "Kuya turi"], correct: 0 },
+                { q: "39. Og‘zaki metodga yana nimalar kiradi?", options: ["Hikoya va suhbat", "O'yin", "Tajriba", "Mehnat"], correct: 0 },
+                { q: "40. Tabiat burchagi uchun nechta talab qo‘yilgan?", options: ["3 ta", "5 ta", "1 ta", "10 ta"], correct: 0 },
+                { q: "41. “Kanareyka” qushi qachon Yevropaga keltirilgan?", options: ["XVI asrda", "XX asrda", "X asrda", "V asrda"], correct: 0 },
+                { q: "42. Xona gullarini parvarish qilish yo‘llari qanday?", options: ["Sug‘orish, yorug‘lik va parvarish", "Faqat sug'orish", "Faqat yorug'lik", "Tashlab qo'yish"], correct: 0 },
+                { q: "43. “Tomchi” hikoyasining muallifi kim?", options: ["G‘afur G‘ulom", "Hamza Hakimzoda", "Abdulla Qodiriy", "Cho'lpon"], correct: 0 },
+                { q: "44. Mudiraning yillik rejasi nima?", options: ["Rejalashtirish hujjati", "Hisob hujjat", "Buyruq", "Davlat hujjati"], correct: 0 },
+                { q: "45. Tabiat bilan tanishtirishda qaysi o‘yinlardan foydalaniladi?", options: ["Didaktik o‘yinlar", "Sport o'yinlari", "Harbiy o'yinlar", "Komp'yuter o'yinlari"], correct: 0 },
+                { q: "46. Katta guruh tabiat burchagida qanday o‘simliklar bo‘ladi?", options: ["Murakkab o‘simliklar", "Oddiy o'simliklar", "Suniy gullar", "Hech narsa bo'lmaydi"], correct: 0 },
+                { q: "47. Bolalarning tabiatdagi mehnati qanday shaklda tashkil etiladi?", options: ["Jamoaviy shaklda", "Yakka shaklda", "Majburiy shaklda", "Tashkil etilmaydi"], correct: 0 },
+                { q: "48. Tabiat burchagida navbatchilik qaysi guruhdan boshlanadi?", options: ["O‘rta guruhdan", "Kichik guruhdan", "Katta guruhdan", "Tayyorlov guruhidan"], correct: 0 },
+                { q: "49. Soyabonguldosh o‘simliklar qaysilar?", options: ["Sabzi, petrushka", "Kartoshka, piyoz", "Tomat, bodring", "Olma, uzum"], correct: 0 },
+                { q: "50. Mashg‘ulot necha qismdan iborat?", options: ["3 qismdan", "1 qismdan", "2 qismdan", "5 qismdan"], correct: 0 },
+                { q: "51. Ekskursiya necha qismdan iborat?", options: ["5 qismdan", "3 qismdan", "2 qismdan", "1 qismdan"], correct: 0 },
+                { q: "52. Mashg‘ulot turlari nimalardan iborat?", options: ["Yangi bilim berish va mustahkamlash", "Faqat o'yin", "Faqat mehnat", "Faqat kuzatish"], correct: 0 },
+                { q: "53. O‘rta guruh uchun tavsiya etilgan gullar qaysilar?", options: ["Geran, begoniya", "Fikus, palma", "Kaktus", "Atirgul"], correct: 0 },
+                { q: "54. Katta guruh uchun tavsiya etilgan gullar qaysilar?", options: ["Fikus, palma", "Geran", "Begoniya", "Lola"], correct: 0 },
+                { q: "55. O‘zbekistondagi eng muhim ekologik muammo nima?", options: ["Orol dengizi muammosi", "Havo ifloslanishi", "Suv tanqisligi", "O'rmon yong'inlari"], correct: 0 },
+                { q: "56. Tabiat bilan tanishtirish tamoyillari nimalardan iborat?", options: ["Tizimlilik va izchillik", "Majburlash", "O'zlashtirish", "Baholash"], correct: 0 },
+                { q: "57. Tabiat bilan tanishtirish ish shakllari qaysilar?", options: ["Mashg‘ulot, ekskursiya, o‘yin", "Faqat dars", "Faqat ekskursiya", "Faqat mehnat"], correct: 0 },
+                { q: "58. Kuzatish va uning turlari qaysilar?", options: ["Qisqa va uzoq muddatli", "Kuzatish turi yo'q", "Faqat uzoq", "Faqat qisqa"], correct: 0 },
+                { q: "59. Ekologiya tushunchasini fanga kim kiritgan?", options: ["E. Gekkel", "Komenskiy", "Ushinskiy", "Beruniy"], correct: 0 },
+                { q: "60. O‘yin, mehnat, kuzatish qaysi metodga kiradi?", options: ["Amaliy metodga", "Og'zaki metodga", "Ko'rgazmali metodga", "Majburiy metodga"], correct: 0 },
+                { q: "61. Tabiatga oid hikoya, suhbat qaysi metodga taalluqli?", options: ["Og‘zaki metodga", "Amaliy metodga", "Ko'rgazmali metodga", "O'yin metodiga"], correct: 0 },
+                { q: "62. Tabiat bilan tanishtirish ish shakllari qaysilar?", options: ["Mashg‘ulot, o‘yin, ekskursiya", "Faqat o'yin", "Faqat mashg'ulot", "Faqat ekskursiya"], correct: 0 },
+                { q: "63. Tabiatga oid mashg‘ulot necha qismdan iborat?", options: ["3 qismdan", "2 qismdan", "4 qismdan", "1 qismdan"], correct: 0 },
+                { q: "64. Akvariumda yashovchi baliqlar qaysilar?", options: ["Guppi, skalyariya", "Sazan, laqqa", "Shark, kit", "Karp"], correct: 0 },
+                { q: "65. O‘zbekistondagi yana bir ekologik muammo nima?", options: ["Havo ifloslanishi", "Orol muammosi", "Zilzila", "Suv toshqini"], correct: 0 },
+                { q: "66. Stol bosma o‘yinlariga nimalar kiradi?", options: ["Domino, loto", "Futbol", "Sakrash", "Yugurish"], correct: 0 },
+                { q: "67. Og‘zaki o‘yin turlariga nimalar kiradi?", options: ["Topishmoq, tez aytish", "Domino", "Loto", "Karta o'yinlari"], correct: 0 },
+                { q: "68. Mudiraning tabiat bilan tanishtirish ishiga rahbarlik yo‘nalishlari qanday?", options: ["Nazorat va metodik yordam", "Faqat nazorat", "Faqat yordam", "Aralashmaslik"], correct: 0 },
+                { q: "69. Qisqa muddatli kuzatishga nimalar kiradi?", options: ["Ob-havo kuzatuvi", "Daraxt o'sishini kuzatish", "Fasl o'zgarishini kuzatish", "Hayotni kuzatish"], correct: 0 },
+                { q: "70. Ekologik tanglikning yana bir sababi nima?", options: ["Tabiatni ifloslantirish", "O'simlik o'sishi", "Hayvonlar ko'payishi", "Yomg'ir"], correct: 0 },
+                { q: "71. Tabiatga oid mashg‘ulot necha qismdan iborat?", options: ["3 qismdan", "1 qismdan", "2 qismdan", "5 qismdan"], correct: 0 },
+                { q: "72. Terrariumda yashovchilar qaysilar?", options: ["Toshbaqa, kaltakesak", "Guppi", "Kanareyka", "Quyon"], correct: 0 },
+                { q: "73. Tabiat bilan tanishtirish ishini rejalashtirish turlari qaysilar?", options: ["Yillik, oylik, haftalik", "Faqat yillik", "Faqat haftalik", "Reja tuzilmaydi"], correct: 0 },
+                { q: "74. Ko‘rgazmali metodlar guruhi namoyishi nima?", options: ["Ob’ektni ko‘rsatish", "Ob'ektni eshitish", "Ob'ektni tatib ko'rish", "Ob'ektni ushlash"], correct: 0 },
+                { q: "75. Tabiat burchagidagi hayvonlarni parvarish qilish uchun asboblar qaysilar?", options: ["Sug‘orgich, idishlar", "Ruchka, daftar", "O'yinchoqlar", "Ko'zoynak"], correct: 0 },
+                { q: "76. “U yerning tog‘, yaylov...” matni qaysi asardan olingan?", options: ["Gerodot asaridan", "Avestodan", "Qutadg'u biligdan", "Alpomishdan"], correct: 0 },
+                { q: "77. Tabiat bilan tanishtirishda tarqatma materiallar turlari qaysilar?", options: ["Rasmlar, kartochkalar", "Video", "Audio", "Komp'yuter"], correct: 0 },
+                { q: "78. Qaysi davlat hujjatining yakuniy bosqichi 2018–2020 yillarga mo‘ljallangan?", options: ["Harakatlar strategiyasi", "Qizil kitob", "Konstitutsiya", "Ta'lim to'g'risida qonun"], correct: 0 },
+                { q: "79. “Ilk qadam” dasturida nechta yo‘nalish bor?", options: ["5 ta", "3 ta", "1 ta", "10 ta"], correct: 0 },
+                { q: "80. MTTda oilalarga ijtimoiy-pedagogik yordamni kim ko‘rsatadi?", options: ["Tarbiyachi", "Bugalter", "Qorovul", "Oshpaz"], correct: 0 },
+                { q: "81. Tabiat burchagidagi mehnat turlari qaysilar?", options: ["Parvarish ishlari", "O'qish ishlari", "Yozish ishlari", "Hisoblash ishlari"], correct: 0 },
+                { q: "82. “Maktabgacha ta’lim Konsepsiyasi”ning bosh g‘oyasi nima?", options: ["Barkamol avlod tarbiyalash", "Faqat o'qitish", "Faqat o'yin", "Bolalarni jazo berish"], correct: 0 },
+                { q: "83. Maktabgacha ta’lim muassasalari nechta turga bo‘linadi?", options: ["3 turga", "2 turga", "5 turga", "1 turga"], correct: 0 },
+                { q: "84. O‘zbekistonda maktabgacha ta’lim bilan shug‘ullangan olimlar kimlar?", options: ["Avloniy, Fitrat", "Ushinskiy, Komenskiy", "Navoiy, Bobur", "G'afur G'ulom"], correct: 0 },
+                { q: "85. Uzluksiz ta’lim nima?", options: ["Doimiy ta’lim jarayoni", "1 yillik ta'lim", "Faqat maktab ta'limi", "Faqat universitet ta'limi"], correct: 0 },
+                { q: "86. Ta’limning demokratlashuvi nimani anglatadi?", options: ["Tenglik va erkinlik", "Majburlash", "Cheklash", "Aloqadorlik"], correct: 0 },
+                { q: "87. Uzluksiz ta’lim turlari nechta?", options: ["7 ta", "3 ta", "1 ta", "5 ta"], correct: 0 },
+                { q: "88. Davlat ta’lim standartlari nima?", options: ["Ta’lim me’yorlari", "O'qituvchining xohishi", "Ota-onaning talabi", "Bolaning xohishi"], correct: 0 },
+                { q: "89. Kadrlar tayyorlash milliy dasturining maqsadi nima?", options: ["Malakali kadr tayyorlash", "Oddiy ishchi tayyorlash", "O'qituvchilarni kamaytirish", "Maktablarni yopish"], correct: 0 },
+                { q: "90. Maktabgacha ta’lim mazmuni qanday belgilanadi?", options: ["Dastur asosida", "O'qituvchi xohishiga qarab", "Bola xohishiga qarab", "Tasodifan"], correct: 0 },
+                { q: "91. Maktabgacha ta’lim muassasalari kim tomonidan ta’minlanadi?", options: ["Davlat tomonidan", "Ota-onalar tomonidan", "Xayriyachilar tomonidan", "Hech kim tomonidan"], correct: 0 },
+                { q: "92. Maktabgacha ta’lim yosh chegarasi nechadan nechagacha?", options: ["3–7 yosh", "1–3 yosh", "7–10 yosh", "0–18 yosh"], correct: 0 },
+                { q: "93. Y.K. Babanskiy fikricha shakllanish nima?", options: ["Rivojlanish jarayoni", "O'sish jarayoni", "Yashash jarayoni", "O'lish jarayoni"], correct: 0 },
+                { q: "94. Tarbiyaviy ta’sir natijasidagi rivojlanish nima?", options: ["Shakllanish", "O'sish", "Parchalanish", "Tugash"], correct: 0 },
+                { q: "95. Quyosh nuri qaysi vitamin hosil qiladi?", options: ["D vitamini", "A vitamini", "B vitamini", "C vitamini"], correct: 0 },
+                { q: "96. Sayr gigiyenasiga kirmaydigan holat qaysi?", options: ["Noto‘g‘ri kiyinish", "To'g'ri kiyinish", "Qulay ob-havo", "Oyoq kiyim kiyish"], correct: 0 },
+                { q: "97. Ekologiya so‘zi qaysi tildan olingan?", options: ["Yunon tilidan", "Lotin tilidan", "O'zbek tilidan", "Rus tilidan"], correct: 0 },
+                { q: "98. Ekologik tarbiya xatoligi nima?", options: ["Noto‘g‘ri munosabat", "To'g'ri munosabat", "E'tiborsizlik", "Qiziqish"], correct: 0 },
+                { q: "99. Hissiy bilish necha bosqichda amalga oshadi?", options: ["3 bosqichda", "1 bosqichda", "5 bosqichda", "2 bosqichda"], correct: 0 },
+                { q: "100. Tabiat burchagidagi ishlar nimaning vositasi?", options: ["Ekologik tarbiya vositasi", "Jismoniy tarbiya vositasi", "Mehnat vositasi", "O'qish vositasi"], correct: 0 }
+            ],
+            "Nutqni rivojlantirish": [
+                { q: "1. MAKTABGACHA YOSHDAGI BOLALAR NUTQINI RIVOJLANTIRISHDA ASOSIY OMIL NIMA?", options: ["MULOQOT MUHITI", "KITOB O'QISH", "TELEVIZOR KO'RISH", "O'YIN O'YNASH"], correct: 0 },
+                { q: "2. NUTQ RIVOJLANISHINING ILMIY-PEDAGOGIK SHARTLARIDAN BIRI NIMA?", options: ["YOSH XUSUSIYATLARI", "MODDIY TA'MINOT", "XONA HAJMI", "O'QITUVCHINING TASHQI KO'RINISHI"], correct: 0 },
+                { q: "3. NUTQNI RIVOJLANTIRISHDA PEDAGOGNING ASOSIY VAZIFASI NIMA?", options: ["RAVON NUTQNI SHAKLLANTIRISH", "FAQAT YOZDIRISH", "JAVOB BERISHGA MAJBURLASH", "SUKUT SAQLASH"], correct: 0 },
+                { q: "4. ASOSIY METOD NIMA?", options: ["SUHBAT", "JARIMA", "JAZOLASH", "TUSHUNTIRISH"], correct: 0 },
+                { q: "5. TO‘G‘RI TALAFFUZ UCHUN NIMA ZARUR?", options: ["MASHQ", "TINCHLIK", "UYQU", "OVQAT"], correct: 0 },
+                { q: "6. QAYSI BIRI KIRMAYDI?", options: ["TASODIFIY TA’LIM", "REJALI TA'LIM", "MAQSADLI TA'LIM", "TIZIMLI TA'LIM"], correct: 0 },
+                { q: "7. OILANING O‘RNI QANDAY?", options: ["ASOSIY", "IKKINCHI DARAJALI", "AHAMIYATSIZ", "QO'SHIMCHA"], correct: 0 },
+                { q: "8. ENG SAMARALI USUL NIMA?", options: ["MULOQOT", "MUTOLOA", "YODLASH", "YOZISH"], correct: 0 },
+                { q: "9. NUTQ BOSQICHLARI NIMAGA BOGLIQ?", options: ["YOSHGA", "JINSGA", "BOYLIKKAGA", "MAHKAMAGA"], correct: 0 },
+                { q: "10. DIDAKTIK O‘YIN AHAMIYATI NIMA?", options: ["FAOLLASHTIRADI", "ZERIKTIRADI", "CHARCHATADI", "UXLATADI"], correct: 0 },
+                { q: "11. FOROBIY NIMANI MUHIM DEB BILGAN?", options: ["AQL", "KUCH", "BOYLIK", "GO'ZALLIK"], correct: 0 },
+                { q: "12. IBN SINO NIMA DEGAn?", options: ["TA’LIM TARBIYA BIRGA", "FAQAT TA'LIM", "FAQAT TARBIYA", "ULAR ALOHIDA"], correct: 0 },
+                { q: "13. YUSUF XOS HOJIB NIMAGA URG‘U BERGAN?", options: ["AXLOQ", "URUSH", "SAVDO", "DEHQONCHILIK"], correct: 0 },
+                { q: "14. NAVOIY NIMANI ASOSIY DEB BILGAN?", options: ["KOMIL INSON", "KUCHLI ARMIYA", "BOY DAVLAT", "KATTA SHAHAR"], correct: 0 },
+                { q: "15. LOKK TARBIYANI QANDAY DEB BILGAN?", options: ["TAJRIBA", "TABIIYLIK", "JAMIYAT TA'SIRI", "MAJBURLASH"], correct: 0 },
+                { q: "16. RUSSO QAYSI TAMOYILNI AYTGAN?", options: ["TABIIYLIK", "SUN'IYLIK", "MAJBURLASH", "JAMIYAT TA'SIRI"], correct: 0 },
+                { q: "17. USHINSKIY TARBIYA NIMA DEB BILGAN?", options: ["HAYOTIY", "SUN'IY", "AHAMIYATSIZ", "ZARARLI"], correct: 0 },
+                { q: "18. AFLOTUN NIMANI ASOSIY DEB BILGAN?", options: ["DAVLAT", "OILA", "SHAXS", "TABIAT"], correct: 0 },
+                { q: "19. SHARQ MUTAFAKKIRLARI MAQSADI NIMA?", options: ["KOMIL INSON", "JAHONGIRLIK", "BOYLIK", "SHUHRAT"], correct: 0 },
+                { q: "20. KANT TARBIYA HAQIDA NIMA DEGAn?", options: ["INSONNI SHAKLLANTIRADI", "INSONni buzadi", "Ahamiyatsiz", "Faqat bolalarga ta'sir qiladi"], correct: 0 },
+                { q: "21. NUTQ RIVOJLANTIRISH MAQSADI NIMA?", options: ["RAVONLIK", "MURAKKABLIK", "TUSHUNARSIZLIK", "SEKINLIK"], correct: 0 },
+                { q: "22. ENG MUHIM SHART NIMA?", options: ["MULOQOT", "YAKKALIK", "SUKUT", "SHOVQIN"], correct: 0 },
+                { q: "23. METODIK TALAB NIMA?", options: ["TIZIMLILIK", "CHAPCHALLIK", "TARTIBSIZLIK", "O'ZGARUVCHANLIK"], correct: 0 },
+                { q: "24. O‘YINLAR O‘RNI QANDAY?", options: ["MUHIM", "AHAMIYATSIZ", "ZARARLI", "KERAKSIZ"], correct: 0 },
+                { q: "25. DIDAKTIK O‘YIN VAZIFASI NIMA?", options: ["O‘RGATISH", "ZERIKTIRISH", "CHARCHATISH", "UXLATISH"], correct: 0 },
+                { q: "26. TASHKILIY ISHLAR NIMA?", options: ["REJALASH", "TASODIFAN ISHLASH", "KUTIB TURISH", "ARALASHMASLIK"], correct: 0 },
+                { q: "27. TARBIYACHI ROLI NIMA?", options: ["YO‘NALTIRISH", "MAJBURLASH", "JAZOLASH", "BEPARVOLIK"], correct: 0 },
+                { q: "28. METODIKA TURLARI NIMA?", options: ["NAZARIY, AMALIY", "FAQAT NAZARIY", "FAQAT AMALIY", "FAN EMAS"], correct: 0 },
+                { q: "29. BAHOLASHDA NIMAGA E’TIBOR?", options: ["TALAFFUZ", "KIYIM", "TASHQI KO'RINISH", "YOSHI"], correct: 0 },
+                { q: "30. SAMARADORLIK NIMA BILAN?", options: ["TAKROR", "TASODIF", "KUTISH", "SEKINLIK"], correct: 0 },
+                { q: "31. FAN MAQSADI NIMA?", options: ["NUTQNI RIVOJLANTIRISH", "JISMONIY TARBIYA", "RASM CHIZISH", "QO'SHIQ AYTISH"], correct: 0 },
+                { q: "32. ASOSIY VAZIFA NIMA?", options: ["O‘RGATISH", "JAZOLASH", "ZERIKTIRISH", "CHARCHATISH"], correct: 0 },
+                { q: "33. JARAYON QACHON BOSHLANADI?", options: ["GO‘DAKLIKDA", "MAKTABDA", "KATTA YOSHDAN", "QARIYDI"], correct: 0 },
+                { q: "34. PEDAGOGIK VAZIFA NIMA?", options: ["SHAKLLANTIRISH", "BUZISH", "E'TIBORSIZLIK", "TO'SIQ BO'LISH"], correct: 0 },
+                { q: "35. AMALIY AHAMIYAT NIMA?", options: ["MULOQOT", "YAKKALIK", "SUKUT", "URUSH"], correct: 0 },
+                { q: "36. ASOSIY YO‘NALISH NIMA?", options: ["SUHBAT", "JANG", "SUKUT", "QICHIQISH"], correct: 0 },
+                { q: "37. OBYEKT KIM?", options: ["BOLA", "KATTALAR", "HAYVONLAR", "O'SIMLIKLAR"], correct: 0 },
+                { q: "38. QAYSI FANLAR BILAN BOG‘LIQ?", options: ["PSIXOLOGIYA", "KIMYO", "FIZIKA", "MATEMATIKA"], correct: 0 },
+                { q: "39. TARBIYAVIY VAZIFA NIMA?", options: ["AXLOQ", "JINOYAT", "BEPARVOLIK", "ZERIKISH"], correct: 0 },
+                { q: "40. NATIJA NIMA?", options: ["RAVON NUTQ", "SEKIN NUTQ", "TUSHUNARSIZ NUTQ", "NUTQ YO'QLIGI"], correct: 0 },
+                { q: "41. TOVUSH MADANIYATI NIMA?", options: ["TO‘G‘RI TALAFFUZ", "NOTO'G'RI TALAFFUZ", "QICHIQISH", "SHOVQIN"], correct: 0 },
+                { q: "42. MAQSADI NIMA?", options: ["ANIQLIK", "XATO", "MURAKKABLIK", "TUSHUNARSIZLIK"], correct: 0 },
+                { q: "43. ASOSIY FAOLIYAT NIMA?", options: ["MASHQ", "KUTISH", "UXLASH", "O'YIN"], correct: 0 },
+                { q: "44. TARBIYACHI VAZIFASI NIMA?", options: ["O‘RGATISH", "JAZOLASH", "ZERIKTIRISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "45. E’TIBOR NIMAGA?", options: ["TOVUSHGA", "RANGGA", "HIDGA", "TA'BGA"], correct: 0 },
+                { q: "46. QAMRABI NIMA?", options: ["TALAFFUZ", "YURISH", "YUGURISH", "SAKRASH"], correct: 0 },
+                { q: "47. USULLAR NIMA?", options: ["MASHQ", "KUTISH", "UXLASH", "O'YIN"], correct: 0 },
+                { q: "48. QAYSI SOHA BILAN BOG‘LIQ?", options: ["FONETIKA", "MATEMATIKA", "BIOLOGIYA", "KIMYO"], correct: 0 },
+                { q: "49. INTONATSIYA ROLI NIMA?", options: ["IFODA", "ZERIKISH", "QO'RQISH", "XATO"], correct: 0 },
+                { q: "50. NATIJA NIMA?", options: ["TO‘G‘RI NUTQ", "NOTO'G'RI NUTQ", "NUTQ YO'Q", "SEKIN NUTQ"], correct: 0 },
+                { q: "51. TOVUSH MADANIYATI YANA NIMA?", options: ["TO‘G‘RI AYTISH", "XATO AYTISH", "QICHIQISH", "SHOVQIN"], correct: 0 },
+                { q: "52. MAQSADI NIMA?", options: ["TOZALIK", "IFLOSLIK", "MURAKKABLIK", "XATO"], correct: 0 },
+                { q: "53. E’TIBOR NIMA?", options: ["ANIQLIK", "XATO", "SEKINLIK", "SHOVQIN"], correct: 0 },
+                { q: "54. TARBIYACHI VAZIFASI NIMA?", options: ["NAMUNA", "JAZO", "ZARAR", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "55. QANDAY USULLAR?", options: ["TAKROR", "TASODIF", "KUTISH", "O'ZGARTIRISH"], correct: 0 },
+                { q: "56. QAYSI SOHA?", options: ["FONETIKA", "GEOMETRIYA", "TARIX", "GEOGRAFIYA"], correct: 0 },
+                { q: "57. MUHIM MASHQ QAYSI?", options: ["ARTIKULYATSIYA", "YUGURISH", "SAKRASH", "SUKUT"], correct: 0 },
+                { q: "58. INTONATSIYA ROLI NIMA?", options: ["OHANG", "SHOVQIN", "QO'RQISH", "XATO"], correct: 0 },
+                { q: "59. QAMRABI NIMA?", options: ["TOVUSH", "RASM", "RAQAM", "HARF"], correct: 0 },
+                { q: "60. NATIJA NIMA?", options: ["RAVONLIK", "SEKINLIK", "TUSHUNARSIZLIK", "QO'RQISH"], correct: 0 },
+                { q: "61. TALAFFUZ MAQSADI NIMA?", options: ["TO‘G‘RILIK", "XATO", "SEKINLIK", "QICHIQISH"], correct: 0 },
+                { q: "62. NECHTA BOSQICH?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "63. 1-BOSQICH VAZIFASI NIMA?", options: ["ESHITISH", "YOZISH", "O'QISH", "KUTISH"], correct: 0 },
+                { q: "64. 2-BOSQICH NIMA?", options: ["TAKRORLASH", "ESHITISH", "YOZISH", "UXLASH"], correct: 0 },
+                { q: "65. 3-BOSQICH NIMA?", options: ["MUSTAHKAMLASH", "BOSHLASH", "TUGATISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "66. ASOSIY METOD NIMA?", options: ["TAQLID", "JAZO", "ZERIKISH", "KUTISH"], correct: 0 },
+                { q: "67. MUHIM OMIL NIMA?", options: ["ESHITISH", "KO'RISH", "HIS QILISH", "TATIB KO'RISH"], correct: 0 },
+                { q: "68. YONDASHUV NIMA?", options: ["INDIVIDUAL", "UMUMIY", "GURUH", "AHAMIYATSIZ"], correct: 0 },
+                { q: "69. XATOLARNI TUZATISHDA NIMA?", options: ["MASHQ", "JAZO", "E'TIBORSIZLIK", "KUTISH"], correct: 0 },
+                { q: "70. NATIJA NIMA?", options: ["TO‘G‘RI TALAFFUZ", "XATO TALAFFUZ", "NUTQ YO'QLIGI", "SEKIN NUTQ"], correct: 0 },
+                { q: "71. AQLIY RIVOJLANISH QAYERDA NAMOYON BO‘LADI?", options: ["FAOLIYATDA", "UXLASHDA", "OVQATLANISHDA", "KUTISHDA"], correct: 0 },
+                { q: "72. AQLIY TARBIYA VAZIFASI NIMA?", options: ["BILIM BERISH", "JAZOLASH", "ZERIKTIRISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "73. SENSOR ETALON NIMA?", options: ["SHAKL RANG O‘LCHAM", "FAQAT RANG", "FAQAT SHAKL", "FAQAT O'LCHAM"], correct: 0 },
+                { q: "74. ATAMA KIM TOMONIDAN QABUL QILINGAN?", options: ["YUNESKO", "BMT", "XITOI", "O'ZBEKISTON"], correct: 0 },
+                { q: "75. QAYSI HUJJAT?", options: ["HARAKATLAR STRATEGIYASI", "QIZIL KITOB", "KONSTITUTSIYA", "DAVLAT DASTURI"], correct: 0 },
+                { q: "76. KONSEPSIYA G‘OYASI NIMA?", options: ["BARKAMOL AVLOD", "JINOYATCHILAR", "URUSH", "KAMBAGALLIK"], correct: 0 },
+                { q: "77. NECHTA TUR?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "78. YOSH CHEGARASI NIMA?", options: ["3–7 YOSH", "0-1 YOSH", "10-15 YOSH", "20-30 YOSH"], correct: 0 },
+                { q: "79. QAYSI JIHATLAR?", options: ["TARBIYA VA TA’LIM", "FAQAT TA'LIM", "FAQAT TARBIYA", "FAQAT OVQATLANISH"], correct: 0 },
+                { q: "80. KATEGORIYALAR NIMA?", options: ["TARBIYA TA’LIM RIVOJLANISH", "FAQAT TA'LIM", "FAQAT TARBIYA", "FAQAT RIVOJLANISH"], correct: 0 },
+                { q: "81. SHAKLLANISH NIMA?", options: ["RIVOJLANISH", "PARCHALANISH", "O'LISH", "TUGASH"], correct: 0 },
+                { q: "82. SUHBAT SHAKLI NIMA?", options: ["SAVOL-JAVOB", "MONOLOG", "SHOVQIN", "SUKUT"], correct: 0 },
+                { q: "83. EKSPERIMENT NIMA?", options: ["SINOV", "XATO", "KUTISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "84. TABIIY OMILLAR NIMA?", options: ["TABIAT", "JAMIYAT", "TEXNIKA", "INSON"], correct: 0 },
+                { q: "85. MOS KELMAYDI NIMA?", options: ["ORTIQCHA YUK", "KAM YUK", "TENG YUK", "YUK YO'QLIGI"], correct: 0 },
+                { q: "86. QAYSI GURUH?", options: ["O‘RTA", "KICHIK", "KATTA", "TAYYORLOV"], correct: 0 },
+                { q: "87. MALAKA NIMA?", options: ["MUSTAQILLIK", "QARAMLIK", "ZERIKISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "88. QAYERDA RIVOJLANADI?", options: ["AMALIYOTDA", "NAZARIYADA", "UXLASHDA", "KUTISHDA"], correct: 0 },
+                { q: "89. SENSOR USUL NIMA?", options: ["KO‘RSATISH", "ESHITISH", "TATIB KO'RISH", "HIS QILISH"], correct: 0 },
+                { q: "90. SENSOR NIMA?", options: ["SEZGI", "QO'RQUV", "XURMAT", "ZERIKISH"], correct: 0 },
+                { q: "91. SENSOR MAQSADI NIMA?", options: ["IDROK", "XATO", "ZERIKISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "92. SENSOR MAZMUNI NIMA?", options: ["SEZGILAR", "O'YINLAR", "TASVIRLAR", "SONLAR"], correct: 0 },
+                { q: "93. SENSOR VAZIFASI NIMA?", options: ["FARQLASH", "ARALASHTIRISH", "E'TIBORSIZLIK", "ZERIKISH"], correct: 0 },
+                { q: "94. SENSOR ETALON NIMA?", options: ["ANDOZA", "XATO", "MURAKKABLIK", "TUSHUNARSIZLIK"], correct: 0 },
+                { q: "95. KONVENSIYA QACHON?", options: ["1989", "2000", "1991", "2010"], correct: 0 },
+                { q: "96. QONUN QANDAY?", options: ["BOLA HUQUQLARI", "KATTALAR HUQUQLARI", "JINOYATLAR", "MAJBURIYATLAR"], correct: 0 },
+                { q: "97. NECHTA QISM?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "98. EKOLOGIYA NIMA?", options: ["YUNON SO‘ZI", "LOTIN SO'ZI", "RUS SO'ZI", "O'ZBEK SO'ZI"], correct: 0 },
+                { q: "99. VAZIFA NIMA?", options: ["TABIATNI ASRASH", "TABIATNI BUZISH", "E'TIBORSIZLIK", "IFLOSLASH"], correct: 0 },
+                { q: "100. NECHTA BOSQICH?", options: ["3 BOSQICH", "1 BOSQICH", "5 BOSQICH", "10 BOSQICH"], correct: 0 }
+            ],
+            "Maktabgacha ta'lim": [
+                { q: "1. QONUN QACHON QABUL QILINGAN?", options: ["2019 YIL 16 DEKABR", "2018 YIL", "2020 YIL", "1991 YIL"], correct: 0 },
+                { q: "2. QONUN MAQSADI NIMA?", options: ["TIZIMNI RIVOJLANTIRISH", "TIZIMNI YO'QOTISH", "O'ZGARTIRMASLIK", "CHEKLASH"], correct: 0 },
+                { q: "3. ASOSIY PRINSIPLAR NECHANCHI BOBDA?", options: ["2-BOB", "1-BOB", "3-BOB", "4-BOB"], correct: 0 },
+                { q: "4. DAVLAT SIYOSATI YO‘NALISHLARI NECHANCHI BOBDA?", options: ["3-BOB", "1-BOB", "2-BOB", "5-BOB"], correct: 0 },
+                { q: "5. TIZIM NIMALARNI O‘Z ICHIGA OLADI?", options: ["DAVLAT VA NODAVLAT MTT", "FAQAT DAVLAT MTT", "FAQAT XUSUSIY MTT", "MAKTABLAR"], correct: 0 },
+                { q: "6. MTT TURLARI QANDAY?", options: ["DAVLAT VA NODAVLAT", "KICHIK VA KATTA", "SHAHAR VA QISHLOQ", "BOG'CHA VA MAKTAB"], correct: 0 },
+                { q: "7. DAVLAT MTT NIMA ASOSIDA ISHLAYDI?", options: ["NIZOM ASOSIDA", "XOHISH ASOSIDA", "SHARTNOMA ASOSIDA", "BUYRUQ ASOSIDA"], correct: 0 },
+                { q: "8. NODAVLAT MTT QANDAY TASHKIL ETILADI?", options: ["XUSUSIY ASOSDA", "DAVLAT BYUDJETIDA", "XAYRIYA ASOSIDA", "JAMOA ASOSIDA"], correct: 0 },
+                { q: "9. LITSENZIYA KIM TOMONIDAN BERILADI?", options: ["VAZIRLAR MAHKAMASI", "MUDIRA", "XOKIMLIYK", "MAHALIY"], correct: 0 },
+                { q: "10. KIM USLUBCHI BO‘LADI?", options: ["MUTAXASSIS PEDAGOG", "HAMSHIRA", "BUGALTER", "QOROVUL"], correct: 0 },
+                { q: "11. METODIK KABINETNI KIM BOSHQARADI?", options: ["USLUBCHI", "MUDIRA", "BUGALTER", "TARBIYACHI"], correct: 0 },
+                { q: "12. INSTITUT QACHON OCHILGAN?", options: ["1837 YIL", "1900 YIL", "1991 YIL", "2000 YIL"], correct: 0 },
+                { q: "13. ATAMA KIM TOMONIDAN QABUL QILINGAN?", options: ["YUNESKO", "BMT", "XITOY", "O'ZBEKISTON"], correct: 0 },
+                { q: "14. JURNAL QACHON CHIQA BOSHLAGAN?", options: ["1911 YIL", "2000 YIL", "1990 YIL", "1800 YIL"], correct: 0 },
+                { q: "15. INSTITUT QACHON TASHKIL ETILGAN?", options: ["1918 YIL", "1837 YIL", "1991 YIL", "2005 YIL"], correct: 0 },
+                { q: "16. JURNAL QACHON CHIQGAN?", options: ["1928 YIL", "1911 YIL", "1991 YIL", "2010 YIL"], correct: 0 },
+                { q: "17. TIXEEVA ASARLARI NIMA?", options: ["MAKTABGACHA TARBIYA", "MAKTAB TARBIYASI", "OILA TARBIYASI", "JAMIYAT TARBIYASI"], correct: 0 },
+                { q: "18. QONUN NIMA?", options: ["HUQUQIY HUJJAT", "ODAT", "AN'ANA", "TAVSIYA"], correct: 0 },
+                { q: "19. MAKTABGACHA YOSH TA’RIFI NIMA?", options: ["3–7 YOSH", "0-3 YOSH", "7-10 YOSH", "10-18 YOSH"], correct: 0 },
+                { q: "20. INKLYUZIV TA’LIM NIMA?", options: ["HAMMA UCHUN TA’LIM", "FAQAT SOG'LOMLAR UCHUN", "FAQAT NOGIRONLAR UCHUN", "FAQAT BOYLAR UCHUN"], correct: 0 },
+                { q: "21. QISQA GURUH MAQSADI NIMA?", options: ["MOSLASHUV", "O'QISH", "YOZISH", "HISOBLASH"], correct: 0 },
+                { q: "22. YOSH CHEGARASI NIMA?", options: ["3–7 YOSH", "0-3 YOSH", "10-15 YOSH", "20-30 YOSH"], correct: 0 },
+                { q: "23. ESTETIK EHTIYOJ NIMA?", options: ["GO‘ZALLIKKA INTILISH", "OVQATLANISH", "UXLASH", "O'YIN O'YNASH"], correct: 0 },
+                { q: "24. PED KENGASH RAISI KIM?", options: ["MUDIRA", "BUGALTER", "TARBIYACHI", "OTA-ONA"], correct: 0 },
+                { q: "25. P.YUSUPOVA TA’RIFI NIMA?", options: ["TARBIYA FANI", "MATEMATIKA FANI", "FIZIKA FANI", "TARIX FANI"], correct: 0 },
+                { q: "26. OBYEKT KIM?", options: ["BOLA", "KATTALAR", "HAYVONLAR", "O'SIMLIKLAR"], correct: 0 },
+                { q: "27. NIZOM QACHON?", options: ["2018 YIL", "2010 YIL", "2000 YIL", "1991 YIL"], correct: 0 },
+                { q: "28. VMQ NIZOMI QACHON?", options: ["2017 YIL", "2018 YIL", "2019 YIL", "2020 YIL"], correct: 0 },
+                { q: "29. ENSIKLOPEDIYA TA’RIFI NIMA?", options: ["TARBIYA HAQIDA FAN", "TIBBIYOT FANI", "MATEMATIKA FANI", "IQTISOD FANI"], correct: 0 },
+                { q: "30. DAVLAT MTT NIMA ASOSIDA?", options: ["NIZOM", "SHARTNOMA", "XOHISH", "KUCH"], correct: 0 },
+                { q: "31. O‘YIN KOMPETENSIYASI NIMA?", options: ["O‘YNASH QOBILIYATI", "O'QISH QOBILIYATI", "YOZISH QOBILIYATI", "HISOBLASH QOBILIYATI"], correct: 0 },
+                { q: "32. DAVLAT STANDARTI NIMA?", options: ["TALABLAR MAJMUASI", "XOHISH", "TAVSIYA", "ODAT"], correct: 0 },
+                { q: "33. SAYLASH TARTIBI QAYERDA?", options: ["NIZOMDA", "QONUNDA", "KONSTITUTSIYADA", "BUYRUQDA"], correct: 0 },
+                { q: "34. KOMMUNIKATIV KOMPETENSIYA NIMA?", options: ["MULOQOT QOBILIYATI", "O'QISH QOBILIYATI", "YOZISH QOBILIYATI", "HISOBLASH QOBILIYATI"], correct: 0 },
+                { q: "35. KIM VAKIL?", options: ["RAHBAR", "ISHCHI", "TARBIYACHI", "OTA-ONA"], correct: 0 },
+                { q: "36. KOMPETENSIYA NIMA?", options: ["BILIM VA KO‘NIKMA", "FAQAT BILIM", "FAQAT KO'NIKMA", "FAQAT PUL"], correct: 0 },
+                { q: "37. STEAM QAYERDA?", options: ["STANDARTDA", "QONUNDA", "NIZOMDA", "BUYRUQDA"], correct: 0 },
+                { q: "38. JISMONIY TARBIYA VOSITALARI NIMA?", options: ["MASHQ, O‘YIN, TABIAT", "KITOB, DAFTAR", "RUCHKA, BO'YOQ", "KOMP'YUTER"], correct: 0 },
+                { q: "39. TABIIY OMILLAR NIMA?", options: ["HAVO, SUV, QUYOSH", "KITOB, DAFTAR", "RUCHKA, BO'YOQ", "KOMP'YUTER"], correct: 0 },
+                { q: "40. KUN TARTIBI QAYSI VOSITA?", options: ["GIGIYENIK", "TIBBIY", "PEDAGOGIK", "PSIXOLOGIK"], correct: 0 },
+                { q: "41. HARAKATLAR YIG‘INDISI NIMA?", options: ["JISMONIY MASHQ", "MATEMATIKA MASHQ", "NUTQ MASHQ", "FIZIKA MASHQ"], correct: 0 },
+                { q: "42. QAYSI TALAB KIRMAYDI?", options: ["NOTO‘G‘RI JAVOB", "TO'G'RI JAVOB", "TO'LIQ JAVOB", "QISQA JAVOB"], correct: 0 },
+                { q: "43. “ILK QADAM” QAYERDA?", options: ["MTTDA", "MAKTABDA", "UNIVERSITETDA", "ISH JOYIDA"], correct: 0 },
+                { q: "44. SENSOR NIMA?", options: ["SEZGI", "QO'RQUV", "XURMAT", "ZERIKISH"], correct: 0 },
+                { q: "45. SENSOR TARBIYA NIMA?", options: ["SEZGILARNI RIVOJLANTIRISH", "JISMONIY RIVOJLANTIRISH", "MA'NAVIY RIVOJLANTIRISH", "IQTISODIY RIVOJLANTIRISH"], correct: 0 },
+                { q: "46. IJTIMOIY KOMPETENSIYA NIMA?", options: ["JAMOADA YASHASH", "YAKKA YASHASH", "O'RMONDA YASHASH", "SUVDA YASHASH"], correct: 0 },
+                { q: "47. BILISH KOMPETENSIYASI NIMA?", options: ["O‘RGANISH QOBILIYATI", "UXLASH QOBILIYATI", "OVQATLANISH QOBILIYATI", "YUGURISH QOBILIYATI"], correct: 0 },
+                { q: "48. NECHTA SOHA?", options: ["5 TA", "3 TA", "1 TA", "10 TA"], correct: 0 },
+                { q: "49. REJALAR QANDAY?", options: ["YILLIK, HAFTALIK", "OYLIK, KUNLIK", "SOATLIK, DAQIQALIK", "REJA YO'Q"], correct: 0 },
+                { q: "50. YILLIK REJA NIMA?", options: ["MAVZULAR", "KUN TARTIBI", "OVQAT MENYUSI", "SPORT MASHG'ULOTI"], correct: 0 },
+                { q: "51. HAFTALIK REJA NIMA?", options: ["FAOLIYAT REJASI", "OVQAT REJASI", "UYQU REJASI", "SAYOHAT REJASI"], correct: 0 },
+                { q: "52. NECHTA BO‘LIM?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "53. QAYSI SOHA?", options: ["JISMONIY RIVOJLANISH", "IQTISODIY RIVOJLANISH", "SIYOSIY RIVOJLANISH", "MADANIY RIVOJLANISH"], correct: 0 },
+                { q: "54. QAYSI SOHA?", options: ["IJTIMOIY-EMOTSIONAL", "IQTISODIY-SIYOSIY", "FIZIKA-KIMYO", "TARIX-GEOGRAFIYA"], correct: 0 },
+                { q: "55. QAYSI SOHA?", options: ["NUTQ VA TIL", "MATEMATIKA VA FIZIKA", "BIOLOGIYA VA KIMYO", "TARIX VA HUQUQ"], correct: 0 },
+                { q: "56. QAYSI SOHA?", options: ["IJODIY", "IJTIMOIY", "SIYOSIY", "IQTISODIY"], correct: 0 },
+                { q: "57. QAYSI SOHA?", options: ["KOGNITIV", "FIZIK", "KIMYO", "BIOLOGIYA"], correct: 0 },
+                { q: "58. AQLIY TARBIYA VAZIFASI NIMA?", options: ["BILIM BERISH", "JAZOLASH", "ZERIKTIRISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "59. SENSOR USUL NIMA?", options: ["KO‘RSATISH", "ESHITISH", "TATIB KO'RISH", "HIS QILISH"], correct: 0 },
+                { q: "60. SENSOR VAZIFA NIMA?", options: ["FARQLASH", "ARALASHTIRISH", "ZERIKTIRISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "61. SENSOR ETALON NIMA?", options: ["ANDOZA", "XATO", "MURAKKABLIK", "TUSHUNARSIZLIK"], correct: 0 },
+                { q: "62. JAMOA NIMA?", options: ["GURUH", "YAKKA SHAXS", "NARSALAR", "HAYVONLAR"], correct: 0 },
+                { q: "63. QAYSI FAOLIYAT?", options: ["O‘YIN", "MEHNAT", "O'QISH", "YOZISH"], correct: 0 },
+                { q: "64. KONVENSIYA QACHON?", options: ["1989", "2000", "1991", "2010"], correct: 0 },
+                { q: "65. EKOLOGIYA NIMA?", options: ["YUNON SO‘ZI", "LOTIN SO'ZI", "RUS SO'ZI", "O'ZBEK SO'ZI"], correct: 0 },
+                { q: "66. NECHTA SHAKL?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "67. OMILLAR NIMA?", options: ["IRSIYAT, MUHIT, TARBIYA", "FAQAT IRSIYAT", "FAQAT MUHIT", "FAQAT TARBIYA"], correct: 0 },
+                { q: "68. ESTETIK TARBIYA NIMA?", options: ["GO‘ZALLIK TARBIYASI", "JISMONIY TARBIYA", "AQLIY TARBIYA", "MEHNAT TARBIYASI"], correct: 0 },
+                { q: "69. QOBILIYAT NIMA?", options: ["QOBILIYAT", "XATO", "ZERIKISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "70. MTT TURLARI NIMA?", options: ["DAVLAT VA NODAVLAT", "KATTA VA KICHIK", "BOY VA KAMBAAG'AL", "YAXSHI VA YOMON"], correct: 0 }
+            ],
+            "Ijtimoiy pedagogika": [
+                { q: "1. IJTIMOIYLASHUV TUSHUNCHASINI KIM KIRITGAN?", options: ["G. TARDE", "K. MARKS", "A. MAKARENKO", "V. SUHOMLINSKIY"], correct: 0 },
+                { q: "2. ONGli FAOLIYAT NIMA?", options: ["O‘Z-O‘ZINI RIVOJLANTIRISH", "BOSHQARGA BO'YSUNISH", "INSTINKT", "REFLEKS"], correct: 0 },
+                { q: "3. RIVOJLANISH YO‘NALISHLARI NIMA?", options: ["BIOLOGIK VA IJTIMOIY", "FAQAT BIOLOGIK", "FAQAT IJTIMOIY", "IQLIMIY"], correct: 0 },
+                { q: "4. TARBIYA TA’RIFI MUALLIFI KIM?", options: ["A.V. MUDRIK", "YA. KOMENSKIY", "K. USHINSKIY", "J. RUSSO"], correct: 0 },
+                { q: "5. MOSLASHUVGA TO‘SQINLIK NIMA?", options: ["DEZADAPTATSIYA", "ADAPTATSIYA", "INTEGRATSIYA", "SOTSIALIZATSIYA"], correct: 0 },
+                { q: "6. MUVOZANAT NIMA O‘RTASIDA?", options: ["SHAXS VA MUHIT", "TANA VA RUH", "OSMON VA YER", "SU VA HAVO"], correct: 0 },
+                { q: "7. MIKROMUHITNI KIM TA’KIDLAGAN?", options: ["IBN SINO", "ARISTOTEL", "KOMENSKIY", "PESTALOZZI"], correct: 0 },
+                { q: "8. INSON EHTIYOJI HAQIDA KIM AYTGAN?", options: ["MASLOU", "FREYD", "YUNG", "PAVLOV"], correct: 0 },
+                { q: "9. HAMKORLIK HAQIDA KIM AYTGAN?", options: ["FOROBIY", "BUXORIY", "NAVOIY", "ULUG'BEK"], correct: 0 },
+                { q: "10. JAMOATGA QO‘SHILISH NIMA?", options: ["INTEGRATSIYA", "IZOLYATSIYA", "SEGREGATSIYA", "AGRESSIYA"], correct: 0 },
+                { q: "11. 1-BOSQICH QAYSI DAVR?", options: ["QADIMGI DAVR", "O'RTA ASR", "YANGI DAVR", "HOZIRGI DAVR"], correct: 0 },
+                { q: "12. 1-BOSQICH XUSUSIYATI NIMA?", options: ["AMALIY", "NAZARIY", "FAYLASUFIY", "DINIY"], correct: 0 },
+                { q: "13. TARBIYA NIMA SIFATIDA?", options: ["IJTIMOIY HODISA", "BIOLOGIK HODISA", "FIZIKA HODISA", "KIMYO HODISA"], correct: 0 },
+                { q: "14. SHARQDA QANDAY TARQALGAN?", options: ["OG‘ZAKI", "YOZMA", "ELEKTRON", "RASMIY"], correct: 0 },
+                { q: "15. QACHONDAN NOMLAR MA’LUM?", options: ["O‘RTA ASR", "QADIMGI DAVR", "YANGI DAVR", "HOZIRGI DAVR"], correct: 0 },
+                { q: "16. “O‘ZINGNI ANGLA” KIM?", options: ["SUQROT", "ARISTOTEL", "AFLOTUN", "KOMENSKIY"], correct: 0 },
+                { q: "17. TABIATNI HISOBGA OLISH KIM?", options: ["RUSSO", "LOCK", "KANT", "PESTALOZZI"], correct: 0 },
+                { q: "18. DAVLAT VA TARBIYA KIM?", options: ["AFLOTUN", "ARISTOTEL", "SUQROT", "KOMENSKIY"], correct: 0 },
+                { q: "19. “QUVONCH UYI” KIM?", options: ["PESTALOZZI", "FREBEL", "KOMENSKIY", "RUSSO"], correct: 0 },
+                { q: "20. TARBIYA UYLARI QACHON?", options: ["IV ASR", "I ASR", "X ASR", "XX ASR"], correct: 0 },
+                { q: "21. KIM BOSHQARGAN?", options: ["CHERKOV", "DAVLAT", "JAMIYAT", "OILA"], correct: 0 },
+                { q: "22. 2-DAVR QACHON?", options: ["XVII–XIX ASR", "I-IV ASR", "X-XX ASR", "XXI ASR"], correct: 0 },
+                { q: "23. MUSTAQIL FAN QACHON?", options: ["XX ASR", "X ASR", "XV ASR", "I ASR"], correct: 0 },
+                { q: "24. ATAMA KIM?", options: ["DIETERICH", "KOMENSKIY", "USINSKIY", "MAKARENKO"], correct: 0 },
+                { q: "25. SOTSIUM QAYERDAN?", options: ["LOTIN", "YUNON", "RUS", "O'ZBEK"], correct: 0 },
+                { q: "26. JAMOA QAYERDAN?", options: ["LOTIN", "YUNON", "RUS", "O'ZBEK"], correct: 0 },
+                { q: "27. JAMiYAT QACHON?", options: ["XVIII ASR", "I ASR", "X ASR", "XX ASR"], correct: 0 },
+                { q: "28. FIKR MUALLIFI KIM?", options: ["ARISTOTEL", "SUQROT", "AFLOTUN", "KOMENSKIY"], correct: 0 },
+                { q: "29. EHTIYOJ FIKRI KIM?", options: ["FOROBIY", "IBN SINO", "NAVOIY", "ULUG'BEK"], correct: 0 },
+                { q: "30. ASAR MUALLIFI KIM?", options: ["GERDER", "KANT", "GEGEL", "MARKS"], correct: 0 },
+                { q: "31. HUQUQ VA MAJBURIYAT NIMA?", options: ["STATUS", "ROL", "QOIDA", "QONUN"], correct: 0 },
+                { q: "32. KUTILGAN XULQ NIMA?", options: ["ROL", "STATUS", "QOIDA", "QONUN"], correct: 0 },
+                { q: "33. VAZIFALAR NECHTA?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "34. 3-GURUH NIMA?", options: ["AMALIY", "NAZARIY", "FAYLASUFIY", "DINIY"], correct: 0 },
+                { q: "35. TASHQI TA’SIR NIMA?", options: ["MUHIT", "IRSIYAT", "TARBIYA", "O'ZINI TUTISH"], correct: 0 },
+                { q: "36. ICHKI TA’SIR NIMA?", options: ["IRSIYAT", "MUHIT", "TARBIYA", "JAMIYAT"], correct: 0 },
+                { q: "37. NAZARIYA NIMA?", options: ["BIOLOGIK", "SOTSIOLOGIK", "PSIXOLOGIK", "PEDAGOGIK"], correct: 0 },
+                { q: "38. FIKR MUALLIFI KIM?", options: ["LOMBROZO", "KOMENSKIY", "USINSKIY", "MAKARENKO"], correct: 0 },
+                { q: "39. 6 OYDA NIMA?", options: ["EMOTSIONAL", "FIZIK", "AQLIY", "IJTIMOIY"], correct: 0 },
+                { q: "40. 5 YOSHDA NIMA?", options: ["IJTIMOIY", "EMOTSIONAL", "FIZIK", "AQLIY"], correct: 0 },
+                { q: "41. FIKR MUALLIFI KIM?", options: ["RUSSO", "KOMENSKIY", "USINSKIY", "MAKARENKO"], correct: 0 },
+                { q: "42. RUHSHUNOS KIM?", options: ["FREYD", "MASLOU", "YUNG", "PAVLOV"], correct: 0 },
+                { q: "43. AMERIKALIK OLIM KIM?", options: ["TORNDAYK", "FREYD", "MASLOU", "YUNG"], correct: 0 },
+                { q: "44. TARAFDORLAR KIM?", options: ["SOTSIOLOGIK", "BIOLOGIK", "PSIXOLOGIK", "PEDAGOGIK"], correct: 0 },
+                { q: "45. DEVIATSIYA NIMA?", options: ["OG‘ISHGAN XULQ", "TO'G'RI XULQ", "YAXSHI XULQ", "NORMAL XULQ"], correct: 0 },
+                { q: "46. SO‘Z QAYERDAN?", options: ["LOTIN", "YUNON", "RUS", "O'ZBEK"], correct: 0 },
+                { q: "47. 6 OYDA NIMA?", options: ["EMOTSIYA", "AQL", "FIZIKA", "KIMYO"], correct: 0 },
+                { q: "48. 3-DAVR QACHON?", options: ["O‘SMIRLIK", "GO'DAKLIK", "MAKTAB YOSHI", "KATTALIK"], correct: 0 },
+                { q: "49. QAYSI OMIL?", options: ["BIOLOGIK", "IJTIMOIY", "IQLIMIY", "MADANIY"], correct: 0 },
+                { q: "50. OMILLAR NECHTA?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "51. JINOIY XULQ NIMA?", options: ["DELINKVENT", "DEVIANT", "NORMAL", "YAXSHI"], correct: 0 },
+                { q: "52. XULQ NIMA?", options: ["HUQUQBUZARLIK", "QONUNGA BO'YSUNISH", "YAXSHI ISH", "YORDAM"], correct: 0 },
+                { q: "53. XULQ NIMA?", options: ["DEVIANT", "DELINKVENT", "NORMAL", "IDEAL"], correct: 0 },
+                { q: "54. ENG MURAKKAB DAVR?", options: ["O‘SMIRLIK", "GO'DAKLIK", "KICHIK YOSH", "KATTALIK"], correct: 0 },
+                { q: "55. YONDASHUV NIMA?", options: ["KORREKTSION", "JAZO", "TA'LIM", "TARBIYA"], correct: 0 },
+                { q: "56. REBINShTEYN NIMA DEGAn?", options: ["ANALIZ", "SINTEZ", "KUZATISH", "TAJRIBA"], correct: 0 },
+                { q: "57. NECHTA TUR?", options: ["3 TA", "1 TA", "5 TA", "10 TA"], correct: 0 },
+                { q: "58. 2-DAVR QACHON?", options: ["O‘SMIRLIK", "GO'DAKLIK", "MAKTAB YOSHI", "KATTALIK"], correct: 0 },
+                { q: "59. IRSIYMI?", options: ["HA", "YO'Q", "QISMAN", "BILMASLIK"], correct: 0 },
+                { q: "60. MUALLIF KIM?", options: ["LOMBROZO", "KOMENSKIY", "USINSKIY", "MAKARENKO"], correct: 0 },
+                { q: "61. QOIDA BUZISH NIMA?", options: ["DEVIATSIYA", "DELINKVENSIYA", "NORMAL", "YAXSHI"], correct: 0 },
+                { q: "62. NAZARIYA NIMA?", options: ["BIOLOGIK", "SOTSIOLOGIK", "PSIXOLOGIK", "PEDAGOGIK"], correct: 0 },
+                { q: "63. MUALLIF KIM?", options: ["RUSSO", "KOMENSKIY", "USINSKIY", "MAKARENKO"], correct: 0 },
+                { q: "64. YONDASHUV NIMA?", options: ["JAZO", "MUKOFOT", "E'TIBORSIZLIK", "YORDAM"], correct: 0 },
+                { q: "65. ISHONTIRISH MAQSADI?", options: ["TA’SIR ETISH", "JAZOLASH", "ZERIKTIRISH", "XURMAT QILISH"], correct: 0 },
+                { q: "66. ASOSIY VOSITA NIMA?", options: ["SO‘Z", "KUCH", "PUL", "QUROL"], correct: 0 },
+                { q: "67. QAYSI XOS?", options: ["ISHONCH", "SHUBHA", "QO'RQISH", "ZERIKISH"], correct: 0 }
+            ],
+            "Teatr va sahnalashtirish" : [
+                { q: "1. BIR SO‘Z BILAN AYTGANDA TEATR BOLA UCHUN QANDAY AHAMIYATGA EGA?", options: ["TARBIYA VOSITASI", "ZARARLI O'YIN", "VAQT O'TKAZISH", "JISMONIY YUKLAMA"], correct: 0 },
+                { q: "2. BOLANI OMMA OLDIDA NUTQ SO‘ZLASHGA ODATLANTIRISH UCHUN NIMA QILISH KERAK?", options: ["MASHQ QILDIRISH", "JAZOLASH", "SUDDAN O'TKAZISH", "TINDIRISH"], correct: 0 },
+                { q: "3. TEATRLASHTIRILGAN FAOLIYAT BOLANING QANDAY QOBILIYATLARINI RIVOJLANTIRADI?", options: ["IJODIY QOBILIYATLARINI", "JISMONIY KUCHINI", "ZERIKISHNI", "QO'RQISHNI"], correct: 0 },
+                { q: "4. BOLAGA FAOLIYAT BILAN BOSHQA ISHLAR XALAQIT BERMAY SHUG‘ULLANISH IMKONINI BERADIGAN PRINSIP QAYSI?", options: ["MUSTAQILLIK PRINSIPI", "MAJBURLASH PRINSIPI", "KOLLEKTIVLIK PRINSIPI", "QATTIQQOQLIK PRINSIPI"], correct: 0 },
+                { q: "5. BOLANING BILISH FAOLLIGINI RAG‘BATLANTIRADIGAN PRINSIP QAYSI?", options: ["FAOLLIK PRINSIPI", "PASSIVLIK PRINSIPI", "INTIZOM PRINSIPI", "KUZATUV PRINSIPI"], correct: 0 },
+                { q: "6. BOLAGA ERKIN TANLASH VA MUSTAQIL HARAKAT QILISH IMKONINI BERADIGAN PRINSIP QAYSI?", options: ["ERKIN TANLOV PRINSIPI", "MAJBURIY TANLOV PRINSIPI", "TAQIQLASH PRINSIPI", "CHEKLASH PRINSIPI"], correct: 0 },
+                { q: "7. BOLALARNI HAQIQIYLIKKA ISHONDIRUVCHI SHAROITNI YARATISH QAYSI PRINSIP?", options: ["ISHONCH MUHITI PRINSIPI", "QO'RQINVCH MUHIT", "ISHONCHSIZLIK MUHITI", "SUN'IY MUHIT"], correct: 0 },
+                { q: "8. QUYIDAGILARDAN QAYSI BIRI DIDAKTIK PRINSIPLAR?", options: ["FAOLLIK VA MUSTAQILLIK", "ZERIKARLILIK VA MAJBURLASH", "FAQAT TINGLASH", "FAQAT KO'RISH"], correct: 0 },
+                { q: "9. TEATRLASHTIRILGAN FAOLIYATDA OTA-ONA BILAN ISH SHAKLI NIMA?", options: ["HAMKORLIK", "QARSHILIK", "BEFARQLIK", "NAZORAT"], correct: 0 },
+                { q: "10. OTA-ONALAR BILAN SO‘ROQ QAYSI BOSQICHDA O‘TKAZILADI?", options: ["DIAGNOSTIK BOSQICH", "YAKUNIY BOSQICH", "O'RTA BOSQICH", "BOSHLANG'ICH BOSQICH"], correct: 0 },
+                { q: "11. TEATRLASHTIRILGAN FAOLIYAT MTTDA NIMA UCHUN XIZMAT QILADI?", options: ["RIVOJLANTIRISH UCHUN", "ZERIKTIRISH UCHUN", "JAZOLASH UCHUN", "CHARCHATISH UCHUN"], correct: 0 },
+                { q: "12. DARS JARAYONIDA NIMA SHAKLLANTIRILADI?", options: ["KO‘NIKMALAR", "OZG'INLIK", "QO'RQUV", "ZERIKISH"], correct: 0 },
+                { q: "13. TEATRLASHTIRILGAN O‘YINDA NIMAGA E’TIBOR BERILADI?", options: ["ROL IJROSIGA", "Kiyimiga", "Ovoziga", "Bo'yiga"], correct: 0 },
+                { q: "14. TEATRLASHTIRILGAN FAOLIYAT QAYSI ASOSDA TASHKIL ETILADI?", options: ["TIZIMLI YONDASHUV ASOSIDA", "TASODIFIY", "MAJBURIY", "BEFARQ"], correct: 0 },
+                { q: "15. 2-KICHIK GURUHDA ASOSIY VAZIFA NIMA?", options: ["QIZIQTIRISH", "JAZOLASH", "ZERIKTIRISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "16. O‘RTA GURUHDA ASOSIY VAZIFA NIMA?", options: ["FAOLLASHTIRISH", "JAZOLASH", "UXLATISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "17. KATTA GURUHDA ASOSIY VAZIFA NIMA?", options: ["IJODNI RIVOJLANTIRISH", "FAOLLASHTIRISH", "QIZIQTIRISH", "ZERIKTIRISH"], correct: 0 },
+                { q: "18. TAYYORLOV GURUHDA ASOSIY VAZIFA NIMA?", options: ["MUSTAQILLIKNI SHAKLLANTIRISH", "QIZIQTIRISH", "FAOLLASHTIRISH", "ZERIKTIRISH"], correct: 0 },
+                { q: "19. QO‘SHIQ VA O‘YINLARDAN MUSTAQIL FOYDALANISH QAYSI GURUHGA XOS?", options: ["KATTA GURUHGA", "KICHIK GURUHGA", "O'RTA GURUHGA", "TAYYORLOV GURUHIGA"], correct: 0 },
+                { q: "20. CHUQURLASHTIRILGAN TEATR KO‘NIKMALARI QAYSI GURUHLARDA SHAKLLANADI?", options: ["KATTA VA TAYYORLOV GURUHLARIDA", "KICHIK GURUHLARDA", "O'RTA GURUHLARDA", "FAQAT KATTA GURUHDA"], correct: 0 },
+                { q: "21. EMPATIYANING ASOSI NIMA?", options: ["HIS QILISH", "O'QISH", "YOZISH", "HISOBLASH"], correct: 0 },
+                { q: "22. SAHNALASHTIRISH IJTIMOIY KO‘NIKMALARGA QANDAY TA’SIR QILADI?", options: ["RIVOJLANTIRADI", "BUZADI", "E'TIBORSIZLIK", "ZERIKTIRADI"], correct: 0 },
+                { q: "23. PEDAGOG SAHNALASHTIRISHDA NIMA QILADI?", options: ["YO‘NALTIRADI", "MAJBURLAYDI", "JAZOLAYDI", "E'TIBORSIZ QOLADI"], correct: 0 },
+                { q: "24. MUHITNI LOYIHALASHDA NIMA HISOBGA OLINADI?", options: ["YOSH XUSUSIYATI", "O'QITUVCHI XOHISHI", "OTA-ONA TALABI", "MAHKAMA QARORI"], correct: 0 },
+                { q: "25. ROLGA TAYYORLANISH UCHUN QANDAY SHAROIT KERAK?", options: ["ERKIN SHAROIT", "MAJBURIY SHAROIT", "QATTIQ NAZORAT", "JAZO SHAROITI"], correct: 0 },
+                { q: "26. SAHNALASHTIRISH HUDUDIDA NIMALAR BO‘LISHI KERAK?", options: ["JIHOZLAR VA SAHNA", "FAQAT STOL", "FAQAT STUL", "HECH NARSA"], correct: 0 },
+                { q: "27. IJODIY ISHLAR UCHUN YANA NIMA BO‘LISHI KERAK?", options: ["MAXSUS JOY", "ODDIY XONA", "KO'CHA", "OMBORXONA"], correct: 0 },
+                { q: "28. MARIONETKA NIMA?", options: ["IP BILAN BOSHQARILADIGAN QO‘G‘IRCHOQ", "QO'L QO'G'IRCHOQ", "STOL QO'G'IRCHOG'I", "KARTON QO'G'IRCHOQ"], correct: 0 },
+                { q: "29. HAVOZA NIMA?", options: ["SAHNA MOSLAMASI", "O'YINCHOQ", "KOSTYUM", "PYESA"], correct: 0 },
+                { q: "30. MARIONETKA NIMA BILAN HARAKATLANADI?", options: ["IPLAR BILAN", "QO'L BILAN", "SUV BILAN", "SHAMOL BILAN"], correct: 0 },
+                { q: "31. TARBIYACHI QAYSI MEZONLARGA AMAL QILADI?", options: ["INDIVIDUAL YONDASHUVGA", "UMUMIY MEYONGA", "MAJBURIY MEYONGA", "E'TIBORSIZLIKKA"], correct: 0 },
+                { q: "32. IJODIY TARBIYA QAYSI DASTURGA ASOSLANADI?", options: ["ILK QADAM DASTURIGA", "MAKTAB DASTURIGA", "UNIVERSITET DASTURIGA", "XUSUSIY DASTURGA"], correct: 0 },
+                { q: "33. ROLLI FAOLIYATGA ASOSLANGAN O‘YIN QAYSI?", options: ["ROLLI O‘YIN", "SPORT O'YINI", "STOL O'YINI", "KOMP'YUTER O'YINI"], correct: 0 },
+                { q: "34. RITMIK VA MUSIQIY O‘YIN QANDAY NOMLANADI?", options: ["RITMIK O‘YIN", "NUTQIY O'YIN", "SUHBAT O'YINI", "JISMONIY O'YIN"], correct: 0 },
+                { q: "35. NUTQNI RIVOJLANTIRUVCHI O‘YIN NIMA?", options: ["NUTQIY O‘YIN", "RITMIK O'YIN", "ROL O'YINI", "SPORT O'YINI"], correct: 0 },
+                { q: "36. TEATR TERMINLARINI BILISH NIMA HISOBLANADI?", options: ["BOSHLANG‘ICH BILIM", "OLIY BILIM", "KERAKSIZ BILIM", "MAXFIY BILIM"], correct: 0 },
+                { q: "37. QAYSI MASHQ TURIGA KIRMAYDI?", options: ["ORTIQCHA HARAKAT", "NUTQ MASHQI", "RITM MASHQI", "ROL MASHQI"], correct: 0 },
+                { q: "38. QAYSI KO‘NIKMA MOS EMAS?", options: ["NOANIQ HARAKAT", "TO'G'RI HARAKAT", "CHIROYLI HARAKAT", "IZCHIL HARAKAT"], correct: 0 },
+                { q: "39. TARBIYACHI QAYSI BILIMNI BILISHI SHART EMAS?", options: ["ORTIQCHA MA’LUMOTNI", "PSIXOLOGIYANI", "PEDAGOGIKANI", "METODIKANI"], correct: 0 },
+                { q: "40. FAOLIYAT QANDAY GURUHLARDA O‘TKAZILADI?", options: ["KICHIK GURUHLARDA", "KATTA GURUHLARDA", "YAKKA GURUHLARDA", "UMUMIY GURUHDA"], correct: 0 },
+                { q: "41. TEATR FAOLIYATI QACHON TASHKIL ETILMAYDI?", options: ["KECHKI PAYTDA", "ERTALAB", "KUNDUZI", "HAR QACHON"], correct: 0 },
+                { q: "42. MASHG‘ULOT NIMA?", options: ["TA’LIM JARAYONI", "DAM OLISH JARAYONI", "UXLASH JARAYONI", "OVQATLANISH JARAYONI"], correct: 0 },
+                { q: "43. MASHG‘ULOTDA NIMA FOYDALANILMAYDI?", options: ["BOSIM", "O'YIN", "RASM", "MUSIQA"], correct: 0 },
+                { q: "44. GURUHLASHDA QAYSI HOLAT MAN ETILMAYDI?", options: ["ERKINLIK", "MAJBURLASH", "JAZOLASH", "ZORLIK"], correct: 0 },
+                { q: "45. YAKKA ISH NIMA?", options: ["INDIVIDUAL ISH", "GURUH ISHI", "JAMOA ISHI", "UMUMIY ISH"], correct: 0 },
+                { q: "46. QAYSI O‘YIN-KULGIGA KIRMAYDI?", options: ["MAJBURLASH", "KULGI", "QIZIQISH", "XURMAT"], correct: 0 },
+                { q: "47. QUVONCH BERADIGAN TADBIR NIMA?", options: ["BAYRAM", "JANAZA", "JANG", "MAJBURIYAT"], correct: 0 },
+                { q: "48. MAVZU NIMALARNI O‘Z ICHIGA OLMAYDI?", options: ["ORTIQCHA MA’LUMOT", "ASOSIY MA'LUMOT", "FOYDALI MA'LUMOT", "ZARUR MA'LUMOT"], correct: 0 },
+                { q: "49. ASOSIY MAQSAD NIMA?", options: ["RIVOJLANTIRISH", "ZERIKTIRISH", "CHARCHATISH", "E'TIBORSIZLIK"], correct: 0 },
+                { q: "50. QAYSI VAZIFA HAL ETILMAYDI?", options: ["ORTIQCHA", "ZARURIY", "ASOSIY", "MUHIM"], correct: 0 },
+                { q: "51. TEATR DEGANDA NIMANI TUSHUNASIZ?", options: ["SAN’AT TURINI", "FAN TURI", "SPORT TURI", "KASB TURI"], correct: 0 },
+                { q: "52. MTTDA QANDAY SPEKTAKLLARNI QO‘YISH MUMKIN EMAS?", options: ["ZO‘RAVONLIKKA OID", "BOLALAR UCHUN", "MAORIYPARVAR", "KULGI UCHUN"], correct: 0 },
+                { q: "53. TEATR FAOLIYATI MAZMUNI NIMALARNI O‘Z ICHIGA OLADI?", options: ["ROL VA HARAKATLARNI", "FAQAT SO'ZLARNI", "FAQAT MUSIQANI", "FAQAT RASMLARNI"], correct: 0 },
+                { q: "54. MASHG‘ULOTDA TARBIYACHI QANDAY HOLATNI QO‘LLAMASLIGI KERAK?", options: ["MAJBURLASHNI", "YORDAMNI", "TA'LIMNI", "O'YINNI"], correct: 0 },
+                { q: "55. «FONUS XAYOL» TEATRI QACHON VA QAYERDA TARQALGAN?", options: ["XIX ASRDA YEVROPADA", "XX ASRDA OSIYODA", "X ASRDA AFRIKADA", "QADIMGI MISRDA"], correct: 0 },
+                { q: "56. «FONUS XAYOL» TEATRIDA QO‘G‘IRCHOQLAR NIMADAN TAYYORLANADI?", options: ["QOG‘OZDAN", "LOYDAN", "YOG'OCDAN", "MATODAN"], correct: 0 },
+                { q: "57. SOYA TEATRIDA QANDAY O‘YINCHOQLAR O‘YNALADI?", options: ["SILUETLAR", "QO'G'IRCHOQLAR", "KARTONLAR", "LARLAR"], correct: 0 },
+                { q: "58. BARMOQ TEATRIDA QANDAY O‘YINCHOQLAR O‘YNALADI?", options: ["BARMOQ QO‘G‘IRCHOQLAR", "MARIONETKALAR", "KARTONLAR", "LOY O'YINCHOQLAR"], correct: 0 },
+                { q: "59. KARTON TEATRIDA QANDAY O‘YINCHOQLAR O‘YNALADI?", options: ["KARTON FIGURALAR", "BARMAQLAR", "IPLAR", "OYNA"], correct: 0 },
+                { q: "60. KO‘NGIL OCHAR SOATLARDA QAYSI TEATR FOYDALANILMAYDI?", options: ["OG‘IR SAHNA TEATRI", "BARMOQ TEATRI", "KARTON TEATRI", "SOYA TEATRI"], correct: 0 },
+                { q: "61. «ORIGAMI» SO‘ZINING MA’NOSI NIMA?", options: ["QOG‘OZNI BUKLASH", "QOG'OZNI KESISH", "LOYDAN YASASH", "YOG'OCDAN YASASH"], correct: 0 },
+                { q: "62. ORIGAMI O‘YINCHOQLARI QANDAY YASALADI?", options: ["QOG‘OZDAN", "LOYDAN", "MATODAN", "YOG'OCDAN"], correct: 0 },
+                { q: "63. ORIGAMI SAN’ATI QACHON VA QAYERDA PAYDO BO‘LGAN?", options: ["QADIMDA YAPONIYADA", "XX ASRDA YEVROPADA", "X ASRDA XITOYDA", "HOZIRGI O'ZBEKISTONDA"], correct: 0 },
+                { q: "64. «TOTIQUSh» ORIGAMI KETMA-KETLIGI QANDAY?", options: ["1-3-2-4-5-7-6", "1-2-3-4-5-6-7", "7-6-5-4-3-2-1", "TARTIBI YO'Q"], correct: 0 },
+                { q: "65. GULLAR QANDAY TURLARGA AJRATILADI?", options: ["TABIIY VA SUN’IY", "KATTA VA KICHIK", "QIMMAT VA ARZON", "QIZIL VA OQ"], correct: 0 },
+                { q: "66. MATODAN GULLAR YASASHDA NIMA KERAK?", options: ["MATO VA IP", "QOG'OZ VA YELIM", "LOY VA SUV", "YOG'OCH VA METALL"], correct: 0 },
+                { q: "67. QOG‘OZDAN GULLAR YASASHDA NIMA KERAK?", options: ["QOG‘OZ VA YELIM", "MATO VA IP", "LOY VA SUV", "YOG'OCH VA METALL"], correct: 0 },
+                { q: "68. YEVROPADA ORIGAMI QACHON RIVOJLANDI?", options: ["XX ASRDA", "X ASRDA", "QADIMDA", "XXI ASRDA"], correct: 0 },
+                { q: "69. QOBILIYAT DEGANDA NIMANI TUSHUNASIZ?", options: ["IMKONIYATNI", "XATONI", "ZERIKISHNI", "QO'RQUVNI"], correct: 0 },
+                { q: "70. SHE’R YODLASHNING ASOSIY MAQSADI NIMA?", options: ["XOTIRANI RIVOJLANTIRISH", "OVOZNI O'CHIRISH", "ZERIKTIRISH", "UXLATISH"], correct: 0 },
+                { q: "71. YANGILIK YARATISH QOBILIYATI QANDAY QOBILIYAT?", options: ["IJODIY QOBILIYAT", "JISMONIY QOBILIYAT", "AQLIY QOBILIYAT", "MEHNAT QOBILIYATI"], correct: 0 },
+                { q: "72. BARCHA KUCHLARNI ISHGA SOLISH HOLATI NIMA?", options: ["ILHOM", "ZERIKISH", "UXLASH", "OVQATLANISH"], correct: 0 },
+                { q: "73. IJODKORLIK TA’RIFINI KIM BERGAN?", options: ["GILFORD", "FREYD", "MASLOU", "PAVLOV"], correct: 0 },
+                { q: "74. DEKORATSIYA NIMA?", options: ["SAHNA BEZAGI", "SAHNA MATNI", "AKTYOR KIYIMI", "SAHNA CHIROQLARI"], correct: 0 },
+                { q: "75. YANGI G‘OYA YARATISHGA MOYILLIK NIMA?", options: ["KREATIVLIK", "ZERIKISH", "QO'RQUV", "SEZGINLIK"], correct: 0 },
+                { q: "76. SAHNADAGI CHIQISH NIMA DEYILADI?", options: ["SPEKTAKL", "MASHQ", "REPETITSIYA", "DARS"], correct: 0 },
+                { q: "77. ROLLARGA BO‘LINIB IJRO ETILADIGAN O‘YIN NIMA?", options: ["DRAMMATIZATSIYA", "SPORT O'YINI", "SUHBAT", "KUZATISH"], correct: 0 },
+                { q: "78. ROL ASOSIDA IJRO ETILADIGAN FAOLIYAT NIMA?", options: ["SAHNALASHTIRISH", "O'QISH", "YOZISH", "ESHITISH"], correct: 0 },
+                { q: "79. QO‘G‘IRCHOQ TEATRI TALABI NIMA?", options: ["MAHORAT", "KUCH", "BOYLIK", "GO'ZALLIK"], correct: 0 },
+                { q: "80. IPLAR BILAN BOSHQARILADIGAN QO‘G‘IRCHOQ NIMA?", options: ["MARIONETKA", "BARMOQ QO'G'IRCHOG'I", "KARTON QO'G'IRCHOG'I", "SOYA QO'G'IRCHOG'I"], correct: 0 },
+                { q: "81. SAHNALASHTIRISHDA BOLALARDA QAYSI FAZILATLAR RIVOJLANADI?", options: ["HAMDIKARDLIK VA MEHR", "ZERIKISH", "QO'RQUV", "HAQORAT"], correct: 0 },
+                { q: "82. ASAR TANLASHDA NIMA TALAB ETILADI?", options: ["MOSLIK VA QIZIQARLILIK", "QISQALIK", "UZUNLIK", "MURAKKABLIK"], correct: 0 },
+                { q: "83. QAYSI O‘YINLAR IRODA VA INTIZOMNI SHAKLLANTIRADI?", options: ["DRAMMATIK O‘YINLAR", "KOMP'YUTER O'YINLARI", "SPORT O'YINLARI", "STOL O'YINLARI"], correct: 0 },
+                { q: "84. “TO‘G‘RI BO‘LING...” QAYSI ERTAKKA TEGISHLI?", options: ["AXLOQIY ERTAKKA", "SEHR ERTAGIGA", "ZOOLOGIK ERTAKKA", "TARIXIY ERTAKKA"], correct: 0 },
+                { q: "85. ASAR TANLASHDA NIMA MUHIM?", options: ["QIZIQARLILIGI", "UZUNLIGI", "QISQALIGI", "MURAKKABLIGI"], correct: 0 },
+                { q: "86. ERTAK ASOSIDAGI APPLIKATSIYA QAYSI TURGA KIRADI?", options: ["SYUJETLI", "SYUJETSIZ", "DEKORATIV", "DINAMIK"], correct: 0 },
+                { q: "87. TABIIY MATERIALLAR NIMA?", options: ["YAPROQ, SHOH VA BOSHQALAR", "QOG'OZ, KARTON", "MATO, IP", "PLASTILIN, LOY"], correct: 0 },
+                { q: "88. TABIIY MATERIALLARGA NIMALAR KIRADI?", options: ["YAPROQ, SHOX, GUL", "QOG'OZ, YELIM", "METALL, SHISHA", "PLASTIK, REZINA"], correct: 0 },
+                { q: "89. GERBARIY QACHON VA KIM TOMONIDAN BOSHLANGAN?", options: ["XVI ASRDA", "XX ASRDA", "X ASRDA", "QADIMGI MISRDA"], correct: 0 },
+                { q: "90. LOY ISHIDA QANDAY USULLAR QO‘LLANILADI?", options: ["YOYISH VA EZISH", "KESISH VA YOPISHTIRISH", "BUKLASH VA O'RASH", "BO'YASH VA YUVISH"], correct: 0 },
+                { q: "91. ZARDOZLIK QANDAY SAN’AT?", options: ["BEZAK SAN’ATI", "MUSIQA SAN'ATI", "RAQSQ SAN'ATI", "TEATR SAN'ATI"], correct: 0 },
+                { q: "92. ZARDOZLIKDA ISHLATILADIGAN PISTON NIMA?", options: ["PAYETKA", "IP", "IGNA", "MATO"], correct: 0 },
+                { q: "93. KASHTACHILIKDA QANDAY MATOLAR ISHLATILADI?", options: ["IPAK VA MATO", "QOG'OZ VA KARTON", "YOG'OCH VA METALL", "LOY VA SUV"], correct: 0 },
+                { q: "94. KASHTACHILIK ASBOBLARI NIMA?", options: ["IGNA VA IP", "BOLTA VA O'ROQ", "RUCHKA VA BO'YOQ", "TOKCHA VA LUPA"], correct: 0 },
+                { q: "95. DO‘PPI KIYISH QACHONDAN RASM BO‘LGAN?", options: ["QADIMDA", "XX ASRDA", "10 YIL OLDIN", "HOZIRGI KUNDA"], correct: 0 },
+                { q: "96. O‘ZBEK DO‘PPILARI QAYSI HUDUDLARDA MASHHUR?", options: ["ANDIJON, BUXORO VA BOSHQALAR", "FAQAT TOSHKENT", "FAQAT SAMARQAND", "FAQAT XORAZM"], correct: 0 },
+                { q: "97. QAYSI O‘YINCHOQ TURI FIKRLASHNI RIVOJLANTIRADI?", options: ["DIDAKTIK O‘YINCHOQ", "SEHR O'YINCHOG'I", "TEATR O'YINCHOG'I", "SPORT JIHOZI"], correct: 0 },
+                { q: "98. MUNCHOQ TIZISH QAYSI GURUHDA O‘RGATILADI?", options: ["KICHIK GURUHDA", "O'RTA GURUHDA", "KATTA GURUHDA", "TAYYORLOV GURUHIDA"], correct: 0 },
+                { q: "99. 8–10 QISM PAZLLAR QAYSI YOSHDA?", options: ["5–6 YOSHDA", "2-3 YOSHDA", "7-8 YOSHDA", "10-12 YOSHDA"], correct: 0 },
+                { q: "100. RASMLI KARTOCHKALAR BILAN ISH QAYSI GURUHDA?", options: ["TAYYORLOV GURUHDA", "KICHIK GURUHDA", "O'RTA GURUHDA", "KATTA GURUHDA"], correct: 0 }
+            ],
+            "Matematika" : [
+                { q: "1. Matematika fani oldida qanday vazifalar turadi?", options: ["Mantiqiy fikrlashni rivojlantirish, hisoblash ko‘nikmalarini shakllantirish", "Faqat sanashni o'rgatish", "Faqat shakllarni o'rgatish", "Faqat o'lchashni o'rgatish"], correct: 0 },
+                { q: "2. Bolalarga olamdagi sodda hodisalardagi miqdoriy sifatlarni tushunishga va fazoviy shakllarni shakllantirish bu qanday maqsad?", options: ["Ta’limiy maqsad", "Tarbiyaviy maqsad", "Amaliy maqsad", "Rivojlantiruvchi maqsad"], correct: 0 },
+                { q: "3. Bilimlarni o‘rgatishda bolalarda kuzatuvchanlik, tirishqoqlik, irodaviy sifatlarni shakllantirish bu qanday maqsad?", options: ["Tarbiyaviy maqsad", "Ta'limiy maqsad", "Amaliy maqsad", "Metodik maqsad"], correct: 0 },
+                { q: "4. Maqsad bolalarda nazariy olgan bilimlarini amalda qo‘llash bu nima?", options: ["Amaliy maqsad", "Nazariy maqsad", "Tarbiyaviy maqsad", "Kognitiv maqsad"], correct: 0 },
+                { q: "5. Bolalarda to‘plamlar tasavvuri shakllanishi qaysi analizatorlar ishtirokida bo‘ladi?", options: ["Ko‘rish, eshitish va harakat analizatorlari", "Faqat ko'rish", "Faqat eshitish", "Faqat harakat"], correct: 0 },
+                { q: "6. Bolalarni sanoq faoliyati taraqqiyoti necha bosqichni o‘z ichiga oladi?", options: ["3 bosqichni", "1 bosqichni", "2 bosqichni", "4 bosqichni"], correct: 0 },
+                { q: "7. Bolalarga shartli o‘lchovlarni o‘rgatishda nechta qoidaga amal qilinadi?", options: ["3 ta qoidaga", "1 ta qoidaga", "2 ta qoidaga", "5 ta qoidaga"], correct: 0 },
+                { q: "8. Asosiy vaqt belgilarini sanab bering?", options: ["Kun, hafta, oy, yil", "Soat, daqiqa, soniya", "Faqat kun va tun", "Faqat oy"], correct: 0 },
+                { q: "9. Qaysi guruhda qog‘oz varag‘ida mo‘ljal olish malakalari shakllantiriladi?", options: ["O‘rta guruhda", "Kichik guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "10. “Faoliyat” ta’rifi qaysi olimga tegishli?", options: ["Leontev", "Vigotskiy", "Ushinskiy", "Komenskiy"], correct: 0 },
+                { q: "11. Leontev va Rubinshteyn nimaga e’tibor berishgan?", options: ["Faoliyat jarayoniga", "Faqat natijaga", "Faqat boshlang'ichga", "Faqat yakuniy bosqichga"], correct: 0 },
+                { q: "12. Matematik tasavvurlar nechta yo‘nalishda olib boriladi?", options: ["4 yo‘nalishda", "1 yo'nalishda", "2 yo'nalishda", "10 yo'nalishda"], correct: 0 },
+                { q: "13. Matematik tasavvurlar qaysi guruhdan boshlanadi?", options: ["Kichik guruhdan", "O'rta guruhdan", "Katta guruhdan", "Tayyorlov guruhidan"], correct: 0 },
+                { q: "14. FSMU texnologiyasi nima?", options: ["Fikr, savol, muammo, umumlashtirish asosidagi usul", "Faqat savol javob", "Faqat muammo yechish", "Faqat umumlashtirish"], correct: 0 },
+                { q: "15. “Mantiqiy bloklar” deganda nimani tushunasiz?", options: ["Rang, shakl, o‘lcham va qalinlikka ko‘ra farqlanadigan material", "Faqat rangli kubiklar", "Faqat shakllar", "Faqat raqamlar"], correct: 0 },
+                { q: "16. Qaysi guruhda kecha, bugun, ertaga tushunchalari o‘rgatiladi?", options: ["O‘rta guruhda", "Kichik guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "17. O‘rta guruhda vaqtni o‘rgatishda nimalardan foydalaniladi?", options: ["Rasmlar va kundalik faoliyatlardan", "Faqat soatdan", "Faqat taqvimdan", "Faqat kompyuterdan"], correct: 0 },
+                { q: "18. Katta guruhda kalendar bilan ishlash qachon o‘tkaziladi?", options: ["Har kuni", "Haftasiga 1 marta", "Oyiga 1 marta", "Hech qachon"], correct: 0 },
+                { q: "19. Qaysi guruhda sutka qismlari mustahkamlanadi?", options: ["Katta guruhda", "Kichik guruhda", "O'rta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "20. Tayyorlov guruhda hafta kunlari qanday o‘rgatiladi?", options: ["To‘g‘ri ketma-ketlikda", "Teskari tartibda", "Tasodifiy", "O'rgatilmaydi"], correct: 0 },
+                { q: "21. Vigotskiy nimaga e’tibor qaratgan?", options: ["Yaqin rivojlanish zonasiga", "Uzoq rivojlanishga", "Jismoniy rivojlanishga", "Ijtimoiy rivojlanishga"], correct: 0 },
+                { q: "22. To‘plamga ta’rif bering.", options: ["Elementlar yig‘indisi", "Bo'shliq", "Narsa", "Son"], correct: 0 },
+                { q: "23. 20 gacha sanash qaysi guruhda mustahkamlanadi?", options: ["Tayyorlov guruhda", "Kichik guruhda", "O'rta guruhda", "Katta guruhda"], correct: 0 },
+                { q: "24. Qaysi guruhda o‘ziga nisbatan mo‘ljal o‘rgatiladi?", options: ["Kichik guruhda", "O'rta guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "25. To‘plam turlari qaysilar?", options: ["Chekli va cheksiz", "Katta va kichik", "Oq va qora", "Yaxshi va yomon"], correct: 0 },
+                { q: "26. Deduksiya nima?", options: ["Umumiydan xususiyga o‘tish", "Xususiydan umumiyga o'tish", "Tahlil qilish", "Sintez qilish"], correct: 0 },
+                { q: "27. Tayyorlov guruhda qanday geometrik belgilar o‘rganiladi?", options: ["Shakl, tomon, burchak", "Faqat shakl", "Faqat tomon", "Faqat burchak"], correct: 0 },
+                { q: "28. O‘rta guruhda nechta buyum taqqoslanadi?", options: ["3–4 ta", "1-2 ta", "5-6 ta", "10 ta"], correct: 0 },
+                { q: "29. Kattalik bo‘yicha ish qaysi guruhlarda boshlanadi?", options: ["Kichik guruhda", "O'rta guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "30. 3–4 yoshli bolalarga qaysi shakllar o‘rgatiladi?", options: ["Doira, kvadrat, uchburchak", "Kub, silindr", "Prizma, piramida", "Konus, shar"], correct: 0 },
+                { q: "31. Voqealar ketma-ketligi nima deyiladi?", options: ["Vaqt", "Joy", "Shakl", "Rang"], correct: 0 },
+                { q: "32. Metodlar qaysi bilan qo‘llaniladi?", options: ["Amaliy metodlar bilan", "Nazariy metodlar bilan", "Kuzatish bilan", "Eshitish bilan"], correct: 0 },
+                { q: "33. Hech elementi bo‘lmagan to‘plam nima?", options: ["Bo‘sh to‘plam", "Chekli to'plam", "Cheksiz to'plam", "Umumiy to'plam"], correct: 0 },
+                { q: "34. “Son-sanoq” asari muallifi kim?", options: ["K.D. Ushinskiy", "Komenskiy", "Makarenko", "Avloniy"], correct: 0 },
+                { q: "35. Didaktik o‘yinlar muallifi kim?", options: ["M. Montessori", "Komenskiy", "Ushinskiy", "Pestalotsi"], correct: 0 },
+                { q: "36. Algoritm termini qachon paydo bo‘lgan?", options: ["IX asrda", "XX asrda", "I asrda", "V asrda"], correct: 0 },
+                { q: "37. 5 ichida sanash qaysi guruhda?", options: ["O‘rta guruhda", "Kichik guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "38. Sutka qismlarini o‘rgatish usuli?", options: ["Suhbat va kuzatish", "Faqat suhbat", "Faqat kuzatish", "Faqat o'yin"], correct: 0 },
+                { q: "39. O‘rta guruhda vaqtni his qilish qanday rivojlanadi?", options: ["Amaliy mashg‘ulotlar orqali", "Faqat o'qish orqali", "Faqat eshitish orqali", "O'z-o'zidan"], correct: 0 },
+                { q: "40. “Arifmetika” so‘zi qanday ma’noni anglatadi?", options: ["Hisoblash san’ati", "Yozish san'ati", "O'qish san'ati", "Suhbat san'ati"], correct: 0 },
+                { q: "41. Maktabgacha ta’limda vaqt tasavvurlarini shakllantirish vazifasi nimadan iborat?", options: ["Vaqt birliklarini anglash va ketma-ketlikni tushunishga o‘rgatish", "Faqat soat ko'rsatish", "Faqat kunlarni aytish", "Faqat fasllarni bilish"], correct: 0 },
+                { q: "42. O‘zlashtirishi past bolalar jalb etiladigan tamoyil qaysi?", options: ["Individual yondashuv tamoyili", "Kollektiv tamoyil", "Aralash tamoyil", "Umumiy tamoyil"], correct: 0 },
+                { q: "43. Tayyorlov guruhida kattalik bo‘yicha qanday bilimlar mustahkamlanadi?", options: ["Uzunlik, kenglik, balandlikni o‘lchash va taqqoslash", "Faqat uzunlik", "Faqat kenglik", "Faqat balandlik"], correct: 0 },
+                { q: "44. Qaysi guruhdan boshlab shartli o‘lchovlar o‘rgatiladi?", options: ["Katta guruhdan", "Kichik guruhdan", "O'rta guruhdan", "Tayyorlov guruhidan"], correct: 0 },
+                { q: "45. Ko‘p marta chapak chalish va bir marta sakrash nimani mustahkamlaydi?", options: ["Miqdoriy tasavvurlarni", "Fazoviy tasavvurlarni", "Vaqt tasavvurlarini", "Rang tasavvurlarini"], correct: 0 },
+                { q: "46. 5 ichida sanash qaysi guruhda o‘rgatiladi?", options: ["O‘rta guruhda", "Kichik guruhda", "Katta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "47. 10 ichida sanash qaysi guruhda o‘rgatiladi?", options: ["Katta guruhda", "Kichik guruhda", "O'rta guruhda", "Tayyorlov guruhida"], correct: 0 },
+                { q: "48. Teskari sanash qaysi guruhda o‘rgatiladi?", options: ["Tayyorlov guruhda", "Kichik guruhda", "O'rta guruhda", "Katta guruhda"], correct: 0 },
+                { q: "49. Kichik guruhda mashg‘ulotlar haftasiga necha marta o‘tkaziladi?", options: ["1–2 marta", "3-4 marta", "5 marta", "Har kuni"], correct: 0 },
+                { q: "50. Kichik guruhda mashg‘ulotlar yiliga necha marta o‘tkaziladi?", options: ["Taxminan 36–72 marta", "10 marta", "100 marta", "5 marta"], correct: 0 },
+                { q: "51. Qaysi tamoyilda bilimlar tizimli beriladi?", options: ["Tizimlilik tamoyili", "Qiziqish tamoyili", "Mustaqillik tamoyili", "Ko'rgazmalilik tamoyili"], correct: 0 },
+                { q: "52. Matematik tasavvurlarni shakllantirish vositalari qaysilar?", options: ["Didaktik o‘yinlar, ko‘rgazmali qurollar, mashqlar", "Faqat darslik", "Faqat daftar", "Faqat ruchka"], correct: 0 },
+                { q: "53. Ta’lim vaqtida va undan tashqari rivojlantiruvchi tamoyil qaysi?", options: ["Uzviylik va uzluksizlik tamoyili", "Tizimlilik tamoyili", "Amaliyot tamoyili", "Ko'rgazmalilik tamoyili"], correct: 0 },
+                { q: "54. … bilim, ko‘nikma, malaka va qadriyatlar majmui.", options: ["Ta’lim", "Tarbiya", "Rivojlanish", "Shakllanish"], correct: 0 },
+                { q: "55. Tayyorlov guruhida haftasiga va yiliga nechta mashg‘ulot o‘tiladi?", options: ["Haftasiga 2–3 marta, yiliga taxminan 72–108 ta", "Haftasiga 1 marta, yiliga 10 ta", "Haftasiga 5 marta, yiliga 200 ta", "O'tilmaydi"], correct: 0 },
+                { q: "56. To‘plam nazariyasining asoschisi kim?", options: ["G. Kantor", "Leontev", "Vigotskiy", "Ushinskiy"], correct: 0 },
+                { q: "57. Bolalarda bilim, ko‘nikma va malakalarni o‘zlashtirishga qanday erishiladi?", options: ["Takrorlash va mashq orqali", "Tasodifan", "Kutib turganda", "Eshitish orqali"], correct: 0 },
+                { q: "58. Taqqoslash orqali qanday tushunchalar shakllanadi?", options: ["Qarama-qarshi tushunchalar", "O'xshash tushunchalar", "Bir xil tushunchalar", "Murakkab tushunchalar"], correct: 0 },
+                { q: "59. Qaysi guruhda hafta kunlari to‘g‘ri va teskari aytiladi?", options: ["Tayyorlov guruhda", "Kichik guruhda", "O'rta guruhda", "Katta guruhda"], correct: 0 },
+                { q: "60. Yil fasllarini o‘rgatishda nimadan foydalaniladi?", options: ["Rasmlar va kuzatishlardan", "Faqat rasmlardan", "Faqat kuzatishlardan", "Faqat suhbatdan"], correct: 0 },
+                { q: "61. Soat, hafta, oy, yil matematikada nima deyiladi?", options: ["Vaqt birliklari", "Uzunlik birliklari", "Og'irlik birliklari", "Hajm birliklari"], correct: 0 },
+                { q: "62. Tayyorlov guruhda fazoda mo‘ljal olish nimaga asoslanadi?", options: ["Amaliy mashqlar va kuzatishga", "Faqat amaliy mashqlarga", "Faqat kuzatishga", "Faqat suhbatga"], correct: 0 },
+                { q: "63. Qaysi guruhlarda uzunlik, kenglik, balandlik mustahkamlanadi?", options: ["Katta va tayyorlov guruhda", "Kichik guruhda", "O'rta guruhda", "Faqat katta guruhda"], correct: 0 },
+                { q: "64. O‘rta guruhda mashg‘ulotlar yil davomida necha marta o‘tkaziladi?", options: ["Taxminan 72 marta", "10 marta", "200 marta", "5 marta"], correct: 0 },
+                { q: "65. Arifmetika va algebra haqida asarlar yozgan olim kim?", options: ["Al-Xorazmiy", "Ibn Sino", "Farobiy", "Beruniy"], correct: 0 },
+                { q: "66. “Hisob kaliti” asari muallifi kim?", options: ["Al-Xorazmiy", "Ibn Sino", "Ulug'bek", "Navoiy"], correct: 0 },
+                { q: "67. “Matematik tasavvurlarni shakllantirish” kitobi muallifi kim?", options: ["L.A. Venger", "Ushinskiy", "Makarenko", "Komenskiy"], correct: 0 },
+                { q: "68. Samarqandda astronomiya maktabini yaratgan olim kim?", options: ["Mirzo Ulug‘bek", "Al-Xorazmiy", "Ibn Sino", "Beruniy"], correct: 0 },
+                { q: "69. 50–90-yillarda faoliyat olib borgan o‘zbek olimi kim?", options: ["P.Qodirov", "Ibn Sino", "Navoiy", "Ulug'bek"], correct: 0 },
+                { q: "70. Nazariy bilimlarni amaliyotga bog‘lash tamoyili qaysi?", options: ["Amaliyot bilan bog‘liqlik tamoyili", "Nazariya tamoyili", "Uzluksizlik tamoyili", "Tizimlilik tamoyili"], correct: 0 },
+                { q: "71. Vaqt haqida tushuncha sezgi orqali beriladi degan olim kim?", options: ["I.M. Sechenov", "Pavlov", "Freyd", "Maslou"], correct: 0 },
+                { q: "72. Qaysi olimlar matematika o‘qitish afzalliklarini ko‘rsatgan?", options: ["Komenskiy va Pestalotsi", "Ibn Sino va Farobiy", "Ushinskiy va Makarenko", "Navoiy va Ulug'bek"], correct: 0 },
+                { q: "73. Shakl tasavvurlari qaysi fanlarga asos bo‘ladi?", options: ["Geometriya, chizmachilik", "Adabiyot, til", "Tarix, jamiyat", "Biologiya, kimyo"], correct: 0 },
+                { q: "74. Matematik vositalarni belgilang.", options: ["O‘yinlar, mashqlar, ko‘rgazmalar", "Qog'oz, ruchka", "Stol, stul", "Doska, bo'yoq"], correct: 0 },
+                { q: "75. Sanash rivojlanish bosqichlari nechta?", options: ["3 ta", "1 ta", "5 ta", "10 ta"], correct: 0 },
+                { q: "76. Kattalik tushunchasini kim ochib bergan?", options: ["D. Galanin", "Ushinskiy", "Komenskiy", "Makarenko"], correct: 0 },
+                { q: "77. Kattalik nisbiyligini aniqlagan olim kim?", options: ["V.V. Davydov", "D. Galanin", "Leontev", "Venger"], correct: 0 },
+                { q: "78. D. Galanin qaysi tushunchani ochgan?", options: ["Kattalik tushunchasini", "Vaqt tushunchasini", "Shakl tushunchasini", "Son tushunchasini"], correct: 0 },
+                { q: "79. V.V. Davydov kattalikning qanday xossalarini aniqlagan?", options: ["Nisbiylik xossasini", "Mutlaqlik xossasini", "O'zgaruvchanlik xossasini", "Turg'unlik xossasini"], correct: 0 },
+                { q: "80. Shartli o‘lchovlarni o‘rgatishda nechta qoidaga amal qilinadi?", options: ["3 ta", "1 ta", "5 ta", "10 ta"], correct: 0 },
+                { q: "81. Tekislikda mo‘ljal olishni o‘rgangan olimlar kimlar?", options: ["Leontev va Vigotskiy", "Ushinskiy va Komenskiy", "Ibn Sino va Farobiy", "Navoiy va Ulug'bek"], correct: 0 },
+                { q: "82. To‘plamni tashkil qiluvchi obyektlar nima deyiladi?", options: ["Elementlar", "Qismlar", "Bo'limlar", "Guruhlar"], correct: 0 },
+                { q: "83. Qanday to‘plam bo‘sh to‘plam hisoblanadi?", options: ["Elementi bo‘lmagan to‘plam", "1 elementli to'plam", "10 elementli to'plam", "Cheksiz to'plam"], correct: 0 },
+                { q: "84. Matematik tasavvurlar nechta bo‘limdan iborat?", options: ["4 ta bo‘limdan", "1 ta bo'limdan", "2 ta bo'limdan", "10 ta bo'limdan"], correct: 0 },
+                { q: "85. Kichik guruhda nechigacha sanash o‘rgatiladi?", options: ["3 gacha", "10 gacha", "5 gacha", "20 gacha"], correct: 0 },
+                { q: "86. Kattalik bo‘yicha to‘g‘ri ta’rif nima?", options: ["Buyumning o‘lcham xususiyati", "Buyumning rangi", "Buyumning shakli", "Buyumning og'irligi"], correct: 0 },
+                { q: "87. Aqliy rivojlanish qaysi jarayonda namoyon bo‘ladi?", options: ["Faoliyat jarayonida", "UXLASHDA", "OVQATLANISHDA", "KUTISHDA"], correct: 0 },
+                { q: "88. Aqliy tarbiyaning asosiy vazifasi nima?", options: ["Tafakkurni rivojlantirish", "Jismoniy kuchni rivojlantirish", "Mehnat ko'nikmalarini rivojlantirish", "Nutqni rivojlantirish"], correct: 0 },
+                { q: "89. Suhbat metodi qanday shaklda o‘tkaziladi?", options: ["Savol-javob shaklida", "Monolog shaklida", "Taqdimot shaklida", "Munosabat shaklida"], correct: 0 },
+                { q: "90. O‘quv faoliyatining nechta shakli bor?", options: ["3 ta (frontal, guruhli, individual)", "1 ta", "5 ta", "10 ta"], correct: 0 },
+                { q: "91. O‘yinni tarbiya vositasi degan mutafakkir kim?", options: ["K.D. Ushinskiy", "Komenskiy", "Makarenko", "Avloniy"], correct: 0 },
+                { q: "92. Bilishga doir ruhiy jarayonlar qaysilar?", options: ["Idrok, xotira, tafakkur, diqqat", "His-tuyg'ular", "Iroda", "Xulq-atvor"], correct: 0 },
+                { q: "93. “Ko‘p” va “kam” tushunchalarini o‘rgatish usuli qaysi?", options: ["Taqqoslash usuli", "Kuzatish usuli", "Suhbat usuli", "O'yin usuli"], correct: 0 },
+                { q: "94. Sabrlilik va irodani shakllantirish qanday maqsad?", options: ["Tarbiyaviy maqsad", "Ta'limiy maqsad", "Amaliy maqsad", "Rivojlantiruvchi maqsad"], correct: 0 },
+                { q: "95. Kattaliklarni taqqoslashda bolalar nimani o‘rganadi?", options: ["Katta-kichikni ajratishni", "Ranglarni ajratishni", "Shakllarni ajratishni", "Ovozlarni ajratishni"], correct: 0 },
+                { q: "96. Sanash malakasining birinchi bosqichi qaysi?", options: ["Predmetlarni ajratish", "Sonlarni aytish", "Yozish", "Taqqoslash"], correct: 0 },
+                { q: "97. 3–4 yoshli bolalarga mos metod qaysi?", options: ["O‘yin metodi", "Suhbat metodi", "Majburlash metodi", "Kuzatish metodi"], correct: 0 },
+                { q: "98. “Chap” va “o‘ng” tushunchalari qaysi bo‘limga kiradi?", options: ["Fazoviy tasavvurlar bo‘limiga", "Miqdoriy tasavvurlar", "Vaqt tasavvurlari", "Kattalik tasavvurlari"], correct: 0 },
+                { q: "99. Miqdoriy taqqoslashda birinchi harakat qaysi?", options: ["Solishtirish", "Sanash", "O'lchash", "Yozish"], correct: 0 },
+                { q: "100. O‘lchov birliklari qanday o‘rgatiladi?", options: ["Shartli o‘lchovlar orqali", "Ko'z bilan", "Qo'l bilan", "Eshitish orqali"], correct: 0 }
+            ]
+        };
+            
         const ADMIN_PASSWORD = "admin123"; 
         let activeQuestions = [], currentTestTitle = '', currentQuestion = 0, userAnswers = [];
         let userName = '', groupName = '', timeLeft = 40, activeTestTimeLimit = 40, timerInterval;
         let selectedGroup = null, isPaused = false;
+
+        function initTestButtons() {
+            const container = document.getElementById('testButtonsContainer');
+            let index = 1;
+            const colors = ['', 'btn-green', 'btn-blue', 'btn-orange', 'btn-red', 'btn-green', 'btn-blue', 'btn-orange'];
+            for (let testName in allTests) {
+                const row = document.createElement('div');
+                row.className = 'test-row';
+                row.innerHTML = `
+                    <input type="number" id="time${index}" class="time-input" value="40" min="5">
+                    <button class="btn ${colors[index % colors.length]}" onclick="startTest('${testName}')" style="flex:1">${index}-Test: ${testName}</button>
+                `;
+                container.appendChild(row);
+                index++;
+            }
+        }
 
         function shuffleArray(array) {
             let shuffled = array.slice();
@@ -990,6 +789,7 @@
 
         function initSystem() {
             initTheme();
+            initTestButtons(); 
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('admin')) {
                 document.getElementById('studentView').style.display = 'none';
@@ -1009,7 +809,7 @@
         function toggleTheme() { const c = document.documentElement.getAttribute('data-theme'); const n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('theme', n); updateThemeIcon(n); }
         function updateThemeIcon(t) { document.querySelectorAll('.theme-toggle').forEach(b => b.textContent = t === 'dark' ? '☀️' : '🌙'); }
 
-        function startTest(testNum) {
+        function startTest(testName) {
             userName = document.getElementById('userName').value.trim(); groupName = document.getElementById('groupName').value.trim();
             const groupPass = document.getElementById('groupPass').value.trim();
             if(!userName || !groupName || !groupPass) return alert("Ism, guruh va parolni kiriting!");
@@ -1017,14 +817,14 @@
             if(localGroups[groupName] && localGroups[groupName] !== groupPass) return alert("Guruh paroli noto'g'ri!");
             if(!localGroups[groupName]) { localGroups[groupName] = groupPass; localStorage.setItem('groups', JSON.stringify(localGroups)); }
             
-            activeTestTimeLimit = parseInt(document.getElementById(testNum === 1 ? 'time1' : 'time2').value) || 40;
+            let testIndex = Object.keys(allTests).indexOf(testName) + 1;
+            activeTestTimeLimit = parseInt(document.getElementById(`time${testIndex}`).value) || 40;
             timeLeft = activeTestTimeLimit; isPaused = false; 
             
-            const baseQuestions = testNum === 1 ? questions1 : questions2;
-            activeQuestions = prepareTestQuestions(baseQuestions);
-            
-            currentTestTitle = testNum === 1 ? "Pedagogika" : "Amaliy dasturlar";
-            document.getElementById('testTitle').innerText = currentTestTitle; 
+            activeQuestions = prepareTestQuestions(allTests[testName]);
+            currentTestTitle = testName;
+
+             document.getElementById('testTitle').innerText = currentTestTitle; 
             userAnswers = new Array(activeQuestions.length).fill(-1); 
             currentQuestion = 0;
             document.getElementById('startScreen').classList.add('hidden'); 
@@ -1071,13 +871,8 @@
             clearInterval(timerInterval); 
             let correct = 0;
             let answeredCount = 0;
-            
-            userAnswers.forEach(ans => {
-                if(ans !== -1) answeredCount++;
-            });
-
+            userAnswers.forEach(ans => { if(ans !== -1) answeredCount++; });
             activeQuestions.forEach((q, i) => { if(userAnswers[i] === q.correct) correct++; });
-            
             const percent = Math.round((correct / activeQuestions.length) * 100);
             
             document.getElementById('testScreen').classList.add('hidden'); 
@@ -1087,27 +882,19 @@
             
             let results = JSON.parse(localStorage.getItem('results') || '{}'); if(!results[groupName]) results[groupName] = {};
             results[groupName][Date.now()] = { 
-                name: userName, 
-                test: currentTestTitle, 
-                percent, 
-                correctCount: correct, 
-                answeredCount: answeredCount, 
-                totalQuestions: activeQuestions.length, 
-                answers: [...userAnswers], 
-                timestamp: Date.now() 
+                name: userName, test: currentTestTitle, percent, correctCount: correct, answeredCount: answeredCount, 
+                totalQuestions: activeQuestions.length, answers: [...userAnswers], timestamp: Date.now() 
             };
             localStorage.setItem('results', JSON.stringify(results)); loadLeaderboard(groupName);
         }
 
-        // ===== Foydalanuvchi o'z xatosini ko'rish uchun yangi funksiya =====
         function showUserMistakes() {
-            let correct = 0;
-            let answeredCount = 0;
+            let correct = 0; let answeredCount = 0;
             userAnswers.forEach(ans => { if(ans !== -1) answeredCount++; });
             activeQuestions.forEach((q, i) => { if(userAnswers[i] === q.correct) correct++; });
             let incorrect = answeredCount - correct;
 
-            document.getElementById('detailTitle').innerText = `📋 Sizning natijalaringiz`;
+            document.getElementById('detailTitle').innerText = `📋 Sizning natijalararingiz`;
             document.getElementById('detailStats').innerHTML = `<div class="d-stat bg-correct"><h3>${correct}</h3><p>To'g'ri</p></div><div class="d-stat bg-incorrect"><h3>${incorrect > 0 ? incorrect : 0}</h3><p>Noto'g'ri</p></div>`;
             
             const qContainer = document.getElementById('detailQuestions'); qContainer.innerHTML = '';
@@ -1115,8 +902,6 @@
                 let ans = userAnswers[idx];
                 let isC = ans !== -1 && ans === qD.correct; 
                 let isSkipped = ans === -1;
-                
-                // Faqat xato qilingan yoki tushirib qoldirilgan savollarni ko'rsatamiz
                 if(!isC) {
                     let optH = '';
                     qD.options.forEach((o,i) => { 
@@ -1128,11 +913,7 @@
                     qContainer.innerHTML += `<div class="detail-question"><div class="dq-title">${isSkipped ? '⏭️ Tushirib qoldirilgan' : '❌ Noto\'g\'ri'} <br>${qD.q}</div><div>${optH}</div></div>`; 
                 }
             });
-            
-            if(qContainer.innerHTML === '') {
-                qContainer.innerHTML = '<p style="text-align:center; color:#00b894; font-weight:bold; padding: 30px 0;">🏆 Tabriklaymiz! Barcha javoblar to\'g\'ri!</p>';
-            }
-
+            if(qContainer.innerHTML === '') qContainer.innerHTML = '<p style="text-align:center; color:#00b894; font-weight:bold; padding: 30px 0;">🏆 Tabriklaymiz! Barcha javoblar to\'g\'ri!</p>';
             document.getElementById('detailModal').style.display = 'flex';
         }
 
@@ -1172,7 +953,6 @@
                 let ansCount = item.answeredCount || item.correctCount || 0;
                 let totalQ = item.totalQuestions || '?';
                 let infoText = `${item.correctCount || 0} to'g'ri (${ansCount}/${totalQ})`;
-                
                 let tr = document.createElement('tr');
                 tr.innerHTML = `<td><b>${item.name}</b></td><td>${item.test}</td><td style="font-size:13px; color:var(--text-secondary)">${infoText}</td><td><span class="badge ${badge}">${item.percent}%</span></td>
                 <td><button class="btn btn-blue btn-sm" onclick='showDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>📊</button></td>
@@ -1189,7 +969,7 @@
             let correct = item.correctCount || 0; let total = item.totalQuestions || (item.answers ? item.answers.length : 0); let incorrect = (item.answeredCount || correct) - correct;
             document.getElementById('detailStats').innerHTML = `<div class="d-stat bg-correct"><h3>${correct}</h3><p>To'g'ri</p></div><div class="d-stat bg-incorrect"><h3>${incorrect > 0 ? incorrect : 0}</h3><p>Noto'g'ri</p></div>`;
             
-            const questions = item.test === "Pedagogika" ? questions1 : questions2; 
+            const questions = allTests[item.test] || []; 
             const qContainer = document.getElementById('detailQuestions'); qContainer.innerHTML = '';
             if(!item.answers || item.answers.length===0) { qContainer.innerHTML='<p style="color:var(--text-secondary); text-align:center; padding:20px;">Ma\'lumot yo\'q</p>'; }
             else { 
