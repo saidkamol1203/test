@@ -147,6 +147,12 @@
             box-shadow: 0 4px 15px rgba(9, 132, 227, 0.4);
         }
 
+        .btn-secondary {
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            box-shadow: 0 4px 18px rgba(79, 70, 229, 0.35);
+            color: white;
+        }
+
         .btn-sm {
             padding: 8px 15px;
             font-size: 14px;
@@ -164,10 +170,87 @@
             gap: 12px;
         }
 
+        .section-card {
+            margin-top: 28px;
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mixed-toggle-row {
+            margin-top: 18px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .mixed-toggle-row .btn-outline {
+            min-width: 70px;
+            height: 34px;
+            padding: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+
+        .mixed-toggle-row .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 12px 30px rgba(0, 0, 0, 0.14);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-sm {
+            padding: 10px 18px;
+            font-size: 14px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .section-subtext {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
         .test-row {
             display: flex;
             gap: 12px;
             align-items: center;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.14);
         }
 
         
@@ -707,6 +790,14 @@
                 <p>Fanni tanlang va bilimingizni sinab ko'ring!</p>
             </div>
             <div class="test-selection" id="testButtonsContainer"></div>
+            <div class="mixed-toggle-row">
+                <button class="btn btn-sm btn-outline" onclick="toggleMixedSection()"></button>
+            </div>
+            <div class="mixed-section section-card hidden" id="mixedSectionCard">
+                <!-- <div class="section-header">Aralash test va qo'shimcha</div> -->
+                <div class="test-selection" id="mixedButtonsContainer"></div>
+                <div class="test-selection" id="bonusButtonsContainer"></div>
+            </div>
         </div>
         <div id="testScreen" class="hidden">
             <div class="header">
@@ -1238,9 +1329,16 @@
                 { q: "98. Class metod yaratish uchun qaysi dekorator ishlatiladi?", options: ["@classmethod", "@class", "@static_class", "@cls_method"], correct: 0 },
                 { q: "99. Property dekoratori nima uchun ishlatiladi?", options: ["Metodni atribut kabi ishlatish", "Sinfni o'zgartirish", "Yangi sinf yaratish", "Xotira boshqarish"], correct: 0 },
                 { q: "100. Multiple inheritance (ko'p meros olish) qanday amalga oshiriladi?", options: ["class Child(Parent1, Parent2):", "class Child(Parent1 and Parent2):", "class Child extends Parent1, Parent2:", "class Child: inherit Parent1, Parent2}"], correct: 0 }
-            ],
-
+            ]
         };
+
+        const mixedQuestions = [
+            ...allTests["Operatsion tizimlar"].slice(0, 13),
+            ...allTests["Web dasturlash va IT"].slice(0, 13),
+            ...allTests["Python OOP"].slice(0, 12),
+            ...allTests["Python asoslari"].slice(0, 12)
+        ];
+        allTests["Aralash test"] = shuffleArray(mixedQuestions);
 
         const ADMIN_PASSWORD = "admin123";
         let activeQuestions = [], currentTestTitle = '', currentQuestion = 0, userAnswers = [];
@@ -1249,9 +1347,13 @@
 
         function initTestButtons() {
             const container = document.getElementById('testButtonsContainer');
+            const mixedContainer = document.getElementById('mixedButtonsContainer');
+            const bonusContainer = document.getElementById('bonusButtonsContainer');
             let index = 1;
             const colors = ['', 'btn-green', 'btn-blue', 'btn-orange', 'btn-red', 'btn-green', 'btn-blue', 'btn-orange'];
-            for (let testName in allTests) {
+            const mainTests = Object.keys(allTests).filter(name => name !== 'Aralash test');
+
+            mainTests.forEach(testName => {
                 const row = document.createElement('div');
                 row.className = 'test-row';
                 row.innerHTML = `
@@ -1260,7 +1362,48 @@
                 `;
                 container.appendChild(row);
                 index++;
+            });
+
+            if (allTests['Aralash test']) {
+                const row = document.createElement('div');
+                row.className = 'test-row';
+                row.innerHTML = `
+                    <input type="number" id="time${index}" class="time-input" value="40" min="5">
+                    <button class="btn btn-green" onclick="startTest('Aralash test')" style="flex:1">Aralash test 50 ta</button>
+                `;
+                mixedContainer.appendChild(row);
+                index++;
             }
+
+            const bonusRow = document.createElement('div');
+            bonusRow.className = 'test-row';
+            bonusRow.innerHTML = `
+                <input type="number" id="time${index}" class="time-input" value="40" min="5">
+                <button class="btn btn-secondary" onclick="startTest('Barcha testlar')" style="flex:1">Barcha testlar</button>
+            `;
+            bonusContainer.appendChild(bonusRow);
+        }
+
+        function toggleMixedSection() {
+            const section = document.getElementById('mixedSectionCard');
+            if (!section) return;
+            section.classList.toggle('hidden');
+        }
+
+        function buildAllMixedTestQuestions() {
+            const subjects = [
+                'Operatsion tizimlar',
+                'Web dasturlash va IT',
+                'Python OOP',
+                'Python asoslari'
+            ];
+            const allQuestions = [];
+            subjects.forEach(subject => {
+                if (Array.isArray(allTests[subject])) {
+                    allQuestions.push(...allTests[subject]);
+                }
+            });
+            return shuffleArray(allQuestions);
         }
 
         function shuffleArray(array) {
@@ -1270,6 +1413,23 @@
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
             return shuffled;
+        }
+
+        function buildMixedTestQuestions() {
+            const subjectPlan = [
+                ['Operatsion tizimlar', 13],
+                ['Web dasturlash va IT', 13],
+                ['Python OOP', 12],
+                ['Python asoslari', 12]
+            ];
+
+            const mixedQuestions = [];
+            subjectPlan.forEach(([subject, count]) => {
+                const pool = allTests[subject] || [];
+                mixedQuestions.push(...shuffleArray(pool).slice(0, count));
+            });
+
+            return shuffleArray(mixedQuestions);
         }
 
         function prepareTestQuestions(baseQuestions) {
@@ -1310,10 +1470,19 @@
             groupName = 'default';
 
             let testIndex = Object.keys(allTests).indexOf(testName) + 1;
-            activeTestTimeLimit = parseInt(document.getElementById(`time${testIndex}`).value) || 40;
+            const timeInput = document.getElementById(`time${testIndex}`);
+            activeTestTimeLimit = timeInput ? parseInt(timeInput.value) || 40 : 40;
             timeLeft = activeTestTimeLimit; isPaused = false;
 
-            activeQuestions = prepareTestQuestions(allTests[testName]);
+            let questionsForTest;
+            if (testName === 'Aralash test') {
+                questionsForTest = buildMixedTestQuestions();
+            } else if (testName === 'Barcha testlar') {
+                questionsForTest = buildAllMixedTestQuestions();
+            } else {
+                questionsForTest = allTests[testName];
+            }
+            activeQuestions = prepareTestQuestions(questionsForTest);
             currentTestTitle = testName;
 
             document.getElementById('testTitle').innerText = currentTestTitle;
